@@ -12,6 +12,7 @@ public class ResponseModel implements Serializable {
     @SerializedName("message")
     String message;
 
+
     public ResponseModel(Boolean status, Integer code, String message) {
         this.status = status;
         this.code = code;

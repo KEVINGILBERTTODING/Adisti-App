@@ -18,6 +18,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".PicMainActivity"
+            android:exported="false" />
+        <activity
             android:name=".OnBoardingActivty"
             android:exported="false" />
         <activity
