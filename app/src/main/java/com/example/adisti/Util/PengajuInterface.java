@@ -14,4 +14,6 @@ public interface PengajuInterface {
     Call<List<ProposalModel>>getAllProposal(
             @Query("user_id") String userId
     );
+
+
 }
