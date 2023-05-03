@@ -107,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
                                     editor.putString("nama", userModel.getNama());
                                     editor.putString("role", userModel.getRole());
                                     editor.apply();
-                                    startActivity(new Intent(LoginActivity.this, PicMainActivity.class));
+                                    startActivity(new Intent(LoginActivity.this, PengajuActivity.class));
                                     finish();
                                 }else if (userModel.getRole().equals("pic")) {
                                     editor.putBoolean("logged_in", true);

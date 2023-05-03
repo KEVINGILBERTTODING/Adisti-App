@@ -83,9 +83,6 @@ public class PengajuHomeFragment extends Fragment {
                             tvEmpty.setVisibility(View.GONE);
                             dialog.dismiss();
 
-
-
-
                         }else {
                             tvEmpty.setVisibility(View.VISIBLE);
                             dialog.dismiss();
