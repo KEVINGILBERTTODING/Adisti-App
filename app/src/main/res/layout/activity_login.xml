@@ -4,21 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/_16sdp"
+    android:layout_margin="@dimen/_14sdp"
     tools:context=".LoginActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_centerVertical="true"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_180sdp"
+            android:src="@drawable/img_on_board1"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Masuk"
+            android:layout_marginTop="@dimen/_20sdp"
             android:textColor="@color/black"
-            android:textSize="@dimen/_22ssp"
+            android:textSize="@dimen/_19ssp"
             android:fontFamily="@font/popsem"/>
         <com.google.android.material.textfield.TextInputLayout
             android:layout_marginTop="@dimen/_10sdp"
@@ -85,7 +91,25 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/_15sdp"
             android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Belum memiliki akun? "
+                android:fontFamily="@font/popreg"
+                android:textColor="@color/light_gray"
+                android:textSize="@dimen/_9ssp"/>
+
+            <TextView
+                android:id="@+id/tvDaftar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Daftar"
+                android:fontFamily="@font/popmed"
+                android:textColor="@color/main"
+                android:textSize="@dimen/_9ssp"/>
 
         </LinearLayout>
 
@@ -98,11 +122,5 @@
 
     </LinearLayout>
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/_50sdp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/ic_jasa_raharja"/>
 
 </RelativeLayout>

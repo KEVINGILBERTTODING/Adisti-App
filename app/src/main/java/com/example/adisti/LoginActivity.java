@@ -27,6 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     Button btnLogin;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    TextView tvDaftar;
 
 
     @Override
@@ -36,7 +37,11 @@ public class LoginActivity extends AppCompatActivity {
         init();
 
         if (sharedPreferences.getBoolean("logged_in", false)) {
-            if (sharedPreferences.getString("role", null).equals("pic")) {
+            if (sharedPreferences.getString("role", null).equals("pengaju")) {
+                startActivity(new Intent(LoginActivity.this, PengajuActivity.class));
+                finish();
+
+            } else if (sharedPreferences.getString("role", null).equals("pic")) {
                 startActivity(new Intent(LoginActivity.this, PicMainActivity.class));
                 finish();
 
@@ -50,12 +55,21 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        tvDaftar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                finish();
+            }
+        });
+
     }
 
     private void init() {
         etPassword = findViewById(R.id.et_password);
         etUsername = findViewById(R.id.et_username);
         btnLogin = findViewById(R.id.btnLogin);
+        tvDaftar = findViewById(R.id.tvDaftar);
         sharedPreferences = getSharedPreferences("user_data", MODE_PRIVATE);
         editor = sharedPreferences.edit();
     }
@@ -83,15 +97,25 @@ public class LoginActivity extends AppCompatActivity {
                         public void onResponse(Call<UserModel> call, Response<UserModel> response) {
                             UserModel userModel = response.body();
                             if (response.isSuccessful() && userModel.getCode() == 200) {
-                                editor.putBoolean("logged_in", true);
-                                editor.putString("user_id", userModel.getUserId());
-                                editor.putString("nama", userModel.getNama());
-                                editor.putString("role", userModel.getRole());
-                                editor.putString("kode_loket", userModel.getKodeLoket());
-                                editor.apply();
+
+
                                 Toasty.success(LoginActivity.this, "Hai "+ userModel.getNama(), Toasty.LENGTH_SHORT).show();
 
-                                if (userModel.getRole().equals("pic")) {
+                                if (userModel.getRole().equals("pengaju")){
+                                    editor.putBoolean("logged_in", true);
+                                    editor.putString("user_id", userModel.getUserId());
+                                    editor.putString("nama", userModel.getNama());
+                                    editor.putString("role", userModel.getRole());
+                                    editor.apply();
+                                    startActivity(new Intent(LoginActivity.this, PicMainActivity.class));
+                                    finish();
+                                }else if (userModel.getRole().equals("pic")) {
+                                    editor.putBoolean("logged_in", true);
+                                    editor.putString("user_id", userModel.getUserId());
+                                    editor.putString("nama", userModel.getNama());
+                                    editor.putString("role", userModel.getRole());
+                                    editor.putString("kode_loket", userModel.getKodeLoket());
+                                    editor.apply();
                                     startActivity(new Intent(LoginActivity.this, PicMainActivity.class));
                                     finish();
                                 }
