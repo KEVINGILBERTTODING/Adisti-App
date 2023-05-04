@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        app:cardCornerRadius="@dimen/_20sdp"
+        android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_20sdp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:text="Filter Proposal"
+                    android:fontFamily="@font/popmed"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/main"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:textSize="@dimen/_13sdp"
+                    android:layout_height="wrap_content"/>
+
+                <ImageView
+                    android:id="@+id/sad_animation"
+                    android:layout_width="@dimen/_120sdp"
+                    android:layout_height="@dimen/_120sdp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_gravity="center"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    android:src="@drawable/img_filter" />
+
+
+                <TextView
+                    android:id="@+id/tvDateStart"
+                    android:layout_width="match_parent"
+                    android:fontFamily="@font/popmed"
+                    android:hint="Tanggal dari"
+                    android:padding="@dimen/_10sdp"
+                    android:background="@drawable/layout_edittext1"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:textSize="@dimen/_11ssp"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/tvDateEnd"
+                    android:layout_width="match_parent"
+                    android:fontFamily="@font/popmed"
+                    android:hint="Tanggal akhir"
+                    android:padding="@dimen/_10sdp"
+                    android:background="@drawable/layout_edittext1"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:textSize="@dimen/_11ssp"
+                    android:layout_height="wrap_content"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Filter"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:id="@+id/btnFilter"
+                    android:textAllCaps="false"/>
+
+
+            </LinearLayout>
+
+
+
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

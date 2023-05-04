@@ -49,5 +49,12 @@ public interface PengajuInterface {
             @Field("proposal_id") String proposalId
     );
 
+    @GET("pengaju/filterProposal")
+    Call<List<ProposalModel>>getAllFilterProposal(
+            @Query("user_id") String userId,
+            @Query("date_start") String dateStart,
+            @Query("date_end") String dateEnd
+    );
+
 
 }

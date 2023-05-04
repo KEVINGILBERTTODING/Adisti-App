@@ -1,5 +1,6 @@
 package com.example.adisti.PengajuFragment;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,12 +33,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
+import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PengajuHomeFragment extends Fragment {
-    TextView tvUsername, tvEmpty;
+    TextView tvUsername, tvEmpty, tvDateStart, tvDateEnd;
     String userId;
     SharedPreferences sharedPreferences;
     PengajuProposalAdapter pengajuProposalAdapter;
@@ -78,6 +81,115 @@ public class PengajuHomeFragment extends Fragment {
             }
         });
 
+        btnFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Dialog dialogFilter = new Dialog(getContext());
+                dialogFilter.setContentView(R.layout.dialog_filter);
+                dialogFilter.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                final Button btnFilter = dialogFilter.findViewById(R.id.btnFilter);
+                tvDateStart = dialogFilter.findViewById(R.id.tvDateStart);
+                tvDateEnd = dialogFilter.findViewById(R.id.tvDateEnd);
+
+                tvDateStart.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        datePicker(tvDateStart);
+                    }
+                });
+
+                tvDateEnd.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        datePicker(tvDateEnd);
+                    }
+                });
+
+                btnFilter.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (tvDateStart.getText().toString().isEmpty()) {
+                            Toasty.error(getContext(), "Field tanggal dari tidak boleh kosng", Toasty.LENGTH_SHORT).show();
+                        } else if (tvDateEnd.getText().toString().isEmpty()) {
+                            Toasty.error(getContext(), "Field tanggal akhir tidak boleh kosng", Toasty.LENGTH_SHORT).show();
+                        }else {
+                            Dialog dialogProgress = new Dialog(getContext());
+                            dialogProgress.setContentView(R.layout.dialog_progress_bar);
+                            dialogProgress.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                            dialogProgress.setCanceledOnTouchOutside(false);
+                            dialogProgress.show();
+
+                            Dialog dialog = new Dialog(getContext());
+                            dialog.setContentView(R.layout.dialog_progress_bar);
+                            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                            dialog.setCanceledOnTouchOutside(false);
+                            final TextView tvMain;
+                            tvMain = dialog.findViewById(R.id.tvMainText);
+                            tvMain.setText("Memuat Data...");
+                            dialog.show();
+
+
+
+                            pengajuInterface.getAllFilterProposal(userId, tvDateStart.getText().toString(), tvDateEnd.getText().toString())
+                                    .enqueue(new Callback<List<ProposalModel>>() {
+                                        @Override
+                                        public void onResponse(Call<List<ProposalModel>> call, Response<List<ProposalModel>> response) {
+                                            proposalModelList = response.body();
+                                            if (response.isSuccessful() && response.body().size() > 0) {
+                                                rvProposal.setAdapter(null);
+                                                pengajuProposalAdapter = new PengajuProposalAdapter(getContext(), proposalModelList);
+                                                linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                                                rvProposal.setLayoutManager(linearLayoutManager);
+                                                rvProposal.setAdapter(pengajuProposalAdapter);
+                                                rvProposal.setHasFixedSize(false);
+                                                tvEmpty.setVisibility(View.GONE);
+                                                dialog.dismiss();
+                                                dialogProgress.dismiss();
+                                                dialogFilter.dismiss();
+
+                                            }else {
+                                                tvEmpty.setVisibility(View.VISIBLE);
+                                                dialog.dismiss();
+                                                dialogProgress.dismiss();
+                                                dialogFilter.dismiss();
+
+
+                                            }
+
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<List<ProposalModel>> call, Throwable t) {
+                                            tvEmpty.setVisibility(View.GONE);
+                                            dialogProgress.dismiss();
+                                            dialog.dismiss();
+                                            Dialog dialogNoConnection = new Dialog(getContext());
+                                            dialogNoConnection.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                                            dialogNoConnection.setCanceledOnTouchOutside(false);
+                                            btnRefresh = dialogNoConnection.findViewById(R.id.btnRefresh);
+                                            btnRefresh.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    getAllProposal();
+                                                    dialogNoConnection.dismiss();
+                                                }
+                                            });
+                                            dialogNoConnection.show();
+
+
+
+                                        }
+                                    });
+
+
+                        }
+                    }
+                });
+                dialogFilter.show();
+
+
+            }
+        });
 
 
         return view;
@@ -141,6 +253,7 @@ public class PengajuHomeFragment extends Fragment {
 
     }
 
+
     private void getUserData() {
         Dialog dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.dialog_progress_bar);
@@ -178,7 +291,7 @@ public class PengajuHomeFragment extends Fragment {
                 dialogNoConnection.setContentView(R.layout.dialog_no_connection);
                 dialogNoConnection.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                 dialogNoConnection.setCanceledOnTouchOutside(false);
-                 btnRefresh= dialogNoConnection.findViewById(R.id.btnRefresh);
+                btnRefresh= dialogNoConnection.findViewById(R.id.btnRefresh);
                 btnRefresh.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -206,5 +319,29 @@ public class PengajuHomeFragment extends Fragment {
         ivProfile = view.findViewById(R.id.ivProfile);
         pengajuInterface = DataApi.getClient().create(PengajuInterface.class);
         userId = sharedPreferences.getString("user_id", null);
+    }
+
+    private void datePicker(TextView tvDate) {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext());
+        datePickerDialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                String dateFormatted, monthFormatted;
+                if (dayOfMonth < 10) {
+                    dateFormatted = String.format("%02d", dayOfMonth);
+                }else {
+                    dateFormatted = String.valueOf(dayOfMonth);
+                }
+
+                if (month < 10) {
+                    monthFormatted = String.format("%02d", month + 1);
+                }else {
+                    monthFormatted = String.valueOf(month + 1);
+                }
+
+                tvDate.setText(year + "-"+monthFormatted + "-"+ dateFormatted);
+            }
+        });
+        datePickerDialog.show();
     }
 }
