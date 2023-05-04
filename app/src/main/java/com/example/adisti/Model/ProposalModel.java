@@ -61,8 +61,10 @@ public class ProposalModel implements Serializable {
     String evaluasiKegiatan;
     @SerializedName("status")
     String status;
+    @SerializedName("verified")
+    String verified;
 
-    public ProposalModel(String proposalId, String noProposal, String noUrutProposal, String tglProposal, String asalProposal, String bantuanDiajukan, String namaPihak, String emailPengaju, String alamatPihak, String noTelpPihak, String jabatanPengaju, String loket, String namaLoket, String jabatanPic, String fileProposal, String dateCreated, String kodeLoket, String progress, String kajianManfaat, String survey, String hasilSurvey, String pendapatKasubag, String pendapatKabag, String pendapatKacab, String realisasiBantuan, String lpj, String evaluasiKegiatan, String status) {
+    public ProposalModel(String proposalId, String verified, String noProposal, String noUrutProposal, String tglProposal, String asalProposal, String bantuanDiajukan, String namaPihak, String emailPengaju, String alamatPihak, String noTelpPihak, String jabatanPengaju, String loket, String namaLoket, String jabatanPic, String fileProposal, String dateCreated, String kodeLoket, String progress, String kajianManfaat, String survey, String hasilSurvey, String pendapatKasubag, String pendapatKabag, String pendapatKacab, String realisasiBantuan, String lpj, String evaluasiKegiatan, String status) {
         this.proposalId = proposalId;
         this.noProposal = noProposal;
         this.noUrutProposal = noUrutProposal;
@@ -81,6 +83,7 @@ public class ProposalModel implements Serializable {
         this.dateCreated = dateCreated;
         this.kodeLoket = kodeLoket;
         this.progress = progress;
+        this.verified = verified;
         this.kajianManfaat = kajianManfaat;
         this.survey = survey;
         this.hasilSurvey = hasilSurvey;
@@ -315,5 +318,13 @@ public class ProposalModel implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getVerified() {
+        return verified;
+    }
+
+    public void setVerified(String verified) {
+        this.verified = verified;
     }
 }

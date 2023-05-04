@@ -48,7 +48,7 @@ public class PengajuProposalAdapter extends RecyclerView.Adapter<PengajuProposal
 
     @Override
     public void onBindViewHolder(@NonNull PengajuProposalAdapter.ViewHolder holder, int position) {
-        holder.tvNamaProposal.setText(proposalModelList.get(holder.getAdapterPosition()).getBantuanDiajukan());
+//        holder.tvNamaProposal.setText(proposalModelList.get(holder.getAdapterPosition()).getBantuanDiajukan());
         holder.tvNoProposal.setText(proposalModelList.get(holder.getAdapterPosition()).getNoProposal());
 
         if (proposalModelList.get(holder.getAdapterPosition()).getStatus().equals("")) {
@@ -62,24 +62,12 @@ public class PengajuProposalAdapter extends RecyclerView.Adapter<PengajuProposal
 //            holder.cvNoProposal.setCardBackgroundColor(context.getColor(R.color.red));
             holder.ivStatusProposal.setImageDrawable(context.getDrawable(R.drawable.ic_ditolak));
 
-            holder.swipeLayout.setOnActionsListener(new SwipeLayout.SwipeActionsListener() {
-                @Override
-                public void onOpen(int direction, boolean isContinuous) {
-                    if (direction == SwipeLayout.LEFT) {
-                        Toasty.success(context, "Diterima", Toasty.LENGTH_SHORT).show();
-                    } else if (direction == SwipeLayout.RIGHT) {
-                        Toasty.error(context, "Ditolak", Toasty.LENGTH_SHORT).show();
-                    }else {
-                        Toasty.info(context, "Tidak ada aksi", Toasty.LENGTH_SHORT).show();
-                    }
-                }
+        }
 
-                @Override
-                public void onClose() {
-
-                }
-            });
-
+        if (proposalModelList.get(holder.getAdapterPosition()).getVerified().equals("1")) {
+            holder.swipeLayout.setEnabledSwipe(false);
+        }else {
+            holder.swipeLayout.setEnabledSwipe(true);
 
         }
 
@@ -105,57 +93,67 @@ public class PengajuProposalAdapter extends RecyclerView.Adapter<PengajuProposal
             tvHapus = itemView.findViewById(R.id.tvHapus);
             pengajuInterface = DataApi.getClient().create(PengajuInterface.class);
 
-            swipeLayout.setOnActionsListener(new SwipeLayout.SwipeActionsListener() {
-                @Override
-                public void onOpen(int direction, boolean isContinuous) {
-                    if (direction == SwipeLayout.LEFT) {
-
-                        pengajuInterface.deleteProposal(proposalModelList.get(getAdapterPosition()).getProposalId())
-                                .enqueue(new Callback<ResponseModel>() {
-                                    @Override
-                                    public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                                        ResponseModel responseModel = response.body();
-                                        if(response.isSuccessful() && responseModel.getCode() == 200) {
-                                            proposalModelList.remove(getAdapterPosition());
-                                            notifyDataSetChanged();
-                                            notifyItemRangeChanged(getAdapterPosition(), proposalModelList.size());
-                                            notifyItemRangeRemoved(getAdapterPosition(), proposalModelList.size());
-                                            Toasty.success(context, "Berhasil menghapus proposal", Toasty.LENGTH_SHORT).show();
-
-                                        }else {
-                                            Toasty.error(context, "Terjadi kesalahan", Toasty.LENGTH_SHORT).show();
-                                            tvHapus.setText("Gagal menghapus data");
-
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onFailure(Call<ResponseModel> call, Throwable t) {
-                                        Dialog dialog = new Dialog(context);
-                                        dialog.setContentView(R.layout.dialog_no_connection_close);
-                                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-                                        final Button btnOke = dialog.findViewById(R.id.btnOke);
-                                        btnOke.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                dialog.dismiss();
-                                            }
-                                        });
-                                        dialog.show();
-                                        tvHapus.setText("Tidak ada koneksi internet");
 
 
-                                    }
-                                });
+//            if (proposalModelList.get(getAdapterPosition()).getVerified().equals("1")) {
+//                swipeLayout.setEnabledSwipe(false);
+//            }else {
+//                swipeLayout.setOnActionsListener(new SwipeLayout.SwipeActionsListener() {
+//                    @Override
+//                    public void onOpen(int direction, boolean isContinuous) {
+//                        if (direction == SwipeLayout.LEFT) {
+//
+//                            pengajuInterface.deleteProposal(proposalModelList.get(getAdapterPosition()).getProposalId())
+//                                    .enqueue(new Callback<ResponseModel>() {
+//                                        @Override
+//                                        public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+//                                            ResponseModel responseModel = response.body();
+//                                            if(response.isSuccessful() && responseModel.getCode() == 200) {
+//                                                proposalModelList.remove(getAdapterPosition());
+//                                                notifyDataSetChanged();
+//                                                notifyItemRangeChanged(getAdapterPosition(), proposalModelList.size());
+//                                                notifyItemRangeRemoved(getAdapterPosition(), proposalModelList.size());
+//                                                Toasty.success(context, "Berhasil menghapus proposal", Toasty.LENGTH_SHORT).show();
+//
+//                                            }else {
+//                                                Toasty.error(context, "Terjadi kesalahan", Toasty.LENGTH_SHORT).show();
+//                                                tvHapus.setText("Gagal menghapus data");
+//
+//                                            }
+//                                        }
+//
+//                                        @Override
+//                                        public void onFailure(Call<ResponseModel> call, Throwable t) {
+//                                            Dialog dialog = new Dialog(context);
+//                                            dialog.setContentView(R.layout.dialog_no_connection_close);
+//                                            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+//                                            final Button btnOke = dialog.findViewById(R.id.btnOke);
+//                                            btnOke.setOnClickListener(new View.OnClickListener() {
+//                                                @Override
+//                                                public void onClick(View v) {
+//                                                    dialog.dismiss();
+//                                                }
+//                                            });
+//                                            dialog.show();
+//                                            tvHapus.setText("Tidak ada koneksi internet");
+//
+//
+//                                        }
+//                                    });
+//
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onClose() {
+//
+//                    }
+//                });
+//
+//            }
 
-                    }
-                }
 
-                @Override
-                public void onClose() {
 
-                }
-            });
         }
     }
 
