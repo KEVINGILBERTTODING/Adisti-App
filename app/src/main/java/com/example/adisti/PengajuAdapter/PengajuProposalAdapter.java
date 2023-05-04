@@ -2,6 +2,7 @@ package com.example.adisti.PengajuAdapter;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.os.Bundle;
 import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,15 +13,19 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.adisti.Model.ProposalModel;
 import com.example.adisti.Model.ResponseModel;
+import com.example.adisti.PengajuFragment.PengajuDetailProposalFragment;
 import com.example.adisti.R;
 import com.example.adisti.Util.DataApi;
 import com.example.adisti.Util.PengajuInterface;
 import com.zerobranch.layout.SwipeLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import es.dmoral.toasty.Toasty;
@@ -48,7 +53,7 @@ public class PengajuProposalAdapter extends RecyclerView.Adapter<PengajuProposal
 
     @Override
     public void onBindViewHolder(@NonNull PengajuProposalAdapter.ViewHolder holder, int position) {
-//        holder.tvNamaProposal.setText(proposalModelList.get(holder.getAdapterPosition()).getBantuanDiajukan());
+        holder.tvNamaProposal.setText(proposalModelList.get(holder.getAdapterPosition()).getBantuanDiajukan());
         holder.tvNoProposal.setText(proposalModelList.get(holder.getAdapterPosition()).getNoProposal());
 
         if (proposalModelList.get(holder.getAdapterPosition()).getStatus().equals("")) {
@@ -78,10 +83,15 @@ public class PengajuProposalAdapter extends RecyclerView.Adapter<PengajuProposal
         return proposalModelList.size();
     }
 
+    public void filter(ArrayList<ProposalModel>filterList) {
+        proposalModelList = filterList;
+        notifyDataSetChanged();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvNamaProposal, tvNoProposal, tvHapus;
         ImageView ivStatusProposal;
-        CardView cvNoProposal;
+        CardView cvNoProposal, cvMain;
         SwipeLayout swipeLayout;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -91,70 +101,77 @@ public class PengajuProposalAdapter extends RecyclerView.Adapter<PengajuProposal
             cvNoProposal = itemView.findViewById(R.id.cvNoProposal);
             swipeLayout = itemView.findViewById(R.id.swipe_layout);
             tvHapus = itemView.findViewById(R.id.tvHapus);
+            cvMain = itemView.findViewById(R.id.cvMain);
             pengajuInterface = DataApi.getClient().create(PengajuInterface.class);
 
+            swipeLayout.setOnActionsListener(new SwipeLayout.SwipeActionsListener() {
+                @Override
+                public void onOpen(int direction, boolean isContinuous) {
+                    if (direction == SwipeLayout.LEFT) {
+
+                        pengajuInterface.deleteProposal(proposalModelList.get(getAdapterPosition()).getProposalId())
+                                .enqueue(new Callback<ResponseModel>() {
+                                    @Override
+                                    public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                                        ResponseModel responseModel = response.body();
+                                        if(response.isSuccessful() && responseModel.getCode() == 200) {
+                                            proposalModelList.remove(getAdapterPosition());
+                                            notifyDataSetChanged();
+                                            notifyItemRangeChanged(getAdapterPosition(), proposalModelList.size());
+                                            notifyItemRangeRemoved(getAdapterPosition(), proposalModelList.size());
+                                            Toasty.success(context, "Berhasil menghapus proposal", Toasty.LENGTH_SHORT).show();
+
+                                        }else {
+                                            Toasty.error(context, "Terjadi kesalahan", Toasty.LENGTH_SHORT).show();
+                                            tvHapus.setText("Gagal menghapus data");
+
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<ResponseModel> call, Throwable t) {
+                                        Dialog dialog = new Dialog(context);
+                                        dialog.setContentView(R.layout.dialog_no_connection_close);
+                                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                                        final Button btnOke = dialog.findViewById(R.id.btnOke);
+                                        btnOke.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                dialog.dismiss();
+                                            }
+                                        });
+                                        dialog.show();
+                                        tvHapus.setText("Tidak ada koneksi internet");
 
 
-//            if (proposalModelList.get(getAdapterPosition()).getVerified().equals("1")) {
-//                swipeLayout.setEnabledSwipe(false);
-//            }else {
-//                swipeLayout.setOnActionsListener(new SwipeLayout.SwipeActionsListener() {
-//                    @Override
-//                    public void onOpen(int direction, boolean isContinuous) {
-//                        if (direction == SwipeLayout.LEFT) {
-//
-//                            pengajuInterface.deleteProposal(proposalModelList.get(getAdapterPosition()).getProposalId())
-//                                    .enqueue(new Callback<ResponseModel>() {
-//                                        @Override
-//                                        public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-//                                            ResponseModel responseModel = response.body();
-//                                            if(response.isSuccessful() && responseModel.getCode() == 200) {
-//                                                proposalModelList.remove(getAdapterPosition());
-//                                                notifyDataSetChanged();
-//                                                notifyItemRangeChanged(getAdapterPosition(), proposalModelList.size());
-//                                                notifyItemRangeRemoved(getAdapterPosition(), proposalModelList.size());
-//                                                Toasty.success(context, "Berhasil menghapus proposal", Toasty.LENGTH_SHORT).show();
-//
-//                                            }else {
-//                                                Toasty.error(context, "Terjadi kesalahan", Toasty.LENGTH_SHORT).show();
-//                                                tvHapus.setText("Gagal menghapus data");
-//
-//                                            }
-//                                        }
-//
-//                                        @Override
-//                                        public void onFailure(Call<ResponseModel> call, Throwable t) {
-//                                            Dialog dialog = new Dialog(context);
-//                                            dialog.setContentView(R.layout.dialog_no_connection_close);
-//                                            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-//                                            final Button btnOke = dialog.findViewById(R.id.btnOke);
-//                                            btnOke.setOnClickListener(new View.OnClickListener() {
-//                                                @Override
-//                                                public void onClick(View v) {
-//                                                    dialog.dismiss();
-//                                                }
-//                                            });
-//                                            dialog.show();
-//                                            tvHapus.setText("Tidak ada koneksi internet");
-//
-//
-//                                        }
-//                                    });
-//
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onClose() {
-//
-//                    }
-//                });
-//
-//            }
+                                    }
+                                });
+
+                    }
+                }
+
+                @Override
+                public void onClose() {
+
+                }
+            });
+            cvMain.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Fragment fragment = new PengajuDetailProposalFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("proposal_id", proposalModelList.get(getAdapterPosition()).getProposalId());
+                    fragment.setArguments(bundle);
+                    ((FragmentActivity) context).getSupportFragmentManager().beginTransaction()
+                            .addToBackStack(null).replace(R.id.framePengaju, fragment).commit();
+                }
+            });
 
 
 
         }
+
+
     }
 
 

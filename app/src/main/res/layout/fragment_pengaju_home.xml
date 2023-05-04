@@ -28,10 +28,10 @@
                 android:id="@+id/tvUsername"
                 android:layout_width="wrap_content"
                 android:text="Kevin Gilbert"
-                android:fontFamily="@font/popreg"
+                android:fontFamily="@font/popmed"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12ssp"
-                android:layout_marginTop="@dimen/_minus10sdp"
+                android:layout_marginTop="@dimen/_minus8sdp"
                 android:layout_height="wrap_content"/>
 
 

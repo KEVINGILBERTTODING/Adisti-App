@@ -14,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -31,6 +32,7 @@ import com.example.adisti.Util.PengajuInterface;
 import com.example.adisti.Util.PicInterface;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import es.dmoral.toasty.Toasty;
@@ -41,6 +43,7 @@ import retrofit2.Response;
 public class PengajuHomeFragment extends Fragment {
     TextView tvUsername, tvEmpty, tvDateStart, tvDateEnd;
     String userId;
+    SearchView searchView;
     SharedPreferences sharedPreferences;
     PengajuProposalAdapter pengajuProposalAdapter;
     List<ProposalModel>proposalModelList;
@@ -190,6 +193,18 @@ public class PengajuHomeFragment extends Fragment {
 
             }
         });
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filter(newText);
+                return false;
+            }
+        });
 
 
         return view;
@@ -317,6 +332,7 @@ public class PengajuHomeFragment extends Fragment {
         btnRefreshmain = view.findViewById(R.id.btnRefreshMain);
         btnFilter = view.findViewById(R.id.btnFilter);
         ivProfile = view.findViewById(R.id.ivProfile);
+        searchView = view.findViewById(R.id.searchView);
         pengajuInterface = DataApi.getClient().create(PengajuInterface.class);
         userId = sharedPreferences.getString("user_id", null);
     }
@@ -343,5 +359,22 @@ public class PengajuHomeFragment extends Fragment {
             }
         });
         datePickerDialog.show();
+    }
+
+    private void filter(String text){
+        ArrayList<ProposalModel>filteredList = new ArrayList<>();
+        for (ProposalModel item : proposalModelList) {
+            if (item.getNoProposal().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(item);
+            }
+        }
+
+        pengajuProposalAdapter.filter(filteredList);
+        if (filteredList.isEmpty()) {
+            Toasty.normal(getContext(), "Tidak ditemukan", Toasty.LENGTH_SHORT).show();
+        }else {
+            pengajuProposalAdapter.filter(filteredList);
+        }
+
     }
 }

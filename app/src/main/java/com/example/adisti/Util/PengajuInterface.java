@@ -56,5 +56,10 @@ public interface PengajuInterface {
             @Query("date_end") String dateEnd
     );
 
+    @GET("pengaju/getProposalPengajuById")
+    Call<ProposalModel>getProposalById(
+            @Query("proposal_id") String userId
+    );
+
 
 }
