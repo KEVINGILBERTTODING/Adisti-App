@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -47,6 +48,7 @@ public class PengajuHomeFragment extends Fragment {
     FloatingActionButton fabInsert;
     ImageView ivProfile;
     PengajuModel pengajuModel;
+    ImageButton btnRefreshmain, btnFilter;
 
 
 
@@ -68,7 +70,13 @@ public class PengajuHomeFragment extends Fragment {
                         .addToBackStack(null).commit();
             }
         });
-
+        btnRefreshmain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rvProposal.setAdapter(null);
+                getAllProposal();
+            }
+        });
 
 
 
@@ -193,6 +201,8 @@ public class PengajuHomeFragment extends Fragment {
         rvProposal = view.findViewById(R.id.rvProposal);
         fabInsert = view.findViewById(R.id.fabInsert);
         tvEmpty = view.findViewById(R.id.tvEmpty);
+        btnRefreshmain = view.findViewById(R.id.btnRefreshMain);
+        btnFilter = view.findViewById(R.id.btnFilter);
         ivProfile = view.findViewById(R.id.ivProfile);
         pengajuInterface = DataApi.getClient().create(PengajuInterface.class);
         userId = sharedPreferences.getString("user_id", null);

@@ -10,6 +10,8 @@
     app:rightItem="@id/tvDelete"
     app:swipeDirection="left">
 
+
+
     <RelativeLayout
         android:id="@+id/tvDelete"
         android:layout_width="match_parent"

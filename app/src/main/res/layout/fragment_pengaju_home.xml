@@ -64,15 +64,46 @@
             app:queryHint="Nomor proposal"
             app:queryBackground="@null" />
 
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/_13ssp"
-            android:text="Daftar proposal"
             android:layout_marginTop="@dimen/_20sdp"
-            android:fontFamily="@font/popsem"
-            android:layout_below="@id/searchView"
-            android:textColor="@color/black"/>
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_13ssp"
+                android:text="Daftar proposal"
+                android:fontFamily="@font/popsem"
+                android:textColor="@color/black"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:orientation="horizontal">
+
+
+                <ImageButton
+                    android:id="@+id/btnRefreshMain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/baseline_refresh_24"/>
+                <ImageButton
+                    android:id="@+id/btnFilter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:background="@drawable/baseline_filter_alt_24"/>
+
+            </LinearLayout>
+
+
+
+        </RelativeLayout>
+
+
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvProposal"
@@ -104,13 +135,6 @@
         android:layout_alignParentRight="true"
         android:layout_marginBottom="@dimen/_10sdp"
         android:src="@drawable/baseline_add_24"/>
-
-
-
-
-
-
-
 
 
 
