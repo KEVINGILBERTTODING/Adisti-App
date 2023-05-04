@@ -1,9 +1,12 @@
 package com.example.adisti.PengajuAdapter;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,13 +15,23 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.adisti.Model.ProposalModel;
+import com.example.adisti.Model.ResponseModel;
 import com.example.adisti.R;
+import com.example.adisti.Util.DataApi;
+import com.example.adisti.Util.PengajuInterface;
+import com.zerobranch.layout.SwipeLayout;
 
 import java.util.List;
+
+import es.dmoral.toasty.Toasty;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PengajuProposalAdapter extends RecyclerView.Adapter<PengajuProposalAdapter.ViewHolder> {
     Context context;
     List<ProposalModel>proposalModelList;
+    PengajuInterface pengajuInterface;
 
 
     public PengajuProposalAdapter(Context context, List<ProposalModel> proposalModelList) {
@@ -49,6 +62,24 @@ public class PengajuProposalAdapter extends RecyclerView.Adapter<PengajuProposal
 //            holder.cvNoProposal.setCardBackgroundColor(context.getColor(R.color.red));
             holder.ivStatusProposal.setImageDrawable(context.getDrawable(R.drawable.ic_ditolak));
 
+            holder.swipeLayout.setOnActionsListener(new SwipeLayout.SwipeActionsListener() {
+                @Override
+                public void onOpen(int direction, boolean isContinuous) {
+                    if (direction == SwipeLayout.LEFT) {
+                        Toasty.success(context, "Diterima", Toasty.LENGTH_SHORT).show();
+                    } else if (direction == SwipeLayout.RIGHT) {
+                        Toasty.error(context, "Ditolak", Toasty.LENGTH_SHORT).show();
+                    }else {
+                        Toasty.info(context, "Tidak ada aksi", Toasty.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onClose() {
+
+                }
+            });
+
 
         }
 
@@ -60,15 +91,73 @@ public class PengajuProposalAdapter extends RecyclerView.Adapter<PengajuProposal
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvNamaProposal, tvNoProposal;
+        TextView tvNamaProposal, tvNoProposal, tvHapus;
         ImageView ivStatusProposal;
         CardView cvNoProposal;
+        SwipeLayout swipeLayout;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvNamaProposal = itemView.findViewById(R.id.tvNamaProposal);
             tvNoProposal = itemView.findViewById(R.id.tvNoProposal);
             ivStatusProposal = itemView.findViewById(R.id.ivStatus);
             cvNoProposal = itemView.findViewById(R.id.cvNoProposal);
+            swipeLayout = itemView.findViewById(R.id.swipe_layout);
+            tvHapus = itemView.findViewById(R.id.tvHapus);
+            pengajuInterface = DataApi.getClient().create(PengajuInterface.class);
+
+            swipeLayout.setOnActionsListener(new SwipeLayout.SwipeActionsListener() {
+                @Override
+                public void onOpen(int direction, boolean isContinuous) {
+                    if (direction == SwipeLayout.LEFT) {
+
+                        pengajuInterface.deleteProposal(proposalModelList.get(getAdapterPosition()).getProposalId())
+                                .enqueue(new Callback<ResponseModel>() {
+                                    @Override
+                                    public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                                        ResponseModel responseModel = response.body();
+                                        if(response.isSuccessful() && responseModel.getCode() == 200) {
+                                            proposalModelList.remove(getAdapterPosition());
+                                            notifyDataSetChanged();
+                                            notifyItemRangeChanged(getAdapterPosition(), proposalModelList.size());
+                                            notifyItemRangeRemoved(getAdapterPosition(), proposalModelList.size());
+                                            Toasty.success(context, "Berhasil menghapus proposal", Toasty.LENGTH_SHORT).show();
+
+                                        }else {
+                                            Toasty.error(context, "Terjadi kesalahan", Toasty.LENGTH_SHORT).show();
+                                            tvHapus.setText("Gagal menghapus data");
+
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<ResponseModel> call, Throwable t) {
+                                        Dialog dialog = new Dialog(context);
+                                        dialog.setContentView(R.layout.dialog_no_connection_close);
+                                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                                        final Button btnOke = dialog.findViewById(R.id.btnOke);
+                                        btnOke.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                dialog.dismiss();
+                                            }
+                                        });
+                                        dialog.show();
+                                        tvHapus.setText("Tidak ada koneksi internet");
+
+
+                                    }
+                                });
+
+                    }
+                }
+
+                @Override
+                public void onClose() {
+
+                }
+            });
         }
     }
+
+
 }

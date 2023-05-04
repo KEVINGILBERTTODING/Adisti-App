@@ -1,5 +1,6 @@
 package com.example.adisti.Model;
 
+import com.example.adisti.Util.DataApi;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -83,7 +84,7 @@ public class PengajuModel implements Serializable {
     }
 
     public String getPhotoProfile() {
-        return photoProfile;
+        return DataApi.URL_PHOTO_PROFILE + photoProfile;
     }
 
     public void setPhotoProfile(String photoProfile) {

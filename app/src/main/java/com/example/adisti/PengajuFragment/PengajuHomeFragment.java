@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -15,6 +16,9 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.adisti.Model.PengajuModel;
 import com.example.adisti.Model.ProposalModel;
 import com.example.adisti.PengajuAdapter.PengajuProposalAdapter;
 import com.example.adisti.PicAdapter.PicProposalAdapter;
@@ -41,6 +45,8 @@ public class PengajuHomeFragment extends Fragment {
     RecyclerView rvProposal;
     Button btnRefresh;
     FloatingActionButton fabInsert;
+    ImageView ivProfile;
+    PengajuModel pengajuModel;
 
 
 
@@ -53,6 +59,7 @@ public class PengajuHomeFragment extends Fragment {
         init(view);
 
         getAllProposal();
+        getUserData();
 
         fabInsert.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,6 +133,59 @@ public class PengajuHomeFragment extends Fragment {
 
     }
 
+    private void getUserData() {
+        Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.dialog_progress_bar);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.setCanceledOnTouchOutside(false);
+        final TextView tvMain;
+        tvMain = dialog.findViewById(R.id.tvMainText);
+        tvMain.setText("Memuat Data...");
+        dialog.show();
+        pengajuInterface.getPengajuById(userId).enqueue(new Callback<PengajuModel>() {
+            @Override
+            public void onResponse(Call<PengajuModel> call, Response<PengajuModel> response) {
+                pengajuModel = response.body();
+                if (response.isSuccessful()) {
+                    Glide.with(getContext())
+                            .load(pengajuModel.getPhotoProfile()) .
+                            diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(false).
+                            fitCenter().centerCrop().into(ivProfile);
+
+                    dialog.dismiss();
+
+                }else {
+
+                    dialog.dismiss();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<PengajuModel> call, Throwable t) {
+                dialog.dismiss();
+
+                dialog.dismiss();
+                Dialog dialogNoConnection = new Dialog(getContext());
+                dialogNoConnection.setContentView(R.layout.dialog_no_connection);
+                dialogNoConnection.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                dialogNoConnection.setCanceledOnTouchOutside(false);
+                 btnRefresh= dialogNoConnection.findViewById(R.id.btnRefresh);
+                btnRefresh.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        getUserData();
+                        dialogNoConnection.dismiss();
+                    }
+                });
+                dialogNoConnection.show();
+
+
+            }
+        });
+
+    }
+
     private void init(View view) {
         tvUsername = view.findViewById(R.id.tvUsername);
         sharedPreferences = getContext().getSharedPreferences("user_data", Context.MODE_PRIVATE);
@@ -133,6 +193,7 @@ public class PengajuHomeFragment extends Fragment {
         rvProposal = view.findViewById(R.id.rvProposal);
         fabInsert = view.findViewById(R.id.fabInsert);
         tvEmpty = view.findViewById(R.id.tvEmpty);
+        ivProfile = view.findViewById(R.id.ivProfile);
         pengajuInterface = DataApi.getClient().create(PengajuInterface.class);
         userId = sharedPreferences.getString("user_id", null);
     }
