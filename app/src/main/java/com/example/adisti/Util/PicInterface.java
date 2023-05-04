@@ -1,5 +1,6 @@
 package com.example.adisti.Util;
 
+import com.example.adisti.Model.LoketModel;
 import com.example.adisti.Model.ProposalModel;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface PicInterface {
     Call<List<ProposalModel>>getAllProposal(
             @Query("kode_loket") String kodeLoket
     );
+
+
 }

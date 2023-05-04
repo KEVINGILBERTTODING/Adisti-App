@@ -24,21 +24,30 @@
                 android:layout_gravity="center"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"
-                app:lottie_rawRes="@raw/circular_progress" />
+                app:lottie_rawRes="@raw/no_connection" />
 
 
 
             <TextView
                 android:id="@+id/tvMainText"
                 android:layout_width="match_parent"
-                android:text="Loading..."
-                android:fontFamily="@font/popsem"
+                android:text="Tidak ada koneksi internet"
+                android:fontFamily="@font/popmed"
                 android:layout_gravity="center_horizontal"
-                android:textColor="@color/main"
-                android:layout_marginTop="@dimen/_12sdp"
+                android:textColor="@color/red"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:gravity="center_horizontal"
                 android:textSize="@dimen/_13sdp"
                 android:layout_height="wrap_content"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnOke"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Oke"
+                app:backgroundTint="@color/light_gray"
+                android:fontFamily="@font/popmed"
+                android:layout_marginTop="@dimen/_10sdp"/>
 
 
 

@@ -18,6 +18,6 @@ public class PengajuActivity extends AppCompatActivity {
     }
 
     private void replace(Fragment fragment) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.framePengaju, fragment).addToBackStack(null).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.framePengaju, fragment).commit();
     }
 }

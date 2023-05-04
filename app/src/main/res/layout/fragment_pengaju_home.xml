@@ -101,6 +101,7 @@
         android:layout_alignParentBottom="true"
         app:backgroundTint="@color/main"
         app:tint="@color/white"
+        android:id="@+id/fabInsert"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="@dimen/_10sdp"
         android:src="@drawable/baseline_add_24"/>

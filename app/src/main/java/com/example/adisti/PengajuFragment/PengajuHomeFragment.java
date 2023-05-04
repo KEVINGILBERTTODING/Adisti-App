@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,6 +22,7 @@ import com.example.adisti.R;
 import com.example.adisti.Util.DataApi;
 import com.example.adisti.Util.PengajuInterface;
 import com.example.adisti.Util.PicInterface;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
@@ -38,6 +40,7 @@ public class PengajuHomeFragment extends Fragment {
     PengajuInterface pengajuInterface;
     RecyclerView rvProposal;
     Button btnRefresh;
+    FloatingActionButton fabInsert;
 
 
 
@@ -50,6 +53,14 @@ public class PengajuHomeFragment extends Fragment {
         init(view);
 
         getAllProposal();
+
+        fabInsert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.framePengaju, new PengajuAddProposalFragment())
+                        .addToBackStack(null).commit();
+            }
+        });
 
 
 
@@ -106,6 +117,7 @@ public class PengajuHomeFragment extends Fragment {
                                 dialogNoConnection.dismiss();
                             }
                         });
+                        dialogNoConnection.show();
 
 
 
@@ -119,6 +131,7 @@ public class PengajuHomeFragment extends Fragment {
         sharedPreferences = getContext().getSharedPreferences("user_data", Context.MODE_PRIVATE);
         tvUsername.setText(sharedPreferences.getString("nama", null));
         rvProposal = view.findViewById(R.id.rvProposal);
+        fabInsert = view.findViewById(R.id.fabInsert);
         tvEmpty = view.findViewById(R.id.tvEmpty);
         pengajuInterface = DataApi.getClient().create(PengajuInterface.class);
         userId = sharedPreferences.getString("user_id", null);
