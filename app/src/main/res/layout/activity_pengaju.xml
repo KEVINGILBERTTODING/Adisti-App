@@ -9,12 +9,12 @@
     <FrameLayout
         android:id="@+id/framePengaju"
         android:layout_width="match_parent"
-        android:layout_above="@+id/bottomBar"
+        android:layout_above="@+id/bottomBarPengaju"
         android:layout_height="match_parent"/>
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomBar"
+        android:id="@+id/bottomBarPengaju"
         android:layout_width="match_parent"
         android:background="@color/white"
         app:menu="@menu/bottom_bar"

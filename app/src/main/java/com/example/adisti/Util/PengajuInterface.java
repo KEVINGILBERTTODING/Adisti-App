@@ -74,5 +74,12 @@ public interface PengajuInterface {
             @Part MultipartBody.Part proposal
     );
 
+    @Multipart
+    @POST("pengaju/uploadphotoprofile")
+    Call<ResponseModel>uploadPhotoProfile(
+            @PartMap Map<String, RequestBody>textData,
+            @Part MultipartBody.Part image
+    );
+
 
 }

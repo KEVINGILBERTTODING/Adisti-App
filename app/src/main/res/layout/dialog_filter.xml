@@ -20,7 +20,7 @@
                     android:text="Filter Proposal"
                     android:fontFamily="@font/popmed"
                     android:layout_gravity="center_horizontal"
-                    android:textColor="@color/main"
+                    android:textColor="@color/black"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:textSize="@dimen/_13sdp"
                     android:layout_height="wrap_content"/>

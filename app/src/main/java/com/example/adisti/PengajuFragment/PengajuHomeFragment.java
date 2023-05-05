@@ -50,7 +50,6 @@ public class PengajuHomeFragment extends Fragment {
     LinearLayoutManager linearLayoutManager;
     PengajuInterface pengajuInterface;
     RecyclerView rvProposal;
-    Button btnRefresh;
     FloatingActionButton fabInsert;
     ImageView ivProfile;
     PengajuModel pengajuModel;
@@ -169,7 +168,7 @@ public class PengajuHomeFragment extends Fragment {
                                             Dialog dialogNoConnection = new Dialog(getContext());
                                             dialogNoConnection.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                                             dialogNoConnection.setCanceledOnTouchOutside(false);
-                                            btnRefresh = dialogNoConnection.findViewById(R.id.btnRefresh);
+                                            Button btnRefresh = dialogNoConnection.findViewById(R.id.btnRefresh);
                                             btnRefresh.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
@@ -251,7 +250,7 @@ public class PengajuHomeFragment extends Fragment {
                         Dialog dialogNoConnection = new Dialog(getContext());
                         dialogNoConnection.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                         dialogNoConnection.setCanceledOnTouchOutside(false);
-                        btnRefresh = dialogNoConnection.findViewById(R.id.btnRefresh);
+                        Button btnRefresh = dialogNoConnection.findViewById(R.id.btnRefresh);
                         btnRefresh.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -306,7 +305,7 @@ public class PengajuHomeFragment extends Fragment {
                 dialogNoConnection.setContentView(R.layout.dialog_no_connection);
                 dialogNoConnection.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                 dialogNoConnection.setCanceledOnTouchOutside(false);
-                btnRefresh= dialogNoConnection.findViewById(R.id.btnRefresh);
+                Button btnRefresh= dialogNoConnection.findViewById(R.id.btnRefresh);
                 btnRefresh.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
