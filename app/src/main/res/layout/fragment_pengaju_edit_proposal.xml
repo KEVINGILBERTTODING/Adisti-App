@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:layout_margin="@dimen/_14sdp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".PengajuFragment.PengajuAddProposalFragment">
+    tools:context=".PengajuFragment.PengajuEditProposalFragment">
 
 
     <androidx.core.widget.NestedScrollView
@@ -19,15 +19,36 @@
             android:orientation="vertical">
 
 
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Proposal\nBaru"
+                android:text="Ubah Proposal"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_22ssp"
                 android:fontFamily="@font/popsem"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvStatus"
+                android:layout_width="wrap_content"
+                app:cardBackgroundColor="@color/main"
+                app:contentPadding="@dimen/_5sdp"
+                app:cardElevation="@null"
+                app:cardCornerRadius="@dimen/_10sdp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tvStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/popmed"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_9ssp"
+                    android:text="Menunggu"/>
+            </androidx.cardview.widget.CardView>
+
+
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_20sdp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -50,6 +71,7 @@
                 </com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
 
+
             <TextView
                 android:id="@+id/tvTglProposal"
                 android:layout_width="match_parent"
@@ -60,6 +82,7 @@
                 android:hint="Tanggal Proposal"
                 android:textColorHint="@color/light_gray"
                 android:fontFamily="@font/popmed"/>
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_marginTop="@dimen/_10sdp"
@@ -86,6 +109,7 @@
                 </com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
 
+
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
@@ -107,6 +131,8 @@
                     android:textSize="@dimen/_12sdp">
                 </com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
+
+
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
@@ -150,6 +176,9 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
+
+
+
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
@@ -171,6 +200,7 @@
                     android:textSize="@dimen/_12sdp">
                 </com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_marginTop="@dimen/_10sdp"
@@ -196,6 +226,7 @@
                     android:textSize="@dimen/_12sdp">
                 </com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_marginTop="@dimen/_10sdp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -221,6 +252,7 @@
                 </com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
 
+
             <Spinner
                 android:id="@+id/spLoket"
                 android:layout_width="match_parent"
@@ -234,7 +266,6 @@
                 android:layout_width="@dimen/_50sdp"
                 android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/pdf"
-                android:visibility="gone"
                 android:layout_marginTop="@dimen/_15sdp"/>
 
             <LinearLayout
@@ -248,6 +279,7 @@
                     android:layout_height="wrap_content"
                     app:cornerRadius="@dimen/_10sdp"
                     android:text="Pilih"
+                    app:backgroundTint="@color/green"
                     android:layout_marginTop="@dimen/_10sdp"/>
 
                 <EditText
@@ -256,43 +288,39 @@
                     android:layout_marginLeft="@dimen/_5sdp"
                     android:layout_gravity="bottom"
                     android:fontFamily="@font/popmed"
-                    android:textSize="@dimen/_12ssp"
+                    android:textSize="@dimen/_10ssp"
                     android:maxLength="25"
                     android:layout_height="wrap_content"/>
 
             </LinearLayout>
 
-
-
-
-
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnSubmit"
+                android:id="@+id/btnUbah"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Submit"
-                android:hint="Loket"
+                android:text="Simpan"
                 android:padding="@dimen/_10sdp"
                 android:elevation="0dp"
+                app:backgroundTint="@color/main"
                 android:fontFamily="@font/popmed"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:textAllCaps="false"
+                android:textColor="@color/white"
                 app:cornerRadius="@dimen/_15sdp"/>
-
 
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnKembali"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Kembali"
+                android:text="Batal"
                 android:padding="@dimen/_10sdp"
                 android:elevation="0dp"
-                app:backgroundTint="@color/light_gray2"
+                app:backgroundTint="@color/red"
                 android:fontFamily="@font/popmed"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:textAllCaps="false"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 app:cornerRadius="@dimen/_15sdp"/>
 
 

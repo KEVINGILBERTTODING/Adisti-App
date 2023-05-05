@@ -61,5 +61,18 @@ public interface PengajuInterface {
             @Query("proposal_id") String userId
     );
 
+    @Multipart
+    @POST("pengaju/updateProposal")
+    Call<ResponseModel>updateProposalOnlyTextData(
+            @PartMap Map<String, RequestBody>textData
+    );
+
+    @Multipart
+    @POST("pengaju/updateProposal")
+    Call<ResponseModel>updateProposal(
+            @PartMap Map<String, RequestBody>textData,
+            @Part MultipartBody.Part proposal
+    );
+
 
 }

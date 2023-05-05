@@ -109,7 +109,7 @@
                     android:fontFamily="@font/popmed"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:layout_toLeftOf="@id/ivStatus"
-                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_18sdp"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_11ssp"/>
 

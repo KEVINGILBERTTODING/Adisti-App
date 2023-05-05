@@ -27,8 +27,28 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/_22ssp"
                 android:fontFamily="@font/popsem"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvStatus"
+                android:layout_width="wrap_content"
+                app:cardBackgroundColor="@color/main"
+                app:contentPadding="@dimen/_5sdp"
+                app:cardElevation="@null"
+                app:cardCornerRadius="@dimen/_10sdp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tvStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/popmed"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_9ssp"
+                    android:text="Menunggu"/>
+            </androidx.cardview.widget.CardView>
+
+
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_20sdp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -303,6 +323,20 @@
                     android:layout_height="wrap_content"/>
 
             </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnUbah"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ubah"
+                android:padding="@dimen/_10sdp"
+                android:elevation="0dp"
+                app:backgroundTint="@color/yelllow"
+                android:fontFamily="@font/popmed"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                app:cornerRadius="@dimen/_15sdp"/>
 
 
             <com.google.android.material.button.MaterialButton

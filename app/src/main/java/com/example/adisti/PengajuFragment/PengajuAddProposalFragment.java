@@ -120,7 +120,6 @@ public class PengajuAddProposalFragment extends Fragment {
            @Override
            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                kodeLoket = spinnerKodeLoketAdapter.getLoketId(position);
-               Log.d("dasd", "onItemSelected: "+kodeLoket);
            }
 
            @Override

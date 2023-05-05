@@ -26,7 +26,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.adisti.FileDownload;
@@ -63,7 +65,9 @@ public class PengajuDetailProposalFragment extends Fragment {
     String userID, proposalId, fileProposal;
     EditText etNoProposal,  etInstansi, etBantuan, etNamaPengaju,
     etEmail, etAlamat, etNoTelp, etJabatan, etPdfPath, et_loket, etTanggalProposal;
-    Button btnKembali, btnRefresh;
+    Button btnKembali, btnRefresh, btnUbah;
+    TextView tvStatus;
+    CardView cvStatus;
 
 
 
@@ -94,7 +98,6 @@ public class PengajuDetailProposalFragment extends Fragment {
                 String title = fileProposal;
                 String description = "Downloading PDF file";
                 String fileName = fileProposal;
-                Log.d("dasd", "onClick: " +url);
 
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -116,9 +119,18 @@ public class PengajuDetailProposalFragment extends Fragment {
             }
         });
 
-
-
-
+        btnUbah.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new PengajuEditProposalFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("proposal_id", proposalId);
+                fragment.setArguments(bundle);
+                ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.framePengaju, fragment).addToBackStack(null)
+                        .commit();
+            }
+        });
 
 
 
@@ -139,12 +151,16 @@ public class PengajuDetailProposalFragment extends Fragment {
         etNamaPengaju = view.findViewById(R.id.et_namaPengaju);
         etEmail = view.findViewById(R.id.et_emailPengaju);
         etAlamat = view.findViewById(R.id.et_alamat);
+        tvStatus = view.findViewById(R.id.tvStatus);
+        btnUbah = view.findViewById(R.id.btnUbah);
+        cvStatus = view.findViewById(R.id.cvStatus);
         etNoTelp = view.findViewById(R.id.et_no_telepon);
         etJabatan = view.findViewById(R.id.et_jabatan);
         etPdfPath = view.findViewById(R.id.etPdfPath);
         et_loket = view.findViewById(R.id.et_loket);
         btnKembali = view.findViewById(R.id.btnKembali);
         etPdfPath.setEnabled(false);
+        etTanggalProposal.setEnabled(false);
         etAlamat.setEnabled(false);
         etBantuan.setEnabled(false);
         etEmail.setEnabled(false);
@@ -189,6 +205,28 @@ public class PengajuDetailProposalFragment extends Fragment {
                             etPdfPath.setText(response.body().getFileProposal());
                             et_loket.setText(response.body().getNamaLoketPengajuan());
                             fileProposal = response.body().getFileProposal();
+
+                            if (response.body().getStatus().equals("Diterima")){
+                                tvStatus.setText("Diterima");
+                                cvStatus.setCardBackgroundColor(getContext().getColor(R.color.green));
+                            }else if (response.body().getStatus().equals("Ditolak")){
+                                tvStatus.setText("Ditolak");
+                                cvStatus.setCardBackgroundColor(getContext().getColor(R.color.red));
+                            }else {
+                                tvStatus.setText("Menunggu");
+                                cvStatus.setCardBackgroundColor(getContext().getColor(R.color.yelllow));
+                            }
+
+                            if (response.body().getVerified().equals("1")) {
+                                btnUbah.setVisibility(View.GONE);
+                            }else {
+                                btnUbah.setVisibility(View.VISIBLE);
+                            }
+
+
+
+
+
                             dialog.dismiss();
 
                         }else {
