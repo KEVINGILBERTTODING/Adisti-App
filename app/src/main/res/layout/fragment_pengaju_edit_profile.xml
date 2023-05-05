@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/_14sdp"
     android:background="@color/white"
-    tools:context=".RegisterActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".PengajuFragment.PengajuEditProfileFragment">
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -17,16 +18,11 @@
             android:layout_centerVertical="true"
             android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/_200sdp"
-                android:visibility="gone"
-                android:src="@drawable/img_on_board1"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Daftar"
+                android:text="Edit Profil"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_22ssp"
                 android:fontFamily="@font/popsem"/>
@@ -103,28 +99,6 @@
                 </com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_5sdp"
-                android:textColor="@color/black"
-                android:layout_marginTop="@dimen/_10sdp"
-                app:passwordToggleEnabled="true"
-                app:startIconDrawable="@drawable/baseline_lock_24">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/popmed"
-                    android:hint="Password"
-                    android:background="@drawable/layout_edittext1"
-                    android:inputType="textPassword"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12sdp">
-                </com.google.android.material.textfield.TextInputEditText>
-            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_marginTop="@dimen/_10sdp"
@@ -229,41 +203,31 @@
 
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btndaftar"
+                android:id="@+id/btnSimpan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Daftar"
+                android:text="Simpan"
                 android:padding="@dimen/_10sdp"
                 android:elevation="0dp"
                 android:fontFamily="@font/popmed"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:textAllCaps="false"
                 app:cornerRadius="@dimen/_15sdp"/>
-            <LinearLayout
-                android:layout_width="wrap_content"
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnBack"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:layout_marginBottom="@dimen/_20sdp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Telah memiliki akun? "
-                    android:fontFamily="@font/popreg"
-                    android:textColor="@color/light_gray"
-                    android:textSize="@dimen/_9ssp"/>
-
-                <TextView
-                    android:id="@+id/tvMasuk"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Masuk"
-                    android:fontFamily="@font/popmed"
-                    android:textColor="@color/main"
-                    android:textSize="@dimen/_9ssp"/>
-
-            </LinearLayout>
+                android:text="Kembali"
+                android:padding="@dimen/_10sdp"
+                android:elevation="0dp"
+                android:textColor="@color/black"
+                app:backgroundTint="@color/light_gray2"
+                android:fontFamily="@font/popmed"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textAllCaps="false"
+                app:cornerRadius="@dimen/_15sdp"/>
 
 
 

@@ -123,7 +123,6 @@ public class RegisterActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<ResponseModel>call, Throwable t) {
-                    Log.e("sdasd", "onFailure: ",t );
                     Dialog dialogNoConnection = new Dialog(RegisterActivity.this);
                     dialogNoConnection.setContentView(R.layout.dialog_no_connection);
                     dialogNoConnection.getWindow().setBackgroundDrawableResource(android.R.color.transparent);

@@ -89,5 +89,11 @@ public interface PengajuInterface {
             @Field("new_pass") String newPass
     );
 
+    @Multipart
+    @POST("pengaju/updateProfile")
+    Call<ResponseModel>updateProfile(
+            @PartMap Map<String, RequestBody>textData
+    );
+
 
 }

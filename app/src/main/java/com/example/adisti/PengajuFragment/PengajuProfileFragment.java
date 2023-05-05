@@ -12,6 +12,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,7 +60,7 @@ public class PengajuProfileFragment extends Fragment {
     ImageButton btnEditPhotoProfile;
     private File file;
 
-    RelativeLayout menuLogOut, menuUbahProfile,menuUbahPassword;
+    RelativeLayout menuLogOut, menuUbahProfile, menuUbahPassword;
 
 
 
@@ -276,6 +277,13 @@ public class PengajuProfileFragment extends Fragment {
                     }
                 });
                 dialogResetPassword.show();
+            }
+        });
+        menuUbahProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction()
+                        .addToBackStack(null).replace(R.id.framePengaju, new PengajuEditProfileFragment()).commit();
             }
         });
 
