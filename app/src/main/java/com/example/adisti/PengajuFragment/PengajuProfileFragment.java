@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -58,7 +59,7 @@ public class PengajuProfileFragment extends Fragment {
     ImageButton btnEditPhotoProfile;
     private File file;
 
-    RelativeLayout menuLogOut;
+    RelativeLayout menuLogOut, menuUbahProfile,menuUbahPassword;
 
 
 
@@ -195,6 +196,89 @@ public class PengajuProfileFragment extends Fragment {
                 dialogLogOut.show();
             }
         });
+        menuUbahPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Dialog dialogResetPassword = new Dialog(getContext());
+                dialogResetPassword.setContentView(R.layout.layout_ubah_password);
+                dialogResetPassword.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                final EditText etOldPass, etNewPass, etKonfirPass;
+                Button btnSimpan, btnBatal;
+                etOldPass = dialogResetPassword.findViewById(R.id.et_old_pass);
+                etNewPass = dialogResetPassword.findViewById(R.id.et_new_pass);
+                etKonfirPass = dialogResetPassword.findViewById(R.id.et_password_konfir);
+                btnSimpan = dialogResetPassword.findViewById(R.id.btnSimpan);
+                btnBatal = dialogResetPassword.findViewById(R.id.btnCancel);
+
+                btnBatal.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialogResetPassword.dismiss();
+                    }
+                });
+                btnSimpan.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (etOldPass.getText().toString().isEmpty()) {
+                            Toasty.error(getContext(), "Field password lama tidak boleh kosong", Toasty.LENGTH_SHORT).show();
+                        }else if (etNewPass.getText().toString().isEmpty()) {
+                            Toasty.error(getContext(), "Field password baru tidak boleh kosong", Toasty.LENGTH_SHORT).show();
+
+                        } else if (etKonfirPass.getText().toString().isEmpty()) {
+                            Toasty.error(getContext(), "Field password konfirmasi tidak boleh kosong", Toasty.LENGTH_SHORT).show();
+                        }else {
+                            if (!etNewPass.getText().toString().equals(etKonfirPass.getText().toString().toString())) {
+                                Toasty.error(getContext(), "Field password tidak cocok", Toasty.LENGTH_SHORT).show();
+                            }else {
+                                Dialog progressDialog = new Dialog(getContext());
+                                progressDialog.setContentView(R.layout.dialog_progress_bar);
+                                progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                                progressDialog.setCanceledOnTouchOutside(false);
+                                progressDialog.show();
+
+                                pengajuInterface.updatePassword(
+                                        userId, etOldPass.getText().toString(), etKonfirPass.getText().toString()
+                                ).enqueue(new Callback<ResponseModel>() {
+                                    @Override
+                                    public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                                        ResponseModel responseModel = response.body();
+                                        if (response.isSuccessful() && responseModel.getCode() == 200) {
+                                            Dialog dialogSuccess = new Dialog(getContext());
+                                            dialogSuccess.setContentView(R.layout.dialog_success);
+                                            dialogSuccess.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                                            dialogSuccess.setCanceledOnTouchOutside(false);
+                                            final Button btnOke = dialogSuccess.findViewById(R.id.btnOke);
+                                            dialogSuccess.show();
+                                            btnOke.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    dialogSuccess.dismiss();
+                                                }
+                                            });
+                                            dialogSuccess.show();
+                                            dialogResetPassword.dismiss();
+                                            progressDialog.dismiss();
+                                        }else {
+                                            Toasty.error(getContext(), responseModel.getMessage(), Toasty.LENGTH_SHORT).show();
+                                            progressDialog.dismiss();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<ResponseModel> call, Throwable t) {
+                                        Toasty.error(getContext(), "Tidak ada koneksi internet", Toasty.LENGTH_SHORT).show();
+                                        progressDialog.dismiss();
+
+                                    }
+                                });
+                            }
+                        }
+                    }
+                });
+                dialogResetPassword.show();
+            }
+        });
+
 
 
 
@@ -209,6 +293,8 @@ public class PengajuProfileFragment extends Fragment {
         tvEmail = view.findViewById(R.id.tvEmail);
         tvNamaLengkap = view.findViewById(R.id.tvNamaLengkap);
         ivProfile = view.findViewById(R.id.ivProfile);
+        menuUbahPassword = view.findViewById(R.id.menuUbahPassword);
+        menuUbahProfile = view.findViewById(R.id.menuUbahProfile);
         sharedPreferences = getContext().getSharedPreferences("user_data", Context.MODE_PRIVATE);
         userId = sharedPreferences.getString("user_id", null);
         pengajuInterface = DataApi.getClient().create(PengajuInterface.class);

@@ -81,5 +81,13 @@ public interface PengajuInterface {
             @Part MultipartBody.Part image
     );
 
+    @FormUrlEncoded
+    @POST("pengaju/updatepassword")
+    Call<ResponseModel>updatePassword(
+            @Field("user_id") String userId,
+            @Field("old_pass") String oldPass,
+            @Field("new_pass") String newPass
+    );
+
 
 }
