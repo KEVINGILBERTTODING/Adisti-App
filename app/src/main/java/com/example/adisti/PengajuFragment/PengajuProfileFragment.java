@@ -19,10 +19,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.adisti.LoginActivity;
 import com.example.adisti.Model.PengajuModel;
 import com.example.adisti.Model.ResponseModel;
 import com.example.adisti.R;
@@ -48,12 +50,15 @@ public class PengajuProfileFragment extends Fragment {
     ImageView ivProfile, ivProfileImage;
     TextView tvEmail, tvNamaLengkap;
     SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
     String userId;
     PengajuInterface pengajuInterface;
     Button btnRefresh;
     String photoProfile, realImagePath;
     ImageButton btnEditPhotoProfile;
     private File file;
+
+    RelativeLayout menuLogOut;
 
 
 
@@ -165,6 +170,32 @@ public class PengajuProfileFragment extends Fragment {
                 dialogPhotoProfile.show();
             }
         });
+        menuLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Dialog dialogLogOut = new Dialog(getContext());
+                dialogLogOut.setContentView(R.layout.layout_log_out);
+                dialogLogOut.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                final Button btnTidak, btnKeluar;
+                btnTidak = dialogLogOut.findViewById(R.id.btnBatal);
+                btnKeluar = dialogLogOut.findViewById(R.id.btnKeluar);
+                btnKeluar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        logOut();
+                        dialogLogOut.dismiss();
+                    }
+                });
+                btnTidak.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialogLogOut.dismiss();
+                    }
+                });
+                dialogLogOut.show();
+            }
+        });
+
 
 
 
@@ -182,6 +213,8 @@ public class PengajuProfileFragment extends Fragment {
         userId = sharedPreferences.getString("user_id", null);
         pengajuInterface = DataApi.getClient().create(PengajuInterface.class);
         btnEditPhotoProfile = view.findViewById(R.id.btnImageEdit);
+        menuLogOut = view.findViewById(R.id.menuLogOut);
+        editor = sharedPreferences.edit();
 
 
     }
@@ -307,6 +340,12 @@ public class PengajuProfileFragment extends Fragment {
         outputStream.flush();
         outputStream.close();
         inputStream.close();
+    }
+
+    private void logOut () {
+        editor.clear().apply();
+        startActivity(new Intent(getContext(), LoginActivity.class));
+        getActivity().finish();
     }
 
 
