@@ -64,7 +64,7 @@ public class PengajuDetailProposalFragment extends Fragment {
     SharedPreferences sharedPreferences;
     String userID, proposalId, fileProposal;
     EditText etNoProposal,  etInstansi, etBantuan, etNamaPengaju,
-    etEmail, etAlamat, etNoTelp, etJabatan, etPdfPath, et_loket, etTanggalProposal;
+    etEmail, etAlamat, etNoTelp, etJabatan, etPdfPath, et_loket, etTanggalProposal, etLatarBelakangProposal;
     Button btnKembali, btnRefresh, btnUbah;
     TextView tvStatus;
     CardView cvStatus;
@@ -150,6 +150,7 @@ public class PengajuDetailProposalFragment extends Fragment {
         etBantuan = view.findViewById(R.id.et_bantuan);
         etNamaPengaju = view.findViewById(R.id.et_namaPengaju);
         etEmail = view.findViewById(R.id.et_emailPengaju);
+        etLatarBelakangProposal = view.findViewById(R.id.et_latarBelakangProposal);
         etAlamat = view.findViewById(R.id.et_alamat);
         tvStatus = view.findViewById(R.id.tvStatus);
         btnUbah = view.findViewById(R.id.btnUbah);
@@ -170,6 +171,7 @@ public class PengajuDetailProposalFragment extends Fragment {
         etNoProposal.setEnabled(false);
         etNoTelp.setEnabled(false);
         et_loket.setEnabled(false);
+        etLatarBelakangProposal.setEnabled(false);
 
 
 
@@ -205,6 +207,7 @@ public class PengajuDetailProposalFragment extends Fragment {
                             etPdfPath.setText(response.body().getFileProposal());
                             et_loket.setText(response.body().getNamaLoketPengajuan());
                             fileProposal = response.body().getFileProposal();
+                            etLatarBelakangProposal.setText(response.body().getLatarBelakangPengajuan());
 
                             if (response.body().getStatus().equals("Diterima")){
                                 tvStatus.setText("Diterima");

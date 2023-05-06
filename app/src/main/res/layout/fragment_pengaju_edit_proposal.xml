@@ -86,6 +86,31 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:textColor="@color/black"
+                android:layout_marginTop="@dimen/_10sdp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_latarBelakangProposal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/popmed"
+                    android:lines="4"
+                    android:gravity="start"
+                    android:hint="Latar belakang pengajuan proposal"
+                    android:background="@drawable/layout_edittext1"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12sdp">
+                </com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_marginTop="@dimen/_10sdp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"

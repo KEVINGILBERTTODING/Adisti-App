@@ -62,7 +62,7 @@ public class PengajuAddProposalFragment extends Fragment {
     PengajuModel pengajuModel;
     TextView tvTanggalProposal;
     EditText etNoProposal,  etInstansi, etBantuan, etNamaPengaju,
-    etEmail, etAlamat, etNoTelp, etJabatan, etPdfPath;
+    etEmail, etAlamat, etNoTelp, etJabatan, etPdfPath, etLatarBelakang;
     Button btnKembali, btnFilePicker, btnOke;
     String kodeLoket;
     private File file;
@@ -150,7 +150,10 @@ public class PengajuAddProposalFragment extends Fragment {
                      Toasty.error(getContext(), "Field nama pengaju tidak boleh kosong", Toasty.LENGTH_SHORT).show();
                 }else if (etEmail.getText().toString().isEmpty()) {
                      Toasty.error(getContext(), "Field email tidak boleh kosong", Toasty.LENGTH_SHORT).show();
-                }else if (etAlamat.getText().toString().isEmpty()) {
+                }else if (etLatarBelakang.getText().toString().isEmpty()) {
+                   Toasty.error(getContext(), "Field latar belakang tidak boleh kosong", Toasty.LENGTH_SHORT).show();
+               }
+               else if (etAlamat.getText().toString().isEmpty()) {
                      Toasty.error(getContext(), "Field alamat tidak boleh kosong", Toasty.LENGTH_SHORT).show();
                 }else if (etNoTelp.getText().toString().isEmpty()) {
                         Toasty.error(getContext(), "Field no telp tidak boleh kosong", Toasty.LENGTH_SHORT).show();
@@ -191,6 +194,7 @@ public class PengajuAddProposalFragment extends Fragment {
         btnKembali = view.findViewById(R.id.btnKembali);
         btnFilePicker = view.findViewById(R.id.btnPdfPicker);
         ivPdf = view.findViewById(R.id.ivPdf);
+        etLatarBelakang = view.findViewById(R.id.et_latarBelakangProposal);
 
         etPdfPath.setEnabled(false);
 
@@ -337,6 +341,7 @@ public class PengajuAddProposalFragment extends Fragment {
         map.put("jabatan_proposal", RequestBody.create(MediaType.parse("text/plain"), etJabatan.getText().toString()));
         map.put("user_id", RequestBody.create(MediaType.parse("text/plain"), userID));
         map.put("kode_loket", RequestBody.create(MediaType.parse("text/plain"), kodeLoket));
+        map.put("latar_belakang_proposal", RequestBody.create(MediaType.parse("text/plain"), etLatarBelakang.getText().toString()));
 
 
         RequestBody requestBody = RequestBody.create(MediaType.parse("pdf/*"), file);

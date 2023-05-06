@@ -204,6 +204,14 @@ public class PengajuHomeFragment extends Fragment {
                 return false;
             }
         });
+        ivProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction()
+                        .addToBackStack(null).replace(R.id.framePengaju, new PengajuProfileFragment())
+                        .commit();
+            }
+        });
 
 
         return view;

@@ -60,7 +60,7 @@ public class PengajuEditProposalFragment extends Fragment {
     SharedPreferences sharedPreferences;
     String userID, proposalId, fileProposal, kodeLoket, realPdfPath;
     EditText etNoProposal,  etInstansi, etBantuan, etNamaPengaju,
-    etEmail, etAlamat, etNoTelp, etJabatan, etPdfPath;
+    etEmail, etAlamat, etNoTelp, etJabatan, etPdfPath, etLatarBelakang;
     Button btnKembali, btnRefresh, btnUbah, btnOke, btnPdfPicker;
     TextView tvStatus, tvTanggalProposal;
     SpinnerKodeLoketAdapter spinnerKodeLoketAdapter;
@@ -151,7 +151,10 @@ public class PengajuEditProposalFragment extends Fragment {
                     Toasty.error(getContext(), "Field bantuan tidak boleh kosong", Toasty.LENGTH_SHORT).show();
                 }else if (etNamaPengaju.getText().toString().isEmpty()) {
                     Toasty.error(getContext(), "Field nama pengaju tidak boleh kosong", Toasty.LENGTH_SHORT).show();
-                }else if (etEmail.getText().toString().isEmpty()) {
+                }else if (etLatarBelakang.getText().toString().isEmpty()) {
+                    Toasty.error(getContext(), "Field latar belakang tidak boleh kosong", Toasty.LENGTH_SHORT).show();
+                }
+                else if (etEmail.getText().toString().isEmpty()) {
                     Toasty.error(getContext(), "Field email tidak boleh kosong", Toasty.LENGTH_SHORT).show();
                 }else if (etAlamat.getText().toString().isEmpty()) {
                     Toasty.error(getContext(), "Field alamat tidak boleh kosong", Toasty.LENGTH_SHORT).show();
@@ -192,6 +195,7 @@ public class PengajuEditProposalFragment extends Fragment {
         etNoTelp = view.findViewById(R.id.et_no_telepon);
         etJabatan = view.findViewById(R.id.et_jabatan);
         etPdfPath = view.findViewById(R.id.etPdfPath);
+        etLatarBelakang = view.findViewById(R.id.et_latarBelakangProposal);
         btnKembali = view.findViewById(R.id.btnKembali);
         etPdfPath.setEnabled(false);
 
@@ -230,6 +234,7 @@ public class PengajuEditProposalFragment extends Fragment {
                             etJabatan.setText(response.body().getJabatanPengaju());
                             etPdfPath.setText(response.body().getFileProposal());
                             fileProposal = response.body().getFileProposal();
+                            etLatarBelakang.setText(response.body().getLatarBelakangPengajuan());
 
                             if (response.body().getStatus().equals("Diterima")){
                                 tvStatus.setText("Diterima");
@@ -366,6 +371,7 @@ public class PengajuEditProposalFragment extends Fragment {
             map.put("kode_loket", RequestBody.create(MediaType.parse("text/plain"), kodeLoket));
             map.put("pdf_path", RequestBody.create(MediaType.parse("text/plain"), realPdfPath));
             map.put("proposal_id", RequestBody.create(MediaType.parse("text/plain"), proposalId));
+            map.put("latar_belakang_proposal", RequestBody.create(MediaType.parse("text/plain"), etLatarBelakang.getText().toString()));
             RequestBody requestBody = RequestBody.create(MediaType.parse("pdf/*"), file);
             MultipartBody.Part proposal = MultipartBody.Part.createFormData("file_proposal", file.getName(), requestBody);
 
@@ -435,6 +441,7 @@ public class PengajuEditProposalFragment extends Fragment {
             map.put("no_telp_pihak", RequestBody.create(MediaType.parse("text/plain"), etNoTelp.getText().toString()));
             map.put("jabatan_proposal", RequestBody.create(MediaType.parse("text/plain"), etJabatan.getText().toString()));
             map.put("kode_loket", RequestBody.create(MediaType.parse("text/plain"), kodeLoket));
+            map.put("latar_belakang_proposal", RequestBody.create(MediaType.parse("text/plain"), etLatarBelakang.getText().toString()));
             map.put("proposal_id", RequestBody.create(MediaType.parse("text/plain"), proposalId));
             map.put("pdf_path", RequestBody.create(MediaType.parse("text/plain"), ""));
 
