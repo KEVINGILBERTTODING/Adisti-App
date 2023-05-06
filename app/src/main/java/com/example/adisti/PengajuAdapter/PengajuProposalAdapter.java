@@ -58,10 +58,16 @@ public class PengajuProposalAdapter extends RecyclerView.Adapter<PengajuProposal
 
         if (proposalModelList.get(holder.getAdapterPosition()).getStatus().equals("")) {
 //            holder.cvNoProposal.setCardBackgroundColor(context.getColor(R.color.yelllow));
-            holder.ivStatusProposal.setImageDrawable(context.getDrawable(R.drawable.ic_menunggu));
+            if (proposalModelList.get(holder.getAdapterPosition()).getVerified().equals("1")) {
+                holder.ivStatusProposal.setImageDrawable(context.getDrawable(R.drawable.ic_menunggu));
+            } else if (proposalModelList.get(holder.getAdapterPosition()).getVerified().equals("2")) {
+                holder.ivStatusProposal.setImageDrawable(context.getDrawable(R.drawable.ic_menunggu));
+            }else {
+                holder.ivStatusProposal.setImageDrawable(context.getDrawable(R.drawable.ic_ditolak));
+            }
         }else  if (proposalModelList.get(holder.getAdapterPosition()).getStatus().equals("Diterima")) {
 //            holder.cvNoProposal.setCardBackgroundColor(context.getColor(R.color.green));
-            holder.ivStatusProposal.setImageDrawable(context.getDrawable(R.drawable.ic_diterima));
+            holder.ivStatusProposal.setImageDrawable(context.getDrawable(R.drawable.ic_proposal_diterima));
 
         }else {
 //            holder.cvNoProposal.setCardBackgroundColor(context.getColor(R.color.red));
