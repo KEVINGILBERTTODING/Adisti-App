@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="@dimen/_14sdp"
+    android:background="@color/white"
+    tools:context=".PengajuFragment.PengajuNotificationFragment">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Notifikasi"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_15ssp"
+        android:fontFamily="@font/popsem"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvNotifikasi"
+            android:layout_marginTop="@dimen/_10sdp"
+            tools:listitem="@layout/list_notifiikasi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:layout_width="wrap_content"
+        android:id="@+id/btnDeleteNotifikasi"
+        android:layout_height="wrap_content"
+        app:backgroundTint="@color/red"
+        android:textColor="@color/white"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:fontFamily="@font/popmed"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="Hapus semua"/>
+
+
+    <TextView
+        android:id="@+id/tvEmpty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tidak ada notifikasi."
+        android:visibility="gone"
+        android:fontFamily="@font/popmed"
+        android:textColor="@color/light_gray"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/_13ssp"/>
+
+
+
+
+
+</RelativeLayout>

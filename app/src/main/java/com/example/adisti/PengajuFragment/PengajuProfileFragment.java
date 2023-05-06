@@ -91,6 +91,7 @@ public class PengajuProfileFragment extends Fragment {
                         .skipMemoryCache(false)
                         .dontAnimate()
                         .fitCenter()
+                        .placeholder(R.drawable.photo_default)
                         .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .into(ivProfileImage);
                 btnBatal.setOnClickListener(new View.OnClickListener() {

@@ -44,6 +44,7 @@ public class PengajuHomeFragment extends Fragment {
     TextView tvUsername, tvEmpty, tvDateStart, tvDateEnd;
     String userId;
     SearchView searchView;
+    ImageButton btnNotifikasi;
     SharedPreferences sharedPreferences;
     PengajuProposalAdapter pengajuProposalAdapter;
     List<ProposalModel>proposalModelList;
@@ -190,6 +191,8 @@ public class PengajuHomeFragment extends Fragment {
                 dialogFilter.show();
 
 
+
+
             }
         });
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -212,7 +215,14 @@ public class PengajuHomeFragment extends Fragment {
                         .commit();
             }
         });
-
+        btnNotifikasi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.framePengaju, new PengajuNotificationFragment()).addToBackStack(null)
+                        .commit();
+            }
+        });
 
         return view;
     }
@@ -256,6 +266,7 @@ public class PengajuHomeFragment extends Fragment {
                         tvEmpty.setVisibility(View.GONE);
                         dialog.dismiss();
                         Dialog dialogNoConnection = new Dialog(getContext());
+                        dialogNoConnection.setContentView(R.layout.dialog_no_connection);
                         dialogNoConnection.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                         dialogNoConnection.setCanceledOnTouchOutside(false);
                         Button btnRefresh = dialogNoConnection.findViewById(R.id.btnRefresh);
@@ -291,8 +302,9 @@ public class PengajuHomeFragment extends Fragment {
                 pengajuModel = response.body();
                 if (response.isSuccessful()) {
                     Glide.with(getContext())
-                            .load(pengajuModel.getPhotoProfile()) .
-                            diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(false).
+                            .load(pengajuModel.getPhotoProfile())
+                            .placeholder(R.drawable.photo_default)
+                            .diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(false).
                             fitCenter().centerCrop().into(ivProfile);
 
                     dialog.dismiss();
@@ -340,6 +352,7 @@ public class PengajuHomeFragment extends Fragment {
         btnFilter = view.findViewById(R.id.btnFilter);
         ivProfile = view.findViewById(R.id.img_profile);
         searchView = view.findViewById(R.id.searchView);
+        btnNotifikasi = view.findViewById(R.id.btn_notification);
         pengajuInterface = DataApi.getClient().create(PengajuInterface.class);
         userId = sharedPreferences.getString("user_id", null);
     }

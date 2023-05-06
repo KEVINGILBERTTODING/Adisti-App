@@ -119,7 +119,7 @@ public class PengajuProposalAdapter extends RecyclerView.Adapter<PengajuProposal
                                             notifyDataSetChanged();
                                             notifyItemRangeChanged(getAdapterPosition(), proposalModelList.size());
                                             notifyItemRangeRemoved(getAdapterPosition(), proposalModelList.size());
-                                            Toasty.success(context, "Berhasil menghapus proposal", Toasty.LENGTH_SHORT).show();
+                                            Toasty.normal(context, "Berhasil menghapus proposal", Toasty.LENGTH_SHORT).show();
 
                                         }else {
                                             Toasty.error(context, "Terjadi kesalahan", Toasty.LENGTH_SHORT).show();

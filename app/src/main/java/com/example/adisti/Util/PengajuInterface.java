@@ -1,6 +1,7 @@
 package com.example.adisti.Util;
 
 import com.example.adisti.Model.LoketModel;
+import com.example.adisti.Model.NotificationModel;
 import com.example.adisti.Model.PengajuModel;
 import com.example.adisti.Model.ProposalModel;
 import com.example.adisti.Model.ResponseModel;
@@ -93,6 +94,18 @@ public interface PengajuInterface {
     @POST("pengaju/updateProfile")
     Call<ResponseModel>updateProfile(
             @PartMap Map<String, RequestBody>textData
+    );
+
+
+    @GET("pengaju/getAllNotification")
+    Call<List<NotificationModel>>getAllNotification(
+            @Query("user_id") String userId
+    );
+
+    @FormUrlEncoded
+    @POST("pengaju/deletenotification")
+    Call<ResponseModel>deleteNotifcation(
+            @Field("notif_id") Integer notifId
     );
 
 
