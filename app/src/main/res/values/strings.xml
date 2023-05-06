@@ -2,7 +2,7 @@
     <string name="app_name">Adisti</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="onboard_text1">Pengajuan proposal Secara Cepat dan mudah</string>
+    <string name="onboard_text1">Pengajuan proposal secara cepat dan mudah</string>
     <string name="onboard_text2">Kelola arsip data proposal lebih mudah dan aman</string>
     <string name="onboard_text3">Menyajikan laporan yang fleksibel dan menarik</string>
     <string name="onboard_text4">Ayo, Bergabung bersama kami!</string>

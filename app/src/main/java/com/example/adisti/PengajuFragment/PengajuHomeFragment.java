@@ -338,7 +338,7 @@ public class PengajuHomeFragment extends Fragment {
         tvEmpty = view.findViewById(R.id.tvEmpty);
         btnRefreshmain = view.findViewById(R.id.btnRefreshMain);
         btnFilter = view.findViewById(R.id.btnFilter);
-        ivProfile = view.findViewById(R.id.ivProfile);
+        ivProfile = view.findViewById(R.id.img_profile);
         searchView = view.findViewById(R.id.searchView);
         pengajuInterface = DataApi.getClient().create(PengajuInterface.class);
         userId = sharedPreferences.getString("user_id", null);
