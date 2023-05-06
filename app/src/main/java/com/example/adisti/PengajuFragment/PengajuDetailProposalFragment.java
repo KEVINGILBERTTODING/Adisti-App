@@ -212,6 +212,21 @@ public class PengajuDetailProposalFragment extends Fragment {
                             if (response.body().getStatus().equals("Diterima")){
                                 tvStatus.setText("Diterima");
                                 cvStatus.setCardBackgroundColor(getContext().getColor(R.color.green));
+
+                                Dialog dialogSuccess = new Dialog(getContext());
+                                dialogSuccess.setContentView(R.layout.dialog_proposal_diterima);
+                                dialogSuccess.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                                dialogSuccess.setCanceledOnTouchOutside(false);
+                                Button btnOke = dialogSuccess.findViewById(R.id.btnOke);
+                                btnOke.setText("Oke");
+                                btnOke.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        dialogSuccess.dismiss();
+
+                                    }
+                                });
+                                dialogSuccess.show();
                             }else if (response.body().getStatus().equals("Ditolak")){
                                 tvStatus.setText("Ditolak");
                                 cvStatus.setCardBackgroundColor(getContext().getColor(R.color.red));
@@ -222,7 +237,10 @@ public class PengajuDetailProposalFragment extends Fragment {
 
                             if (response.body().getVerified().equals("1")) {
                                 btnUbah.setVisibility(View.GONE);
-                            }else {
+                            }else if (response.body().getVerified().equals("0")) {
+                                btnUbah.setVisibility(View.GONE);
+                            }
+                            else {
                                 btnUbah.setVisibility(View.VISIBLE);
                             }
 

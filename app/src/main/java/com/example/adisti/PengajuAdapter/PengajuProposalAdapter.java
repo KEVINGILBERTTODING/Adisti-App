@@ -71,7 +71,10 @@ public class PengajuProposalAdapter extends RecyclerView.Adapter<PengajuProposal
 
         if (proposalModelList.get(holder.getAdapterPosition()).getVerified().equals("1")) {
             holder.swipeLayout.setEnabledSwipe(false);
-        }else {
+        }else if (proposalModelList.get(holder.getAdapterPosition()).getVerified().equals("0")) {
+            holder.swipeLayout.setEnabledSwipe(false);
+        }
+        else {
             holder.swipeLayout.setEnabledSwipe(true);
 
         }

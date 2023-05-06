@@ -5,13 +5,16 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.example.adisti.Model.ProposalModel;
@@ -29,11 +32,8 @@ import retrofit2.Response;
 public class PicHomeFragment extends Fragment {
     TextView tvUsername;
     SharedPreferences sharedPreferences;
-    PicProposalAdapter picProposalAdapter;
-    List<ProposalModel>proposalModelList;
-    LinearLayoutManager linearLayoutManager;
-    PicInterface  picInterface;
-    RecyclerView rvProposal;
+    CardView cvMenuProposal;
+
 
 
 
@@ -45,45 +45,30 @@ public class PicHomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_pic_home, container, false);
         init(view);
 
+        cvMenuProposal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replace(new PicProposalFragment());
+            }
+        });
+
 
 
 
         return view;
     }
 
-    private void getAllProposal() {
-        Dialog dialog = new Dialog(getContext());
-        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        dialog.setCanceledOnTouchOutside(false);
-        final TextView tvMain;
-        tvMain = dialog.findViewById(R.id.tvMainText);
-        tvMain.setText("Memuat Data...");
-        dialog.show();
 
-        picInterface.getAllProposal(sharedPreferences.getString("kode_loket", null))
-                .enqueue(new Callback<List<ProposalModel>>() {
-                    @Override
-                    public void onResponse(Call<List<ProposalModel>> call, Response<List<ProposalModel>> response) {
-                        proposalModelList = response.body();
-                        if (response.isSuccessful() && response.body().size() > 0) {
-
-                        }
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<ProposalModel>> call, Throwable t) {
-
-                    }
-                });
-
-    }
 
     private void init(View view) {
         tvUsername = view.findViewById(R.id.tvUsername);
         sharedPreferences = getContext().getSharedPreferences("user_data", Context.MODE_PRIVATE);
         tvUsername.setText(sharedPreferences.getString("nama", null));
-        rvProposal = view.findViewById(R.id.rvProposal);
-        picInterface = DataApi.getClient().create(PicInterface.class);
+        cvMenuProposal = view.findViewById(R.id.cvMenuProposal);
+    }
+
+    private void replace(Fragment fragment) {
+        ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.framePic, fragment)
+                .addToBackStack(null).commit();
     }
 }

@@ -2,6 +2,7 @@ package com.example.adisti.PengajuAdapter;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +12,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.adisti.Model.NotificationModel;
 import com.example.adisti.Model.ResponseModel;
+import com.example.adisti.PengajuFragment.PengajuDetailProposalFragment;
 import com.example.adisti.R;
 import com.example.adisti.Util.DataApi;
 import com.example.adisti.Util.PengajuInterface;
@@ -47,14 +51,33 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     @Override
     public void onBindViewHolder(@NonNull NotificationAdapter.ViewHolder holder, int position) {
         if (notificationModelList.get(holder.getAdapterPosition()).getCode() == 1) {
-            holder.tvStatus.setText("Proposal Anda diterima!");
-            holder.ivStatus.setImageDrawable(context.getDrawable(R.drawable.ic_diterima));
-        }else {
+            holder.tvStatus.setText("Proposal Anda disetujui!");
+            holder.ivStatus.setImageDrawable(context.getDrawable(R.drawable.ic_proposal_diterima));
+        }else if (notificationModelList.get(holder.getAdapterPosition()).getCode() == 0) {
             holder.tvStatus.setText("Proposal Anda ditolak!");
+            holder.ivStatus.setImageDrawable(context.getDrawable(R.drawable.ic_ditolak));
+        }else if (notificationModelList.get(holder.getAdapterPosition()).getCode() == 2) {
+            holder.tvStatus.setText("Proposal Anda lolos verifikasi!");
+            holder.ivStatus.setImageDrawable(context.getDrawable(R.drawable.ic_diterima));
+        }
+        else {
+            holder.tvStatus.setText("Proposal Anda tidak lolos verifikasi!");
             holder.ivStatus.setImageDrawable(context.getDrawable(R.drawable.ic_ditolak));
         }
 
         holder.tvTanggal.setText(notificationModelList.get(holder.getAdapterPosition()).getDate());
+
+        holder.cvNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new PengajuDetailProposalFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("proposal_id", notificationModelList.get(holder.getAdapterPosition()).getProposalId());
+                fragment.setArguments(bundle);
+                ((FragmentActivity) context).getSupportFragmentManager().beginTransaction().addToBackStack(null)
+                        .replace(R.id.framePengaju, fragment).commit();
+            }
+        });
 
     }
 
