@@ -113,5 +113,10 @@ public interface PengajuInterface {
             @Query("user_id") String userId
     );
 
+    @FormUrlEncoded
+    @POST("pengaju/updateNotificaton")
+    Call<ResponseModel>updateNotification(
+            @Field("status") String status
+    );
 
 }

@@ -27,6 +27,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.adisti.Model.NotificationModel;
 import com.example.adisti.Model.PengajuModel;
 import com.example.adisti.Model.ProposalModel;
+import com.example.adisti.Model.ResponseModel;
 import com.example.adisti.PengajuAdapter.PengajuProposalAdapter;
 import com.example.adisti.PicAdapter.PicProposalAdapter;
 import com.example.adisti.R;
@@ -222,6 +223,19 @@ public class PengajuHomeFragment extends Fragment {
         btnNotifikasi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                pengajuInterface.updateNotification("1").enqueue(new Callback<ResponseModel>() {
+                    @Override
+                    public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                        if (response.isSuccessful() && response.body().getCode() == 200){
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseModel> call, Throwable t) {
+
+                    }
+                });
                 ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction()
                         .replace(R.id.framePengaju, new PengajuNotificationFragment()).addToBackStack(null)
                         .commit();
