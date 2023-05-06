@@ -50,7 +50,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             holder.tvStatus.setText("Proposal Anda diterima!");
             holder.ivStatus.setImageDrawable(context.getDrawable(R.drawable.ic_diterima));
         }else {
-            holder.tvStatus.setText("Proposal Anda ditolak");
+            holder.tvStatus.setText("Proposal Anda ditolak!");
             holder.ivStatus.setImageDrawable(context.getDrawable(R.drawable.ic_ditolak));
         }
 

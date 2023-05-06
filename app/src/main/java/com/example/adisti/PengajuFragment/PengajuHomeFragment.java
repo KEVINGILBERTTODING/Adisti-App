@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.SearchView;
@@ -22,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.adisti.Model.NotificationModel;
 import com.example.adisti.Model.PengajuModel;
 import com.example.adisti.Model.ProposalModel;
 import com.example.adisti.PengajuAdapter.PengajuProposalAdapter;
@@ -41,10 +44,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PengajuHomeFragment extends Fragment {
-    TextView tvUsername, tvEmpty, tvDateStart, tvDateEnd;
+    TextView tvUsername, tvEmpty, tvDateStart, tvDateEnd, tv_total_notif;
     String userId;
     SearchView searchView;
     ImageButton btnNotifikasi;
+    RelativeLayout rl_count_notif;
     SharedPreferences sharedPreferences;
     PengajuProposalAdapter pengajuProposalAdapter;
     List<ProposalModel>proposalModelList;
@@ -224,7 +228,36 @@ public class PengajuHomeFragment extends Fragment {
             }
         });
 
+        // get notification realtime
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getNotification();
+
+            }
+        }, 1000L);
+
         return view;
+    }
+
+
+    private void init(View view) {
+        tvUsername = view.findViewById(R.id.tvUsername);
+        sharedPreferences = getContext().getSharedPreferences("user_data", Context.MODE_PRIVATE);
+        tvUsername.setText(sharedPreferences.getString("nama", null));
+        rvProposal = view.findViewById(R.id.rvProposal);
+        fabInsert = view.findViewById(R.id.fabInsert);
+        tvEmpty = view.findViewById(R.id.tvEmpty);
+        rl_count_notif = view.findViewById(R.id.rl_count_notif);
+        btnRefreshmain = view.findViewById(R.id.btnRefreshMain);
+        btnFilter = view.findViewById(R.id.btnFilter);
+        ivProfile = view.findViewById(R.id.img_profile);
+        tv_total_notif = view.findViewById(R.id.tv_total_notif);
+        searchView = view.findViewById(R.id.searchView);
+        btnNotifikasi = view.findViewById(R.id.btn_notification);
+        pengajuInterface = DataApi.getClient().create(PengajuInterface.class);
+        userId = sharedPreferences.getString("user_id", null);
     }
 
     private void getAllProposal() {
@@ -286,6 +319,27 @@ public class PengajuHomeFragment extends Fragment {
 
     }
 
+    private void getNotification() {
+        pengajuInterface.countNotification(userId).enqueue(new Callback<List<NotificationModel>>() {
+            @Override
+            public void onResponse(Call<List<NotificationModel>> call, Response<List<NotificationModel>> response) {
+                if (response.isSuccessful() && response.body().size() > 0) {
+                    rl_count_notif.setVisibility(View.VISIBLE);
+                    tv_total_notif.setText(String.valueOf(response.body().size()));
+                }else {
+                    rl_count_notif.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<NotificationModel>> call, Throwable t) {
+                Toasty.error(getContext(), "Tidak ada koneksi internet", Toasty.LENGTH_SHORT).show();
+
+            }
+        });
+
+    }
+
 
     private void getUserData() {
         Dialog dialog = new Dialog(getContext());
@@ -341,21 +395,6 @@ public class PengajuHomeFragment extends Fragment {
 
     }
 
-    private void init(View view) {
-        tvUsername = view.findViewById(R.id.tvUsername);
-        sharedPreferences = getContext().getSharedPreferences("user_data", Context.MODE_PRIVATE);
-        tvUsername.setText(sharedPreferences.getString("nama", null));
-        rvProposal = view.findViewById(R.id.rvProposal);
-        fabInsert = view.findViewById(R.id.fabInsert);
-        tvEmpty = view.findViewById(R.id.tvEmpty);
-        btnRefreshmain = view.findViewById(R.id.btnRefreshMain);
-        btnFilter = view.findViewById(R.id.btnFilter);
-        ivProfile = view.findViewById(R.id.img_profile);
-        searchView = view.findViewById(R.id.searchView);
-        btnNotifikasi = view.findViewById(R.id.btn_notification);
-        pengajuInterface = DataApi.getClient().create(PengajuInterface.class);
-        userId = sharedPreferences.getString("user_id", null);
-    }
 
     private void datePicker(TextView tvDate) {
         DatePickerDialog datePickerDialog = new DatePickerDialog(getContext());

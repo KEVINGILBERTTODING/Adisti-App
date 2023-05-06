@@ -108,5 +108,10 @@ public interface PengajuInterface {
             @Field("notif_id") Integer notifId
     );
 
+    @GET("pengaju/countNotification")
+    Call<List<NotificationModel>>countNotification (
+            @Query("user_id") String userId
+    );
+
 
 }

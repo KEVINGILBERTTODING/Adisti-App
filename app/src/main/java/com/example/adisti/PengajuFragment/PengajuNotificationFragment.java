@@ -32,7 +32,6 @@ import retrofit2.Response;
 public class PengajuNotificationFragment extends Fragment {
     TextView tvEmpty;
     RecyclerView rvNotifikasi;
-    ExtendedFloatingActionButton fabDeleteNotifikasi;
     LinearLayoutManager linearLayoutManager;
     List<NotificationModel>notificationModelList;
     NotificationAdapter notificationAdapter;
@@ -58,7 +57,6 @@ public class PengajuNotificationFragment extends Fragment {
     private void init(View view) {
         tvEmpty = view.findViewById(R.id.tvEmpty);
         rvNotifikasi = view.findViewById(R.id.rvNotifikasi);
-        fabDeleteNotifikasi = view.findViewById(R.id.btnDeleteNotifikasi);
         sharedPreferences = getContext().getSharedPreferences("user_data", Context.MODE_PRIVATE);
         userid = sharedPreferences.getString("user_id", null);
         pengajuInterface = DataApi.getClient().create(PengajuInterface.class);
