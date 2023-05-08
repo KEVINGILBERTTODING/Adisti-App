@@ -17,14 +17,17 @@ public class UserModel implements Serializable {
     String message;
     @SerializedName("code")
     Integer code;
+    @SerializedName("nama_loket")
+    String namaLoket;
 
-    public UserModel(String userId, String nama, String kodeLoket, String role, String message, Integer code) {
+    public UserModel(String userId, String nama, String namaLoket, String kodeLoket, String role, String message, Integer code) {
         this.userId = userId;
         this.nama = nama;
         this.kodeLoket = kodeLoket;
         this.role = role;
         this.message = message;
         this.code = code;
+        this.namaLoket = namaLoket;
     }
 
     public String getUserId() {
@@ -73,5 +76,13 @@ public class UserModel implements Serializable {
 
     public void setCode(Integer code) {
         this.code = code;
+    }
+
+    public String getNamaLoket() {
+        return namaLoket;
+    }
+
+    public void setNamaLoket(String namaLoket) {
+        this.namaLoket = namaLoket;
     }
 }

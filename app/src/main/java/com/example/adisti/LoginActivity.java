@@ -114,6 +114,7 @@ public class LoginActivity extends AppCompatActivity {
                                     editor.putString("nama", userModel.getNama());
                                     editor.putString("role", userModel.getRole());
                                     editor.putString("kode_loket", userModel.getKodeLoket());
+                                    editor.putString("nama_loket", userModel.getNamaLoket());
                                     editor.apply();
                                     startActivity(new Intent(LoginActivity.this, PicMainActivity.class));
                                     finish();

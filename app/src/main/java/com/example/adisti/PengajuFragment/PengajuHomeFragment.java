@@ -29,11 +29,9 @@ import com.example.adisti.Model.PengajuModel;
 import com.example.adisti.Model.ProposalModel;
 import com.example.adisti.Model.ResponseModel;
 import com.example.adisti.PengajuAdapter.PengajuProposalAdapter;
-import com.example.adisti.PicAdapter.PicProposalAdapter;
 import com.example.adisti.R;
 import com.example.adisti.Util.DataApi;
 import com.example.adisti.Util.PengajuInterface;
-import com.example.adisti.Util.PicInterface;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;

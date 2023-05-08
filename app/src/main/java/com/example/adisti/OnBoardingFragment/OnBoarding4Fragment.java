@@ -1,10 +1,14 @@
 package com.example.adisti.OnBoardingFragment;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -31,6 +35,14 @@ public class OnBoarding4Fragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_on_boarding4_fragmnet, container, false);
         sharedPreferences = getContext().getSharedPreferences("on_boarding", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
+
+        // cek izin mengakses file external
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 200);
+        } else if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 200);
+        }
+
 
         btnNext = view.findViewById(R.id.btnNext);
         btnNext.setOnClickListener(new View.OnClickListener() {
