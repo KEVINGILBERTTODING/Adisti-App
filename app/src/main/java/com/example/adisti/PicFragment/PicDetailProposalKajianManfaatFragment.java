@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -45,10 +46,12 @@ public class PicDetailProposalKajianManfaatFragment extends Fragment {
     List<JabatanPicModel>jabatanPicModelList;
     SpinnerJabatanPicAdapter spinnerJabatanPicAdapter;
     Button btnDownload, btnEntryKajianManfaat;
+    LinearLayout layoutPenanggungJawab;
     SharedPreferences sharedPreferences;
     String userID, proposalId, fileProposal, namaLoket;
     EditText etNoProposal,  etInstansi, etBantuan, etNamaPengaju,
-    etEmail, etAlamat, etNoTelp, etJabatan, etPdfPath, et_loket, etTanggalProposal, etLatarBelakangProposal;
+    etEmail, etAlamat, etNoTelp, etJabatan, etPdfPath, et_loket, etTanggalProposal, etLatarBelakangProposal,
+            et_loketPic, et_namaLoket, et_jabatanPic;
     Button btnKembali, btnRefresh;
     TextView tvStatus;
     List<LoketModel>loketModelList;
@@ -141,6 +144,7 @@ public class PicDetailProposalKajianManfaatFragment extends Fragment {
         etInstansi = view.findViewById(R.id.et_instansi);
         etTanggalProposal = view.findViewById(R.id.et_tglProposal);
         etBantuan = view.findViewById(R.id.et_bantuan);
+        layoutPenanggungJawab = view.findViewById(R.id.layoutPenanggungJawab);
         etNamaPengaju = view.findViewById(R.id.et_namaPengaju);
         etEmail = view.findViewById(R.id.et_emailPengaju);
         etLatarBelakangProposal = view.findViewById(R.id.et_latarBelakangProposal);
@@ -151,6 +155,9 @@ public class PicDetailProposalKajianManfaatFragment extends Fragment {
         etJabatan = view.findViewById(R.id.et_jabatan);
         etPdfPath = view.findViewById(R.id.etPdfPath);
         et_loket = view.findViewById(R.id.et_loket);
+        et_loketPic = view.findViewById(R.id.et_loketPic);
+        et_namaLoket = view.findViewById(R.id.et_namaLoket);
+        et_jabatanPic = view.findViewById(R.id.et_jabatanPic);
         btnEntryKajianManfaat = view.findViewById(R.id.btnEntryKajianManfaat);
         btnKembali = view.findViewById(R.id.btnBack);
         etPdfPath.setEnabled(false);
@@ -165,6 +172,9 @@ public class PicDetailProposalKajianManfaatFragment extends Fragment {
         etNoTelp.setEnabled(false);
         et_loket.setEnabled(false);
         etLatarBelakangProposal.setEnabled(false);
+        et_loketPic.setEnabled(false);
+        et_namaLoket.setEnabled(false);
+        et_jabatanPic.setEnabled(false);
 
 
 
@@ -230,8 +240,19 @@ public class PicDetailProposalKajianManfaatFragment extends Fragment {
 
                             if (response.body().getKajianManfaat().equals("1")) {
                                 btnEntryKajianManfaat.setVisibility(View.GONE);
+
                             }else{
                                 btnEntryKajianManfaat.setVisibility(View.VISIBLE);
+
+                            }
+
+                            if (response.body().getVerified().equals("1")) {
+                                layoutPenanggungJawab.setVisibility(View.VISIBLE);
+                                et_loketPic.setText(response.body().getLoket());
+                                et_namaLoket.setText(response.body().getNamaLoket());
+                                et_jabatanPic.setText(response.body().getJabatanPic());
+                            }else {
+                                layoutPenanggungJawab.setVisibility(View.GONE);
                             }
 
 
