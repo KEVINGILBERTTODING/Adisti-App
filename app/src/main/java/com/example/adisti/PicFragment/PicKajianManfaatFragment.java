@@ -1,21 +1,14 @@
 package com.example.adisti.PicFragment;
 
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TableLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.SearchView;
@@ -24,23 +17,13 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.airbnb.lottie.L;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.example.adisti.Model.NotificationModel;
-import com.example.adisti.Model.PengajuModel;
 import com.example.adisti.Model.ProposalModel;
-import com.example.adisti.Model.ResponseModel;
-import com.example.adisti.PengajuAdapter.PengajuProposalAdapter;
-import com.example.adisti.PengajuFragment.PengajuAddProposalFragment;
-import com.example.adisti.PengajuFragment.PengajuNotificationFragment;
 import com.example.adisti.PengajuFragment.PengajuProfileFragment;
 import com.example.adisti.PicAdapter.PicProposalAdapter;
+import com.example.adisti.PicAdapter.PicProposalKajianManfaatAdapter;
 import com.example.adisti.R;
 import com.example.adisti.Util.DataApi;
-import com.example.adisti.Util.PengajuInterface;
 import com.example.adisti.Util.PicInterface;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -51,12 +34,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PicProposalFragment extends Fragment {
+public class PicKajianManfaatFragment extends Fragment {
     TextView tvUsername, tvEmpty;
     String userId, kodeLoket;
     SearchView searchView;
     SharedPreferences sharedPreferences;
-    PicProposalAdapter picProposalAdapter;
+    PicProposalKajianManfaatAdapter picProposalKajianManfaatAdapter;
     List<ProposalModel>proposalModelList;
     LinearLayoutManager linearLayoutManager;
     RecyclerView rvProposal;
@@ -72,9 +55,9 @@ public class PicProposalFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_pic_proposal, container, false);
+        View view = inflater.inflate(R.layout.fragment_pic_kajian_manfaat, container, false);
         init(view);
-        getAllProposal(2);
+        getAllProposal(1, 0);
 
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -101,11 +84,9 @@ public class PicProposalFragment extends Fragment {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if ((tab.getPosition() == 0)){
-                    getAllProposal(2);
+                    getAllProposal(1, 0);
                 } else if (tab.getPosition() == 1) {
-                    getAllProposal(1);
-                }else if (tab.getPosition() == 2) {
-                    getAllProposal(0);
+                    getAllProposal(1, 1);
                 }
             }
 
@@ -142,12 +123,11 @@ public class PicProposalFragment extends Fragment {
 
 
         // set tablayout
-        tabLayout.addTab(tabLayout.newTab().setText("Pengajuan"));
-        tabLayout.addTab(tabLayout.newTab().setText("Valid"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tidak Valid"));
+        tabLayout.addTab(tabLayout.newTab().setText("Proposal"));
+        tabLayout.addTab(tabLayout.newTab().setText("Kajian Manfaat"));
     }
 
-    private void getAllProposal(Integer tipe){
+    private void getAllProposal(Integer tipe, Integer codeKajianManfaat){
         Dialog dialogProgressBar = new Dialog(getContext());
         dialogProgressBar.setContentView(R.layout.dialog_progress_bar);
         dialogProgressBar.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
@@ -155,17 +135,17 @@ public class PicProposalFragment extends Fragment {
         dialogProgressBar.setCanceledOnTouchOutside(false);
         dialogProgressBar.show();
 
-        picInterface.getAllTipeVerified(tipe, kodeLoket).enqueue(new Callback<List<ProposalModel>>() {
+        picInterface.getAllProposalKajianManfaat(kodeLoket, tipe, codeKajianManfaat).enqueue(new Callback<List<ProposalModel>>() {
             @Override
             public void onResponse(Call<List<ProposalModel>> call, Response<List<ProposalModel>> response) {
 
                 if (response.isSuccessful() && response.body().size() > 0) {
                     proposalModelList = response.body();
-                    picProposalAdapter = new PicProposalAdapter(getContext(), proposalModelList);
+                    picProposalKajianManfaatAdapter = new PicProposalKajianManfaatAdapter(getContext(), proposalModelList);
                     linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
                     rvProposal.setAdapter(null);
                     rvProposal.setLayoutManager(linearLayoutManager);
-                    rvProposal.setAdapter(picProposalAdapter);
+                    rvProposal.setAdapter(picProposalKajianManfaatAdapter);
                     rvProposal.setHasFixedSize(true);
                     dialogProgressBar.dismiss();
                     tvEmpty.setVisibility(View.GONE);
@@ -188,7 +168,7 @@ public class PicProposalFragment extends Fragment {
                 btnRefresh.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                         getAllProposal(tipe);
+                         getAllProposal(tipe, codeKajianManfaat);
                          dialogProgressBar.dismiss();
                     }
                 });
@@ -208,11 +188,11 @@ public class PicProposalFragment extends Fragment {
             }
         }
 
-        picProposalAdapter.filter(filteredList);
+        picProposalKajianManfaatAdapter.filter(filteredList);
         if (filteredList.isEmpty()) {
             Toasty.normal(getContext(), "Tidak ditemukan", Toasty.LENGTH_SHORT).show();
         }else {
-            picProposalAdapter.filter(filteredList);
+            picProposalKajianManfaatAdapter.filter(filteredList);
         }
 
     }

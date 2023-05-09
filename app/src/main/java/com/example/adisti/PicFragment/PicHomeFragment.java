@@ -18,7 +18,7 @@ import com.example.adisti.R;
 public class PicHomeFragment extends Fragment {
     TextView tvUsername;
     SharedPreferences sharedPreferences;
-    CardView cvMenuProposal;
+    CardView cvMenuProposal, cvMenuKajianManfaat;
 
 
 
@@ -38,6 +38,15 @@ public class PicHomeFragment extends Fragment {
             }
         });
 
+        cvMenuKajianManfaat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replace(new PicKajianManfaatFragment());
+            }
+        });
+
+
+
 
 
 
@@ -51,6 +60,7 @@ public class PicHomeFragment extends Fragment {
         sharedPreferences = getContext().getSharedPreferences("user_data", Context.MODE_PRIVATE);
         tvUsername.setText(sharedPreferences.getString("nama", null));
         cvMenuProposal = view.findViewById(R.id.cvMenuProposal);
+        cvMenuKajianManfaat = view.findViewById(R.id.cvMenuKejianManfaat);
     }
 
     private void replace(Fragment fragment) {

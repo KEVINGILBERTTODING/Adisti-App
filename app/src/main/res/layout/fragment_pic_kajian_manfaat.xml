@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="@dimen/_14sdp"
     android:background="@color/white"
-    tools:context=".PicFragment.PicProposalFragment">
+    tools:context=".PicFragment.PicKajianManfaatFragment">
 
     <RelativeLayout
         android:id="@+id/layout_header"

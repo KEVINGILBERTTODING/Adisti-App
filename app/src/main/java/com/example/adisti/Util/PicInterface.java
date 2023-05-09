@@ -1,17 +1,32 @@
 package com.example.adisti.Util;
 
+import android.app.VoiceInteractor;
+
+import com.example.adisti.Model.BidangManfaatPerusahaanModel;
+import com.example.adisti.Model.IndikatorBidangManfaatPerusahaanModel;
 import com.example.adisti.Model.JabatanPicModel;
+import com.example.adisti.Model.KategoriPemohonBantuanModel;
 import com.example.adisti.Model.LoketModel;
+import com.example.adisti.Model.PihakPenerimaBantuanModel;
+import com.example.adisti.Model.PilarModel;
 import com.example.adisti.Model.ProposalModel;
+import com.example.adisti.Model.RanModel;
 import com.example.adisti.Model.ResponseModel;
+import com.example.adisti.Model.TpbModel;
 
 import java.util.List;
+import java.util.Map;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Query;
 
 public interface PicInterface {
@@ -42,6 +57,53 @@ public interface PicInterface {
     Call<ResponseModel>rejectProposal(
             @Field("proposal_id") String propoalId
     );
+
+    @GET("pic/getAllProposalKajianManfaat")
+    Call<List<ProposalModel>>getAllProposalKajianManfaat(
+            @Query("kode_loket") String kodeLoket,
+            @Query("tipe") Integer tipe,
+            @Query("code_kajian_manfaat") Integer codeKajianManfaat
+    );
+
+
+    @Multipart
+    @POST("pic/insertKajianManfaat")
+    Call<ResponseModel>updateKajianManfaat(
+            @PartMap Map<String, RequestBody> textData
+            );
+
+    @GET("pic/getKategoriPemohonBantuan")
+    Call<List<KategoriPemohonBantuanModel>>getKategoriPemohonBantuan();
+
+    @GET("pic/getPenerimaBantuan")
+    Call<List<PihakPenerimaBantuanModel>>getPenerimaBantuan(
+            @Query("kategori_penerima_id") Integer kategori_penerima_id
+    );
+
+
+    @GET("pic/getBidangManfaatPerusahaan")
+    Call<List<BidangManfaatPerusahaanModel>>getBidangManfaatPerusahaan(
+    );
+
+    @GET("pic/getIndikatorBidangManfaatPerusahaan")
+    Call<List<IndikatorBidangManfaatPerusahaanModel>>getIndikatorBidangManfaat(
+            @Query("bidang_manfaat_id") Integer bidangManfaatId
+    );
+
+    @GET("pic/getallpilar")
+    Call<List<PilarModel>>getAllPilar(
+    );
+
+    @GET("pic/getTpb")
+    Call<List<TpbModel>>getTpb(
+            @Query("pilar_id") Integer pilarId
+    );
+
+    @GET("pic/getAllRan")
+    Call<List<RanModel>>getRan(
+            @Query("tpb_id") Integer tpbId
+    );
+
 
 
 
