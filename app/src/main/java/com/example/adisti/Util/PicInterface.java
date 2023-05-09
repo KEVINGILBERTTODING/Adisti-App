@@ -5,6 +5,7 @@ import android.app.VoiceInteractor;
 import com.example.adisti.Model.BidangManfaatPerusahaanModel;
 import com.example.adisti.Model.IndikatorBidangManfaatPerusahaanModel;
 import com.example.adisti.Model.JabatanPicModel;
+import com.example.adisti.Model.KajianManfaatModel;
 import com.example.adisti.Model.KategoriPemohonBantuanModel;
 import com.example.adisti.Model.LoketModel;
 import com.example.adisti.Model.PihakPenerimaBantuanModel;
@@ -104,6 +105,11 @@ public interface PicInterface {
             @Query("tpb_id") Integer tpbId
     );
 
+
+    @GET("pic/getKajianManfaatById")
+    Call<KajianManfaatModel>getKajianManfaatById(
+            @Query("proposal_id") String proposalId
+    );
 
 
 

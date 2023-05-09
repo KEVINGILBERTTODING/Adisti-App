@@ -456,6 +456,22 @@
                 android:textColor="@color/white"
                 app:cornerRadius="@dimen/_15sdp"/>
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Edit"
+                android:padding="@dimen/_10sdp"
+                android:visibility="gone"
+                android:elevation="0dp"
+                app:backgroundTint="@color/main"
+                android:fontFamily="@font/popmed"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                app:cornerRadius="@dimen/_15sdp"/>
+
+
 
 
 

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:padding="@dimen/_14sdp"
-    tools:context=".PicFragment.PicInsertKajianManfaatFragment">
+    tools:context=".PicFragment.PicUpdateKajianManfaatFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"

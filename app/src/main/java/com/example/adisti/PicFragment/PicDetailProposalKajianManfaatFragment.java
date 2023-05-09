@@ -45,7 +45,7 @@ public class PicDetailProposalKajianManfaatFragment extends Fragment {
     PengajuInterface pengajuInterface;
     List<JabatanPicModel>jabatanPicModelList;
     SpinnerJabatanPicAdapter spinnerJabatanPicAdapter;
-    Button btnDownload, btnEntryKajianManfaat;
+    Button btnDownload, btnEntryKajianManfaat, btnEdit;
     LinearLayout layoutPenanggungJawab;
     SharedPreferences sharedPreferences;
     String userID, proposalId, fileProposal, namaLoket;
@@ -123,6 +123,19 @@ public class PicDetailProposalKajianManfaatFragment extends Fragment {
         });
 
 
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new PicUpdateKajianManfaatFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("proposal_id", proposalId);
+                fragment.setArguments(bundle);
+                ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.framePic, fragment)
+                        .addToBackStack(null).commit();
+            }
+        });
+
+
 
 
 
@@ -144,6 +157,7 @@ public class PicDetailProposalKajianManfaatFragment extends Fragment {
         etInstansi = view.findViewById(R.id.et_instansi);
         etTanggalProposal = view.findViewById(R.id.et_tglProposal);
         etBantuan = view.findViewById(R.id.et_bantuan);
+        btnEdit = view.findViewById(R.id.btnEdit);
         layoutPenanggungJawab = view.findViewById(R.id.layoutPenanggungJawab);
         etNamaPengaju = view.findViewById(R.id.et_namaPengaju);
         etEmail = view.findViewById(R.id.et_emailPengaju);
@@ -240,9 +254,12 @@ public class PicDetailProposalKajianManfaatFragment extends Fragment {
 
                             if (response.body().getKajianManfaat().equals("1")) {
                                 btnEntryKajianManfaat.setVisibility(View.GONE);
+                                btnEdit.setVisibility(View.VISIBLE);
 
                             }else{
                                 btnEntryKajianManfaat.setVisibility(View.VISIBLE);
+                                btnEdit.setVisibility(View.GONE);
+
 
                             }
 
@@ -324,6 +341,7 @@ public class PicDetailProposalKajianManfaatFragment extends Fragment {
             @Override
             public void onFailure(Call<List<LoketModel>> call, Throwable t) {
                 Dialog dialogNoConnection = new Dialog(getContext());
+                dialogNoConnection.setContentView(R.layout.dialog_no_connection);
                 dialogNoConnection.setContentView(R.layout.dialog_no_connection);
                 dialogNoConnection.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                 dialogNoConnection.setCanceledOnTouchOutside(false);
