@@ -382,7 +382,7 @@ public class PicUpdateKajianManfaatFragment extends Fragment {
                             spIndikator.setAdapter(spinnerIndikatorBidangManfaatAdapter);
                             progressDialog.dismiss();
                         }else {
-                            Toasty.error(getContext(), "Terjadi kesalahan", Toasty.LENGTH_SHORT).show();
+//                            Toasty.error(getContext(), "Terjadi kesalahan", Toasty.LENGTH_SHORT).show();
                             progressDialog.dismiss();
                         }
                     }

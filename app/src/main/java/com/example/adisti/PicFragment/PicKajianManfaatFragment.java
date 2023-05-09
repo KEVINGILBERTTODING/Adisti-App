@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.adisti.Model.ProposalModel;
 import com.example.adisti.PengajuFragment.PengajuProfileFragment;
+import com.example.adisti.PicAdapter.PicKajianManfaatAdapter;
 import com.example.adisti.PicAdapter.PicProposalAdapter;
 import com.example.adisti.PicAdapter.PicProposalKajianManfaatAdapter;
 import com.example.adisti.R;
@@ -39,6 +40,7 @@ public class PicKajianManfaatFragment extends Fragment {
     String userId, kodeLoket;
     SearchView searchView;
     SharedPreferences sharedPreferences;
+    PicKajianManfaatAdapter picKajianManfaatAdapter;
     PicProposalKajianManfaatAdapter picProposalKajianManfaatAdapter;
     List<ProposalModel>proposalModelList;
     LinearLayoutManager linearLayoutManager;
@@ -80,13 +82,15 @@ public class PicKajianManfaatFragment extends Fragment {
                         .commit();
             }
         });
+
+
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if ((tab.getPosition() == 0)){
                     getAllProposal(1, 0);
                 } else if (tab.getPosition() == 1) {
-                    getAllProposal(1, 1);
+                    getProposalkajianManfaat(1, 1);
                 }
             }
 
@@ -100,8 +104,6 @@ public class PicKajianManfaatFragment extends Fragment {
 
             }
         });
-
-
 
 
         return view;
@@ -127,6 +129,8 @@ public class PicKajianManfaatFragment extends Fragment {
         tabLayout.addTab(tabLayout.newTab().setText("Kajian Manfaat"));
     }
 
+
+    // Belum di input kajian manfaat
     private void getAllProposal(Integer tipe, Integer codeKajianManfaat){
         Dialog dialogProgressBar = new Dialog(getContext());
         dialogProgressBar.setContentView(R.layout.dialog_progress_bar);
@@ -170,6 +174,60 @@ public class PicKajianManfaatFragment extends Fragment {
                     public void onClick(View v) {
                          getAllProposal(tipe, codeKajianManfaat);
                          dialogProgressBar.dismiss();
+                    }
+                });
+                tvEmpty.setVisibility(View.GONE);
+                dialogProgressBar.dismiss();
+
+            }
+        });
+
+    }
+
+    // telah diinput kajian manfaaat
+    private void getProposalkajianManfaat(Integer tipe, Integer codeKajianManfaat){
+        Dialog dialogProgressBar = new Dialog(getContext());
+        dialogProgressBar.setContentView(R.layout.dialog_progress_bar);
+        dialogProgressBar.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialogProgressBar.setCancelable(false);
+        dialogProgressBar.setCanceledOnTouchOutside(false);
+        dialogProgressBar.show();
+
+        picInterface.getAllProposalKajianManfaat(kodeLoket, tipe, codeKajianManfaat).enqueue(new Callback<List<ProposalModel>>() {
+            @Override
+            public void onResponse(Call<List<ProposalModel>> call, Response<List<ProposalModel>> response) {
+
+                if (response.isSuccessful() && response.body().size() > 0) {
+                    proposalModelList = response.body();
+                    picKajianManfaatAdapter = new PicKajianManfaatAdapter(getContext(), proposalModelList);
+                    linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                    rvProposal.setAdapter(null);
+                    rvProposal.setLayoutManager(linearLayoutManager);
+                    rvProposal.setAdapter(picKajianManfaatAdapter);
+                    rvProposal.setHasFixedSize(true);
+                    dialogProgressBar.dismiss();
+                    tvEmpty.setVisibility(View.GONE);
+                }else {
+                    tvEmpty.setVisibility(View.VISIBLE);
+                    rvProposal.setAdapter(null);
+                    dialogProgressBar.dismiss();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ProposalModel>> call, Throwable t) {
+                Dialog dialogNoConnection = new Dialog(getContext());
+                dialogNoConnection.setContentView(R.layout.dialog_no_connection);
+                dialogNoConnection.setCancelable(false);
+                dialogProgressBar.setCanceledOnTouchOutside(false);
+                dialogProgressBar.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                Button  btnRefresh = dialogNoConnection.findViewById(R.id.btnRefresh);
+                btnRefresh.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        getAllProposal(tipe, codeKajianManfaat);
+                        dialogProgressBar.dismiss();
                     }
                 });
                 tvEmpty.setVisibility(View.GONE);

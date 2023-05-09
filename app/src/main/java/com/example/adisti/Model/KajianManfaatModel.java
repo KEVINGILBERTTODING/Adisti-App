@@ -47,7 +47,11 @@ public class KajianManfaatModel implements Serializable {
     @SerializedName("date_created")
     private String dateCreated;
 
-    public KajianManfaatModel(String proposalId, String noUrutProposal, String latarBelakangPengajuan, String kategoriPemohonBantuan, String pihakPenerimaBantuan, String manfaatPenerimaBantuan, String bidangManfaatPerusahaan, String indikatorManfaatPerusahaan, String penjelasanIndikator, String pilar, String tpb, String ran, String kodeLoket, String dateCreated) {
+    @SerializedName("nama_ran")
+    String namaRan;
+
+
+    public KajianManfaatModel(String proposalId, String namaRan, String noUrutProposal, String latarBelakangPengajuan, String kategoriPemohonBantuan, String pihakPenerimaBantuan, String manfaatPenerimaBantuan, String bidangManfaatPerusahaan, String indikatorManfaatPerusahaan, String penjelasanIndikator, String pilar, String tpb, String ran, String kodeLoket, String dateCreated) {
         this.proposalId = proposalId;
         this.noUrutProposal = noUrutProposal;
         this.latarBelakangPengajuan = latarBelakangPengajuan;
@@ -58,6 +62,7 @@ public class KajianManfaatModel implements Serializable {
         this.indikatorManfaatPerusahaan = indikatorManfaatPerusahaan;
         this.penjelasanIndikator = penjelasanIndikator;
         this.pilar = pilar;
+        this.namaRan = namaRan;
         this.tpb = tpb;
         this.ran = ran;
         this.kodeLoket = kodeLoket;
@@ -160,6 +165,7 @@ public class KajianManfaatModel implements Serializable {
         this.ran = ran;
     }
 
+
     public String getKodeLoket() {
         return kodeLoket;
     }
@@ -175,4 +181,16 @@ public class KajianManfaatModel implements Serializable {
     public void setDateCreated(String dateCreated) {
         this.dateCreated = dateCreated;
     }
+
+    public String getNamaRan() {
+        return namaRan;
+    }
+
+    public void setNamaRan(String namaRan) {
+        this.namaRan = namaRan;
+    }
+
+
+
+
 }
