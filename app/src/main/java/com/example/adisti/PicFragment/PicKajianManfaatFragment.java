@@ -89,8 +89,32 @@ public class PicKajianManfaatFragment extends Fragment {
             public void onTabSelected(TabLayout.Tab tab) {
                 if ((tab.getPosition() == 0)){
                     getAllProposal(1, 0);
+                    searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                        @Override
+                        public boolean onQueryTextSubmit(String query) {
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onQueryTextChange(String newText) {
+                            filter(newText);
+                            return false;
+                        }
+                    });
                 } else if (tab.getPosition() == 1) {
                     getProposalkajianManfaat(1, 1);
+                    searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                        @Override
+                        public boolean onQueryTextSubmit(String query) {
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onQueryTextChange(String newText) {
+                            filter2(newText);
+                            return false;
+                        }
+                    });
                 }
             }
 
@@ -238,6 +262,8 @@ public class PicKajianManfaatFragment extends Fragment {
 
     }
 
+
+    //filter proposal belum input kajian manfaat
     private void filter(String text){
         ArrayList<ProposalModel>filteredList = new ArrayList<>();
         for (ProposalModel item : proposalModelList) {
@@ -248,12 +274,31 @@ public class PicKajianManfaatFragment extends Fragment {
 
         picProposalKajianManfaatAdapter.filter(filteredList);
         if (filteredList.isEmpty()) {
-            Toasty.normal(getContext(), "Tidak ditemukan", Toasty.LENGTH_SHORT).show();
+
         }else {
             picProposalKajianManfaatAdapter.filter(filteredList);
         }
 
     }
+
+    //filter proposal telah input kajian manfaat
+    private void filter2(String text){
+        ArrayList<ProposalModel>filteredList = new ArrayList<>();
+        for (ProposalModel item : proposalModelList) {
+            if (item.getNoProposal().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(item);
+            }
+        }
+
+        picKajianManfaatAdapter.filter(filteredList);
+        if (filteredList.isEmpty()) {
+
+        }else {
+            picKajianManfaatAdapter.filter(filteredList);
+        }
+
+    }
+
 
 
 }
