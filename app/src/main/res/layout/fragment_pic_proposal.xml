@@ -41,7 +41,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/popreg"
-                    android:text="Ajukan"
+                    android:text="Selamat"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_11sdp" />
 
@@ -49,7 +49,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/popreg"
-                    android:text=" proposal baru"
+                    android:text=" datang"
                     android:textColor="@color/main"
                     android:textSize="@dimen/_11sdp" />
             </TableRow>
