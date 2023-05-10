@@ -21,6 +21,9 @@
             android:name=".PengajuActivity"
             android:exported="false" />
         <activity
+            android:name=".PtsMainActivity"
+            android:exported="false" />
+        <activity
             android:name=".RegisterActivity"
             android:exported="false" />
         <activity

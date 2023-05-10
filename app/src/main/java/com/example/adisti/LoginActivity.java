@@ -118,6 +118,16 @@ public class LoginActivity extends AppCompatActivity {
                                     editor.apply();
                                     startActivity(new Intent(LoginActivity.this, PicMainActivity.class));
                                     finish();
+                                }else if (userModel.getRole().equals("pts")) {
+                                    editor.putBoolean("logged_in", true);
+                                    editor.putString("user_id", userModel.getUserId());
+                                    editor.putString("nama", userModel.getNama());
+                                    editor.putString("role", userModel.getRole());
+                                    editor.putString("kode_loket", userModel.getKodeLoket());
+                                    editor.putString("nama_loket", userModel.getNamaLoket());
+                                    editor.apply();
+                                    startActivity(new Intent(LoginActivity.this, PtsMainActivity.class));
+                                    finish();
                                 }
                                 dialog.dismiss();
 
