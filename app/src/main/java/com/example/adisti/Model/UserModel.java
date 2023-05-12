@@ -1,5 +1,6 @@
 package com.example.adisti.Model;
 
+import com.example.adisti.Util.DataApi;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -19,8 +20,12 @@ public class UserModel implements Serializable {
     Integer code;
     @SerializedName("nama_loket")
     String namaLoket;
+    @SerializedName("username")
+    String username;
+    @SerializedName("photo_profile")
+    String photoProfile;
 
-    public UserModel(String userId, String nama, String namaLoket, String kodeLoket, String role, String message, Integer code) {
+    public UserModel(String userId, String nama, String kodeLoket, String role, String message, Integer code, String namaLoket, String username, String photoProfile) {
         this.userId = userId;
         this.nama = nama;
         this.kodeLoket = kodeLoket;
@@ -28,6 +33,8 @@ public class UserModel implements Serializable {
         this.message = message;
         this.code = code;
         this.namaLoket = namaLoket;
+        this.username = username;
+        this.photoProfile = photoProfile;
     }
 
     public String getUserId() {
@@ -84,5 +91,21 @@ public class UserModel implements Serializable {
 
     public void setNamaLoket(String namaLoket) {
         this.namaLoket = namaLoket;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPhotoProfile() {
+        return DataApi.URL_PHOTO_PROFILE+photoProfile;
+    }
+
+    public void setPhotoProfile(String photoProfile) {
+        this.photoProfile = photoProfile;
     }
 }

@@ -1,4 +1,4 @@
-package com.example.adisti.PicFragment;
+package com.example.adisti.PtsFragment;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -20,22 +20,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.adisti.Model.ProposalModel;
 import com.example.adisti.PengajuFragment.PengajuProfileFragment;
 import com.example.adisti.PicAdapter.PicKajianManfaatAdapter;
-import com.example.adisti.PicAdapter.PicProposalAdapter;
 import com.example.adisti.PicAdapter.PicProposalKajianManfaatAdapter;
 import com.example.adisti.R;
 import com.example.adisti.Util.DataApi;
 import com.example.adisti.Util.PicInterface;
+import com.example.adisti.Util.PtsInterface;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PicKajianManfaatFragment extends Fragment {
+public class PtsSurveyFragment extends Fragment {
     TextView tvUsername, tvEmpty;
     String userId, kodeLoket;
     SearchView searchView;
@@ -45,8 +44,9 @@ public class PicKajianManfaatFragment extends Fragment {
     List<ProposalModel>proposalModelList;
     LinearLayoutManager linearLayoutManager;
     RecyclerView rvProposal;
-    PicInterface picInterface;
+    PtsInterface ptsInterface;
 
+    ImageView ivProfile;
     TabLayout tabLayout;
 
 
@@ -56,9 +56,9 @@ public class PicKajianManfaatFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_pic_kajian_manfaat, container, false);
+        View view = inflater.inflate(R.layout.fragment_pts_survey, container, false);
         init(view);
-        getAllProposal(1, 0);
+        getProposalKajianManfaat(0);
 
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -73,14 +73,21 @@ public class PicKajianManfaatFragment extends Fragment {
                 return false;
             }
         });
-
+        ivProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction()
+                        .addToBackStack(null).replace(R.id.framePengaju, new PengajuProfileFragment())
+                        .commit();
+            }
+        });
 
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if ((tab.getPosition() == 0)){
-                    getAllProposal(1, 0);
+                    getProposalKajianManfaat(0);
                     searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                         @Override
                         public boolean onQueryTextSubmit(String query) {
@@ -94,7 +101,8 @@ public class PicKajianManfaatFragment extends Fragment {
                         }
                     });
                 } else if (tab.getPosition() == 1) {
-                    getProposalkajianManfaat(1, 1);
+                    getProposalKajianManfaat(1);
+
                     searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                         @Override
                         public boolean onQueryTextSubmit(String query) {
@@ -132,7 +140,8 @@ public class PicKajianManfaatFragment extends Fragment {
         tvUsername.setText(sharedPreferences.getString("nama", null));
         rvProposal = view.findViewById(R.id.rvProposal);
         tvEmpty = view.findViewById(R.id.tvEmpty);
-        picInterface = DataApi.getClient().create(PicInterface.class);
+        ptsInterface = DataApi.getClient().create(PtsInterface.class);
+        ivProfile = view.findViewById(R.id.img_profile);
         tabLayout = view.findViewById(R.id.tab_layout);
         searchView = view.findViewById(R.id.searchView);
         userId = sharedPreferences.getString("user_id", null);
@@ -140,13 +149,13 @@ public class PicKajianManfaatFragment extends Fragment {
 
 
         // set tablayout
-        tabLayout.addTab(tabLayout.newTab().setText("Proposal"));
         tabLayout.addTab(tabLayout.newTab().setText("Kajian Manfaat"));
+        tabLayout.addTab(tabLayout.newTab().setText("Survey"));
     }
 
 
-    // Belum di input kajian manfaat
-    private void getAllProposal(Integer tipe, Integer codeKajianManfaat){
+    // Get proposal yang belum di input survey
+    private void getProposalKajianManfaat(Integer status){
         Dialog dialogProgressBar = new Dialog(getContext());
         dialogProgressBar.setContentView(R.layout.dialog_progress_bar);
         dialogProgressBar.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
@@ -154,7 +163,7 @@ public class PicKajianManfaatFragment extends Fragment {
         dialogProgressBar.setCanceledOnTouchOutside(false);
         dialogProgressBar.show();
 
-        picInterface.getAllProposalKajianManfaat(kodeLoket, tipe, codeKajianManfaat).enqueue(new Callback<List<ProposalModel>>() {
+        ptsInterface.getProposalSurvey(kodeLoket, status).enqueue(new Callback<List<ProposalModel>>() {
             @Override
             public void onResponse(Call<List<ProposalModel>> call, Response<List<ProposalModel>> response) {
 
@@ -187,7 +196,7 @@ public class PicKajianManfaatFragment extends Fragment {
                 btnRefresh.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                         getAllProposal(tipe, codeKajianManfaat);
+                         getProposalKajianManfaat(status);
                          dialogProgressBar.dismiss();
                     }
                 });
@@ -199,59 +208,7 @@ public class PicKajianManfaatFragment extends Fragment {
 
     }
 
-    // telah diinput kajian manfaaat
-    private void getProposalkajianManfaat(Integer tipe, Integer codeKajianManfaat){
-        Dialog dialogProgressBar = new Dialog(getContext());
-        dialogProgressBar.setContentView(R.layout.dialog_progress_bar);
-        dialogProgressBar.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        dialogProgressBar.setCancelable(false);
-        dialogProgressBar.setCanceledOnTouchOutside(false);
-        dialogProgressBar.show();
 
-        picInterface.getAllProposalKajianManfaat(kodeLoket, tipe, codeKajianManfaat).enqueue(new Callback<List<ProposalModel>>() {
-            @Override
-            public void onResponse(Call<List<ProposalModel>> call, Response<List<ProposalModel>> response) {
-
-                if (response.isSuccessful() && response.body().size() > 0) {
-                    proposalModelList = response.body();
-                    picKajianManfaatAdapter = new PicKajianManfaatAdapter(getContext(), proposalModelList);
-                    linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-                    rvProposal.setAdapter(null);
-                    rvProposal.setLayoutManager(linearLayoutManager);
-                    rvProposal.setAdapter(picKajianManfaatAdapter);
-                    rvProposal.setHasFixedSize(true);
-                    dialogProgressBar.dismiss();
-                    tvEmpty.setVisibility(View.GONE);
-                }else {
-                    tvEmpty.setVisibility(View.VISIBLE);
-                    rvProposal.setAdapter(null);
-                    dialogProgressBar.dismiss();
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<ProposalModel>> call, Throwable t) {
-                Dialog dialogNoConnection = new Dialog(getContext());
-                dialogNoConnection.setContentView(R.layout.dialog_no_connection);
-                dialogNoConnection.setCancelable(false);
-                dialogProgressBar.setCanceledOnTouchOutside(false);
-                dialogProgressBar.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-                Button  btnRefresh = dialogNoConnection.findViewById(R.id.btnRefresh);
-                btnRefresh.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        getAllProposal(tipe, codeKajianManfaat);
-                        dialogProgressBar.dismiss();
-                    }
-                });
-                tvEmpty.setVisibility(View.GONE);
-                dialogProgressBar.dismiss();
-
-            }
-        });
-
-    }
 
 
     //filter proposal belum input kajian manfaat

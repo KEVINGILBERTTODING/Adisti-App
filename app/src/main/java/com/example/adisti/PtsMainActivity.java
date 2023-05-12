@@ -19,6 +19,6 @@ public class PtsMainActivity extends AppCompatActivity {
 
     private void replace(Fragment fragment) {
         getSupportFragmentManager().beginTransaction().replace(R.id.framePts, fragment)
-                .addToBackStack(null).commit();
+                .commit();
     }
 }

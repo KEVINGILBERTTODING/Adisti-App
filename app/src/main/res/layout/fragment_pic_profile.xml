@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:padding="@dimen/_14sdp"
+    tools:context=".PicFragment.PicProfileFragment">
+
+   <androidx.core.widget.NestedScrollView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="vertical">
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Profil"
+               android:textColor="@color/black"
+               android:textSize="@dimen/_22ssp"
+               android:fontFamily="@font/popsem"/>
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:visibility="gone"
+               android:id="@+id/tvPathImage"/>
+           <RelativeLayout
+               android:layout_width="@dimen/_100sdp"
+               android:layout_gravity="center_horizontal"
+               android:layout_height="@dimen/_100sdp">
+
+               <de.hdodenhof.circleimageview.CircleImageView
+                   android:id="@+id/ivProfile"
+                   android:layout_width="@dimen/_100sdp"
+                   android:layout_height="@dimen/_100sdp"
+                   android:layout_marginTop="@dimen/_20sdp"
+                   android:src="@drawable/photo_default"
+                   app:civ_border_color="@color/main"
+                   app:civ_border_width="@dimen/_2sdp"
+                   android:layout_gravity="center_horizontal"/>
+               <RelativeLayout
+                   android:layout_width="@dimen/_100sdp"
+                   android:gravity="end|bottom"
+                   android:layout_height="@dimen/_100sdp">
+                   <ImageButton
+                       android:id="@+id/btnImageEdit"
+                       android:layout_width="@dimen/_19sdp"
+                       android:layout_height="@dimen/_19sdp"
+                       android:layout_marginBottom="0dp"
+                       android:background="@drawable/ic_profile_edit" />
+               </RelativeLayout>
+
+
+
+           </RelativeLayout>
+
+           <TextView
+               android:id="@+id/tvNamaLengkap"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:gravity="center_horizontal"
+               android:layout_marginTop="@dimen/_10sdp"
+               android:textSize="@dimen/_14ssp"
+               android:fontFamily="@font/popsem"
+               android:textColor="@color/black"/>
+
+
+
+
+           <TextView
+               android:id="@+id/tvEmail"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="diana@gmail.com"
+               android:gravity="center_horizontal"
+               android:textSize="@dimen/_10ssp"
+               android:fontFamily="@font/popreg"/>
+
+           <View
+               android:layout_width="match_parent"
+               android:layout_height="@dimen/_1sdp"
+               android:layout_marginTop="@dimen/_20sdp"
+               android:background="@color/light_gray2"/>
+
+           <RelativeLayout
+               android:id="@+id/menuUbahProfile"
+               android:layout_width="match_parent"
+               android:layout_marginTop="@dimen/_20sdp"
+               android:layout_height="wrap_content">
+
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:fontFamily="@font/popmed"
+                   android:textSize="@dimen/_12ssp"
+                   android:layout_centerVertical="true"
+                   android:text="Ubah Profil"/>
+
+               <ImageView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_alignParentRight="true"
+                   android:src="@drawable/baseline_keyboard_arrow_right_24"/>
+
+           </RelativeLayout>
+           <RelativeLayout
+               android:id="@+id/menuUbahPassword"
+               android:layout_width="match_parent"
+               android:layout_marginTop="@dimen/_20sdp"
+               android:layout_height="wrap_content">
+
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:fontFamily="@font/popmed"
+                   android:textSize="@dimen/_12ssp"
+                   android:layout_centerVertical="true"
+                   android:text="Ubah Password"/>
+
+               <ImageView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_alignParentRight="true"
+                   android:src="@drawable/baseline_keyboard_arrow_right_24"/>
+
+           </RelativeLayout>
+           <RelativeLayout
+               android:id="@+id/menuAbout"
+               android:layout_width="match_parent"
+               android:layout_marginTop="@dimen/_20sdp"
+               android:layout_height="wrap_content">
+
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:fontFamily="@font/popmed"
+                   android:textSize="@dimen/_12ssp"
+                   android:layout_centerVertical="true"
+                   android:text="Tentang"/>
+
+               <ImageView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_alignParentRight="true"
+                   android:src="@drawable/baseline_keyboard_arrow_right_24"/>
+
+           </RelativeLayout>
+           <RelativeLayout
+               android:id="@+id/menuLogOut"
+               android:layout_width="match_parent"
+               android:layout_marginTop="@dimen/_20sdp"
+               android:layout_height="wrap_content">
+
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:fontFamily="@font/popmed"
+                   android:textSize="@dimen/_12ssp"
+                   android:textColor="@color/red"
+                   android:layout_centerVertical="true"
+                   android:text="Keluar"/>
+
+               <ImageView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_alignParentRight="true"
+                   android:src="@drawable/baseline_keyboard_arrow_right_24"/>
+
+           </RelativeLayout>
+
+
+
+
+
+       </LinearLayout>
+   </androidx.core.widget.NestedScrollView>
+
+
+
+</RelativeLayout>

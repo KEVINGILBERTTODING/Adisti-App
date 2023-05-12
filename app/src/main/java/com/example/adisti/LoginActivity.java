@@ -44,6 +44,9 @@ public class LoginActivity extends AppCompatActivity {
             } else if (sharedPreferences.getString("role", null).equals("pic")) {
                 startActivity(new Intent(LoginActivity.this, PicMainActivity.class));
                 finish();
+            } else if (sharedPreferences.getString("role", null).equals("pts")) {
+                startActivity(new Intent(LoginActivity.this, PtsMainActivity.class));
+                finish();
             }
         }
 

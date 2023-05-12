@@ -14,6 +14,7 @@ import com.example.adisti.Model.ProposalModel;
 import com.example.adisti.Model.RanModel;
 import com.example.adisti.Model.ResponseModel;
 import com.example.adisti.Model.TpbModel;
+import com.example.adisti.Model.UserModel;
 
 import java.util.List;
 import java.util.Map;
@@ -110,6 +111,35 @@ public interface PicInterface {
     Call<KajianManfaatModel>getKajianManfaatById(
             @Query("proposal_id") String proposalId
     );
+
+    @GET("pic/getuserbyid")
+    Call<UserModel>getUserById(
+            @Query("user_id") String userId
+    );
+
+    @FormUrlEncoded
+    @POST("pic/updatepassword")
+    Call<ResponseModel>updatePassword(
+            @Field("user_id") String userId,
+            @Field("old_pass") String oldPass,
+            @Field("new_pass") String newPass
+    );
+
+    @Multipart
+    @POST("pic/uploadphotoprofile")
+    Call<ResponseModel>uploadPhotoProfile(
+            @PartMap Map<String, RequestBody>textData,
+            @Part MultipartBody.Part image
+    );
+
+    @FormUrlEncoded
+    @POST("pic/updateProfile")
+    Call<ResponseModel>updateProfile(
+            @Field("user_id") String userId,
+            @Field("usernamee") String username,
+            @Field("nama") String name
+    );
+
 
 
 

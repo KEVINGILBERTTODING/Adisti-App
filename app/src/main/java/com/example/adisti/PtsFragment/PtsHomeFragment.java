@@ -35,7 +35,7 @@ public class PtsHomeFragment extends Fragment {
         cvMenuSurvey.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                replace(new PicProposalFragment());
+                replace(new PtsSurveyFragment());
             }
         });
 

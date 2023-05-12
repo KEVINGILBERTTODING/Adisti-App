@@ -122,7 +122,7 @@
                     android:layout_width="@dimen/_25sdp"
                     android:layout_alignParentRight="true"
                     android:layout_height="@dimen/_25sdp"
-                    android:src="@drawable/ic_proposal2"/>
+                    android:src="@drawable/ic_proposal"/>
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
@@ -174,6 +174,8 @@
                     android:src="@drawable/ic_kajian_manfaat"/>
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
+
+
 
 
 

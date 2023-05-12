@@ -62,7 +62,6 @@ public class PicProposalFragment extends Fragment {
     RecyclerView rvProposal;
     PicInterface picInterface;
 
-    ImageView ivProfile;
     TabLayout tabLayout;
 
 
@@ -89,14 +88,7 @@ public class PicProposalFragment extends Fragment {
                 return false;
             }
         });
-        ivProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction()
-                        .addToBackStack(null).replace(R.id.framePengaju, new PengajuProfileFragment())
-                        .commit();
-            }
-        });
+
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -134,7 +126,6 @@ public class PicProposalFragment extends Fragment {
         rvProposal = view.findViewById(R.id.rvProposal);
         tvEmpty = view.findViewById(R.id.tvEmpty);
         picInterface = DataApi.getClient().create(PicInterface.class);
-        ivProfile = view.findViewById(R.id.img_profile);
         tabLayout = view.findViewById(R.id.tab_layout);
         searchView = view.findViewById(R.id.searchView);
         userId = sharedPreferences.getString("user_id", null);
