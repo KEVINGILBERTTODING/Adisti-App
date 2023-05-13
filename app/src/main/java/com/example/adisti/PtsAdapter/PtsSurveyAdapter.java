@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.adisti.Model.ProposalModel;
 import com.example.adisti.Model.ResponseModel;
 import com.example.adisti.PicFragment.PicDetailKajianManfaatFragment;
+import com.example.adisti.PtsFragment.PtsDetailSurveyFragment;
 import com.example.adisti.R;
 import com.example.adisti.Util.DataApi;
 import com.example.adisti.Util.PengajuInterface;
@@ -166,12 +167,12 @@ public class PtsSurveyAdapter extends RecyclerView.Adapter<PtsSurveyAdapter.View
             cvMain.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Fragment fragment = new PicDetailKajianManfaatFragment();
+                    Fragment fragment = new PtsDetailSurveyFragment();
                     Bundle bundle = new Bundle();
                     bundle.putString("proposal_id", proposalModelList.get(getAdapterPosition()).getProposalId());
                     fragment.setArguments(bundle);
                     ((FragmentActivity) context).getSupportFragmentManager().beginTransaction()
-                            .addToBackStack(null).replace(R.id.framePic, fragment).commit();
+                            .addToBackStack(null).replace(R.id.framePts, fragment).commit();
                 }
             });
 

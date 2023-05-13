@@ -2,6 +2,7 @@ package com.example.adisti.Util;
 
 import com.example.adisti.Model.ProposalModel;
 import com.example.adisti.Model.ResponseModel;
+import com.example.adisti.Model.SurveyModel;
 
 import java.util.List;
 import java.util.Map;
@@ -33,4 +34,9 @@ public interface PtsInterface {
             @Part MultipartBody.Part butab,
             @Part MultipartBody.Part fotoSurvey
             );
+
+    @GET("pts/getSurveyById")
+    Call<SurveyModel>getSurveyById(
+            @Query("proposal_id") String proposalId
+    );
 }
