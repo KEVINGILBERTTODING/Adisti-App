@@ -44,7 +44,8 @@ public class PtsInsertSurveyFragment extends Fragment {
 
     EditText etNamaPetugasSurvey, etJabatanPetugasSurvey, etUnitKerja, etKetuaPanitia, etNamaPanitia,
             etAlamatPanitia, etNoTelpPanitia, etNamaBendahara, etNotelpBendahara, etAlamatBendahara, etSumberDana,
-            etNominalDanaKegiatan, etSumberPrioritas, etNominalPrioritas, etKtpPath, etButabPath, etFotoSurveyPath;
+            etNominalDanaKegiatan, etSumberPrioritas, etSumberPrioritas2, etSumberPrioritas3, etNominalPrioritas, etNominalPrioritas2, etNominalPrioritas3, etKtpPath, etButabPath, etFotoSurveyPath,
+            etSumberDana2, etSumberDana3, etNominalDanaKegiatan2, etNominalDanaKegiatan3;
 
     Button btnKtpPicker, btnButabPicker, btnFotoSurveyPicker, btnSubmit, btnBatal;
     ImageView ivKtp, ivButab, ivFotoSurvey;
@@ -118,13 +119,21 @@ public class PtsInsertSurveyFragment extends Fragment {
         etNominalDanaKegiatan = view.findViewById(R.id.etNominalDanaKegiatan);
         etSumberPrioritas = view.findViewById(R.id.etSumberPrioritas);
         etNominalPrioritas = view.findViewById(R.id.etNominalPrioritas);
+        etSumberPrioritas2 = view.findViewById(R.id.etSumberPrioritas2);
+        etNominalPrioritas2 = view.findViewById(R.id.etNominalPrioritas2);
+        etSumberPrioritas3 = view.findViewById(R.id.etSumberPrioritas3);
+        etNominalPrioritas3 = view.findViewById(R.id.etNominalPrioritas3);
         etKtpPath = view.findViewById(R.id.etKtpPath);
         etButabPath = view.findViewById(R.id.etButabPath);
         etFotoSurveyPath = view.findViewById(R.id.etFotoSurveyPath);
         btnKtpPicker = view.findViewById(R.id.btnKtpPicker);
         btnButabPicker = view.findViewById(R.id.btnButabPicker);
         btnFotoSurveyPicker = view.findViewById(R.id.btnFotoSurveyPicker);
+        etNominalDanaKegiatan2 = view.findViewById(R.id.etNominalDanaKegiatan2);
+        etNominalDanaKegiatan3 = view.findViewById(R.id.etNominalDanaKegiatan3);
         btnSubmit = view.findViewById(R.id.btnSubmit);
+        etSumberDana2 = view.findViewById(R.id.etSumberDana2);
+        etSumberDana3 = view.findViewById(R.id.etSumberDana3);
         btnBatal = view.findViewById(R.id.btnBatal);
         ivKtp = view.findViewById(R.id.ivKtp);
         ivButab = view.findViewById(R.id.ivButab);
@@ -233,8 +242,18 @@ public class PtsInsertSurveyFragment extends Fragment {
             map.put("no_telp_bendahara", RequestBody.create(MediaType.parse("text/plain"), etNotelpBendahara.getText().toString()));
             map.put("sdk_1", RequestBody.create(MediaType.parse("text/plain"), etSumberDana.getText().toString()));
             map.put("nominal_sdk_1", RequestBody.create(MediaType.parse("text/plain"), etNominalDanaKegiatan.getText().toString()));
+            map.put("sdk_2", RequestBody.create(MediaType.parse("text/plain"), etSumberDana2.getText().toString()));
+            map.put("nominal_sdk_2", RequestBody.create(MediaType.parse("text/plain"), etNominalDanaKegiatan2.getText().toString()));
+            map.put("sdk_3", RequestBody.create(MediaType.parse("text/plain"), etSumberDana3.getText().toString()));
+            map.put("nominal_sdk_3", RequestBody.create(MediaType.parse("text/plain"), etNominalDanaKegiatan3.getText().toString()));
             map.put("pk_1", RequestBody.create(MediaType.parse("text/plain"), etSumberPrioritas.getText().toString()));
             map.put("nominal_pk_1", RequestBody.create(MediaType.parse("text/plain"), etNominalPrioritas.getText().toString()));
+            map.put("pk_2", RequestBody.create(MediaType.parse("text/plain"), etSumberPrioritas2.getText().toString()));
+            map.put("nominal_pk_2", RequestBody.create(MediaType.parse("text/plain"), etNominalPrioritas2.getText().toString()));
+            map.put("pk_3", RequestBody.create(MediaType.parse("text/plain"), etSumberPrioritas3.getText().toString()));
+            map.put("nominal_pk_3", RequestBody.create(MediaType.parse("text/plain"), etNominalPrioritas3.getText().toString()));
+
+
 
             RequestBody requestBodyKtp, requestBodyButab, requestBodyFotoSurvey;
             requestBodyKtp = RequestBody.create(MediaType.parse("application/pdf"), fileKtp);
