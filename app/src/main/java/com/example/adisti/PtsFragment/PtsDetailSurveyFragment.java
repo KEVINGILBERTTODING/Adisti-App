@@ -2,12 +2,15 @@ package com.example.adisti.PtsFragment;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +23,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
+import com.example.adisti.FileDownload;
 import com.example.adisti.Model.ResponseModel;
 import com.example.adisti.Model.SurveyModel;
 import com.example.adisti.R;
@@ -48,9 +52,8 @@ public class PtsDetailSurveyFragment extends Fragment {
             etNominalDanaKegiatan, etSumberPrioritas, etSumberPrioritas2, etSumberPrioritas3, etNominalPrioritas, etNominalPrioritas2, etNominalPrioritas3, etKtpPath, etButabPath, etFotoSurveyPath,
             etSumberDana2, etSumberDana3, etNominalDanaKegiatan2, etNominalDanaKegiatan3;
 
-    Button btnKtpPicker, btnButabPicker, btnFotoSurveyPicker, btnEditSurvey, btnBatal;
+    Button btnDownloadKtp, btnDownloadButab, btnDownloadFotoSurvey, btnEditSurvey, btnBatal;
     ImageView ivKtp, ivButab, ivFotoSurvey;
-    private File fileKtp, fileButab, fileFotoSurvey;
     SharedPreferences sharedPreferences;
     String proposalId, kodeLoket;
     PtsInterface ptsInterface;
@@ -68,9 +71,87 @@ public class PtsDetailSurveyFragment extends Fragment {
         init(view);
 
         displaySurvey();
+        btnDownloadKtp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = DataApi.URL_DOWNLOAD_FILE_SURVEY + proposalId +"/" + "file_ktp";
+                String title = "FileKtp";
+                String description = "Downloading PDF file";
+                String fileName = "File ktp";
 
 
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (getActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
 
+                        String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                        requestPermissions(permissions, 1000);
+                    } else {
+
+                        FileDownload fileDownload = new FileDownload(getContext());
+                        fileDownload.downloadFile(url, title, description, fileName);
+
+                    }
+                } else {
+
+                    FileDownload fileDownload = new FileDownload(getContext());
+                    fileDownload.downloadFile(url, title, description, fileName);
+                }
+            }
+        });
+        btnDownloadButab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = DataApi.URL_DOWNLOAD_FILE_SURVEY + proposalId +"/" + "file_butab";
+                String title = "FileButab";
+                String description = "Downloading PDF file";
+                String fileName = "File Butab";
+
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (getActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+
+                        String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                        requestPermissions(permissions, 1000);
+                    } else {
+
+                        FileDownload fileDownload = new FileDownload(getContext());
+                        fileDownload.downloadFile(url, title, description, fileName);
+
+                    }
+                } else {
+
+                    FileDownload fileDownload = new FileDownload(getContext());
+                    fileDownload.downloadFile(url, title, description, fileName);
+                }
+            }
+        });
+        btnDownloadFotoSurvey.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = DataApi.URL_DOWNLOAD_FILE_SURVEY + proposalId +"/" + "file_foto_survey";
+                String title = "FileFotoSurvey";
+                String description = "Downloading PDF file";
+                String fileName = "File Foto Survey";
+
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (getActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+
+                        String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                        requestPermissions(permissions, 1000);
+                    } else {
+
+                        FileDownload fileDownload = new FileDownload(getContext());
+                        fileDownload.downloadFile(url, title, description, fileName);
+
+                    }
+                } else {
+
+                    FileDownload fileDownload = new FileDownload(getContext());
+                    fileDownload.downloadFile(url, title, description, fileName);
+                }
+            }
+        });
 
 
         return view;
@@ -97,9 +178,9 @@ public class PtsDetailSurveyFragment extends Fragment {
         etKtpPath = view.findViewById(R.id.etKtpPath);
         etButabPath = view.findViewById(R.id.etButabPath);
         etFotoSurveyPath = view.findViewById(R.id.etFotoSurveyPath);
-        btnKtpPicker = view.findViewById(R.id.btnKtpPicker);
-        btnButabPicker = view.findViewById(R.id.btnButabPicker);
-        btnFotoSurveyPicker = view.findViewById(R.id.btnFotoSurveyPicker);
+        btnDownloadKtp = view.findViewById(R.id.btnDownloadKtp);
+        btnDownloadButab = view.findViewById(R.id.btnDownloadButab);
+        btnDownloadFotoSurvey = view.findViewById(R.id.btnDownloadFotoSurvey);
         etNominalDanaKegiatan2 = view.findViewById(R.id.etNominalDanaKegiatan2);
         etNominalDanaKegiatan3 = view.findViewById(R.id.etNominalDanaKegiatan3);
         btnEditSurvey = view.findViewById(R.id.btnEdit);
@@ -155,10 +236,6 @@ public class PtsDetailSurveyFragment extends Fragment {
                     etNominalPrioritas2.setText(response.body().getNominalPk2());
                     etSumberPrioritas3.setText(response.body().getPk3());
                     etNominalPrioritas3.setText(response.body().getNominalPk3());
-                    etKtpPath.setText(response.body().getFileKtp());
-                    etButabPath.setText(response.body().getFileButab());
-                    etFotoSurveyPath.setText(response.body().getFileFotoSurvey());
-
 
                     if (response.body().getFileKtp() != null) {
                         ivKtp.setVisibility(View.VISIBLE);
@@ -210,9 +287,6 @@ public class PtsDetailSurveyFragment extends Fragment {
 
 
     }
-
-
-
 
 
 }

@@ -595,7 +595,7 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnKtpPicker"
+                    android:id="@+id/btnDownloadKtp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:cornerRadius="@dimen/_10sdp"
@@ -641,7 +641,7 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnButabPicker"
+                    android:id="@+id/btnDownloadButab"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:cornerRadius="@dimen/_10sdp"
@@ -687,7 +687,7 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnFotoSurveyPicker"
+                    android:id="@+id/btnDownloadFotoSurvey"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:cornerRadius="@dimen/_10sdp"
