@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="@dimen/_14sdp"
+    tools:context=".PtsFragment.PtsDetailKajianManfaatFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kajian Manfaat"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_22ssp"
+                android:fontFamily="@font/popsem"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Klasifikasi Pemohon Bantuan"
+                android:textColor="@color/black"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:textSize="@dimen/_12ssp"
+                android:fontFamily="@font/popsem"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kategori pemohon bantuan"
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"/>
+
+            <EditText
+                android:id="@+id/etKategoriPemohonBantuan"
+                android:layout_width="match_parent"
+                android:padding="@dimen/_10sdp"
+                android:textSize="@dimen/_11ssp"
+                android:fontFamily="@font/popmed"
+                android:background="@drawable/layout_edittext1"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pihak penerima bantuan"
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"/>
+
+            <EditText
+                android:id="@+id/etPihakPenerimaBantuan"
+                android:layout_width="match_parent"
+                android:padding="@dimen/_10sdp"
+                android:textSize="@dimen/_11ssp"
+                android:fontFamily="@font/popmed"
+                android:background="@drawable/layout_edittext1"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Manfaat Bantuan"
+                android:textColor="@color/black"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:textSize="@dimen/_12ssp"
+                android:fontFamily="@font/popsem"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1. Manfaat bagi penerima bantuan"
+                android:fontFamily="@font/popsem"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"/>
+
+            <EditText
+                android:id="@+id/etManfaatPenerimaBantuan"
+                android:layout_width="match_parent"
+                android:padding="@dimen/_10sdp"
+                android:lines="5"
+                android:gravity="start"
+                android:textSize="@dimen/_11ssp"
+                android:hint="Manfaat penerima bantuan"
+                android:fontFamily="@font/popmed"
+                android:background="@drawable/layout_edittext1"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2. Manfaat yang diharapkan bagi perusahaan"
+                android:fontFamily="@font/popsem"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:textSize="@dimen/_10sdp"/>
+
+            <EditText
+                android:id="@+id/etManfaatPerusahaan"
+                android:layout_width="match_parent"
+                android:padding="@dimen/_10sdp"
+                android:textSize="@dimen/_11ssp"
+                android:fontFamily="@font/popmed"
+                android:background="@drawable/layout_edittext1"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Indikator"
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"/>
+
+
+
+            <EditText
+                android:id="@+id/etIndikator"
+                android:layout_width="match_parent"
+                android:padding="@dimen/_10sdp"
+                android:hint="indikator"
+                android:textSize="@dimen/_11ssp"
+                android:fontFamily="@font/popmed"
+                android:background="@drawable/layout_edittext1"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+
+
+            <LinearLayout
+                android:id="@+id/layoutCustomeIndikator"
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Penjelasan indikator"
+                    android:fontFamily="@font/popmed"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:textSize="@dimen/_10sdp"/>
+
+                <EditText
+                    android:id="@+id/etPenjelasanIndikator"
+                    android:layout_width="match_parent"
+                    android:padding="@dimen/_10sdp"
+                    android:hint="Penjelasan indikator"
+                    android:gravity="start"
+                    android:textSize="@dimen/_11ssp"
+                    android:lines="3"
+                    android:fontFamily="@font/popmed"
+                    android:background="@drawable/layout_edittext1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3. Manfaat yang diharapkan bagi masyarakat umum"
+                android:fontFamily="@font/popsem"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:textSize="@dimen/_10sdp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pilar"
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"/>
+
+
+            <EditText
+                android:id="@+id/etPilar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/layout_edittext1"
+                android:fontFamily="@font/popmed"
+                android:padding="@dimen/_10sdp"
+                android:textSize="@dimen/_11ssp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TPB"
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"/>
+
+            <EditText
+                android:id="@+id/etTpb"
+                android:layout_width="match_parent"
+                android:padding="@dimen/_10sdp"
+                android:textSize="@dimen/_11ssp"
+                android:gravity="start"
+                android:lines="4"
+                android:fontFamily="@font/popmed"
+                android:background="@drawable/layout_edittext1"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="RAN"
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"/>
+
+            <EditText
+                android:id="@+id/etRan"
+                android:layout_width="match_parent"
+                android:padding="@dimen/_10sdp"
+                android:gravity="start"
+                android:lines="5"
+                android:textSize="@dimen/_11ssp"
+                android:fontFamily="@font/popmed"
+                android:background="@drawable/layout_edittext1"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEntrySurvey"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Entry Survey"
+                android:textColor="@color/white"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:fontFamily="@font/popsem"/>
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnKembali"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Kembali"
+                app:backgroundTint="@color/light_gray2"
+                android:textColor="@color/black"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/popsem"/>
+
+
+        </LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
+
+</RelativeLayout>

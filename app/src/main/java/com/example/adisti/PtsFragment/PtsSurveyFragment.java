@@ -21,6 +21,8 @@ import com.example.adisti.Model.ProposalModel;
 import com.example.adisti.PengajuFragment.PengajuProfileFragment;
 import com.example.adisti.PicAdapter.PicKajianManfaatAdapter;
 import com.example.adisti.PicAdapter.PicProposalKajianManfaatAdapter;
+import com.example.adisti.PtsAdapter.PtsKajianManfaatSurvey;
+import com.example.adisti.PtsAdapter.PtsSurveyAdapter;
 import com.example.adisti.R;
 import com.example.adisti.Util.DataApi;
 import com.example.adisti.Util.PicInterface;
@@ -39,8 +41,8 @@ public class PtsSurveyFragment extends Fragment {
     String userId, kodeLoket;
     SearchView searchView;
     SharedPreferences sharedPreferences;
-    PicKajianManfaatAdapter picKajianManfaatAdapter;
-    PicProposalKajianManfaatAdapter picProposalKajianManfaatAdapter;
+    PtsSurveyAdapter ptsSurveyAdapter;
+    PtsKajianManfaatSurvey ptsKajianManfaatSurvey;
     List<ProposalModel>proposalModelList;
     LinearLayoutManager linearLayoutManager;
     RecyclerView rvProposal;
@@ -101,7 +103,7 @@ public class PtsSurveyFragment extends Fragment {
                         }
                     });
                 } else if (tab.getPosition() == 1) {
-                    getProposalKajianManfaat(1);
+                    getProposalSurvey(1);
 
                     searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                         @Override
@@ -148,6 +150,7 @@ public class PtsSurveyFragment extends Fragment {
         kodeLoket = sharedPreferences.getString("kode_loket", null);
 
 
+
         // set tablayout
         tabLayout.addTab(tabLayout.newTab().setText("Kajian Manfaat"));
         tabLayout.addTab(tabLayout.newTab().setText("Survey"));
@@ -169,11 +172,11 @@ public class PtsSurveyFragment extends Fragment {
 
                 if (response.isSuccessful() && response.body().size() > 0) {
                     proposalModelList = response.body();
-                    picProposalKajianManfaatAdapter = new PicProposalKajianManfaatAdapter(getContext(), proposalModelList);
+                    ptsKajianManfaatSurvey = new PtsKajianManfaatSurvey(getContext(), proposalModelList);
                     linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
                     rvProposal.setAdapter(null);
                     rvProposal.setLayoutManager(linearLayoutManager);
-                    rvProposal.setAdapter(picProposalKajianManfaatAdapter);
+                    rvProposal.setAdapter(ptsKajianManfaatSurvey);
                     rvProposal.setHasFixedSize(true);
                     dialogProgressBar.dismiss();
                     tvEmpty.setVisibility(View.GONE);
@@ -209,9 +212,64 @@ public class PtsSurveyFragment extends Fragment {
     }
 
 
+    // get proposal yang telah diinpput survey
+    private void getProposalSurvey(Integer status){
+        Dialog dialogProgressBar = new Dialog(getContext());
+        dialogProgressBar.setContentView(R.layout.dialog_progress_bar);
+        dialogProgressBar.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialogProgressBar.setCancelable(false);
+        dialogProgressBar.setCanceledOnTouchOutside(false);
+        dialogProgressBar.show();
+
+        ptsInterface.getProposalSurvey(kodeLoket, status).enqueue(new Callback<List<ProposalModel>>() {
+            @Override
+            public void onResponse(Call<List<ProposalModel>> call, Response<List<ProposalModel>> response) {
+
+                if (response.isSuccessful() && response.body().size() > 0) {
+                    proposalModelList = response.body();
+                    ptsSurveyAdapter = new PtsSurveyAdapter(getContext(), proposalModelList);
+                    linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                    rvProposal.setAdapter(null);
+                    rvProposal.setLayoutManager(linearLayoutManager);
+                    rvProposal.setAdapter(ptsSurveyAdapter);
+                    rvProposal.setHasFixedSize(true);
+                    dialogProgressBar.dismiss();
+                    tvEmpty.setVisibility(View.GONE);
+                }else {
+                    tvEmpty.setVisibility(View.VISIBLE);
+                    rvProposal.setAdapter(null);
+                    dialogProgressBar.dismiss();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ProposalModel>> call, Throwable t) {
+                Dialog dialogNoConnection = new Dialog(getContext());
+                dialogNoConnection.setContentView(R.layout.dialog_no_connection);
+                dialogNoConnection.setCancelable(false);
+                dialogProgressBar.setCanceledOnTouchOutside(false);
+                dialogProgressBar.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                Button  btnRefresh = dialogNoConnection.findViewById(R.id.btnRefresh);
+                btnRefresh.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        getProposalKajianManfaat(status);
+                        dialogProgressBar.dismiss();
+                    }
+                });
+                tvEmpty.setVisibility(View.GONE);
+                dialogProgressBar.dismiss();
+
+            }
+        });
+
+    }
 
 
-    //filter proposal belum input kajian manfaat
+
+
+    //filter proposal belum input survey
     private void filter(String text){
         ArrayList<ProposalModel>filteredList = new ArrayList<>();
         for (ProposalModel item : proposalModelList) {
@@ -220,16 +278,16 @@ public class PtsSurveyFragment extends Fragment {
             }
         }
 
-        picProposalKajianManfaatAdapter.filter(filteredList);
+        ptsKajianManfaatSurvey.filter(filteredList);
         if (filteredList.isEmpty()) {
 
         }else {
-            picProposalKajianManfaatAdapter.filter(filteredList);
+            ptsKajianManfaatSurvey.filter(filteredList);
         }
 
     }
 
-    //filter proposal telah input kajian manfaat
+    //filter proposal telah input survey
     private void filter2(String text){
         ArrayList<ProposalModel>filteredList = new ArrayList<>();
         for (ProposalModel item : proposalModelList) {
@@ -238,11 +296,12 @@ public class PtsSurveyFragment extends Fragment {
             }
         }
 
-        picKajianManfaatAdapter.filter(filteredList);
+        ptsSurveyAdapter.filter(filteredList);
+
         if (filteredList.isEmpty()) {
 
         }else {
-            picKajianManfaatAdapter.filter(filteredList);
+            ptsSurveyAdapter.filter(filteredList);
         }
 
     }

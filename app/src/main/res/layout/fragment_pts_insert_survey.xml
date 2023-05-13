@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="@dimen/_14sdp"
+    tools:context=".PtsFragment.PtsInsertSurveyFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Entry Survey"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_22ssp"
+                android:fontFamily="@font/popsem"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Petugas Survey"
+                android:textColor="@color/black"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:textSize="@dimen/_12ssp"
+                android:fontFamily="@font/popsem"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nama Petugas Survey"
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"/>
+
+            <EditText
+                android:id="@+id/etNamaPetugasSurvey"
+                android:layout_width="match_parent"
+                android:padding="@dimen/_10sdp"
+                android:textSize="@dimen/_11ssp"
+                android:hint="Nama Petugas Survey"
+                android:fontFamily="@font/popmed"
+                android:background="@drawable/layout_edittext1"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Jabatan"
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"/>
+
+            <EditText
+                android:id="@+id/etJabatanPetugasSurvey"
+                android:layout_width="match_parent"
+                android:padding="@dimen/_10sdp"
+                android:textSize="@dimen/_11ssp"
+                android:hint="Jabatan"
+                android:fontFamily="@font/popmed"
+                android:background="@drawable/layout_edittext1"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Unit Kerja"
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"/>
+
+            <EditText
+                android:id="@+id/etUnitKerja"
+                android:layout_width="match_parent"
+                android:padding="@dimen/_10sdp"
+                android:textSize="@dimen/_11ssp"
+                android:hint="Unit Kerja"
+                android:fontFamily="@font/popmed"
+                android:background="@drawable/layout_edittext1"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Proposal"
+                android:textColor="@color/black"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:textSize="@dimen/_12ssp"
+                android:fontFamily="@font/popsem"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="A. Panitia Kegiatan"
+                android:fontFamily="@font/popsem"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ketua Panitia"
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"/>
+
+            <EditText
+                android:id="@+id/etKetuaPanitia"
+                android:layout_width="match_parent"
+                android:padding="@dimen/_10sdp"
+                android:textSize="@dimen/_11ssp"
+                android:hint="Ketua Panitia"
+                android:fontFamily="@font/popmed"
+                android:background="@drawable/layout_edittext1"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nama"
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"/>
+
+            <EditText
+                android:id="@+id/etNamaPanitia"
+                android:layout_width="match_parent"
+                android:padding="@dimen/_10sdp"
+                android:textSize="@dimen/_11ssp"
+                android:hint="Nama"
+                android:fontFamily="@font/popmed"
+                android:background="@drawable/layout_edittext1"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Alamat"
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"/>
+
+            <EditText
+                android:id="@+id/etAlamatPanitia"
+                android:layout_width="match_parent"
+                android:padding="@dimen/_10sdp"
+                android:textSize="@dimen/_11ssp"
+                android:hint="Alamat Panitia"
+                android:gravity="start"
+                android:lines="4"
+                android:fontFamily="@font/popmed"
+                android:background="@drawable/layout_edittext1"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No. Telepon"
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"/>
+
+            <EditText
+                android:id="@+id/etNoTelpPanitia"
+                android:layout_width="match_parent"
+                android:padding="@dimen/_10sdp"
+                android:textSize="@dimen/_11ssp"
+                android:hint="No Telepon Panitia"
+                android:inputType="number"
+                android:fontFamily="@font/popmed"
+                android:background="@drawable/layout_edittext1"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bendahara"
+                android:textColor="@color/black"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:textSize="@dimen/_12ssp"
+                android:fontFamily="@font/popsem"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nama"
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"/>
+
+            <EditText
+                android:id="@+id/etNamaBendahara"
+                android:layout_width="match_parent"
+                android:padding="@dimen/_10sdp"
+                android:textSize="@dimen/_11ssp"
+                android:hint="Nama Bendahara"
+                android:fontFamily="@font/popmed"
+                android:background="@drawable/layout_edittext1"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Alamat"
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"/>
+
+            <EditText
+                android:id="@+id/etAlamatBendahara"
+                android:layout_width="match_parent"
+                android:padding="@dimen/_10sdp"
+                android:textSize="@dimen/_11ssp"
+                android:hint="Alamat Bendahara"
+                android:gravity="start"
+                android:lines="4"
+                android:fontFamily="@font/popmed"
+                android:background="@drawable/layout_edittext1"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No. Telepon"
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"/>
+
+            <EditText
+                android:id="@+id/etAlamatBendahara"
+                android:layout_width="match_parent"
+                android:padding="@dimen/_10sdp"
+                android:textSize="@dimen/_11ssp"
+                android:hint="No Telepon Bendahara"
+                android:inputType="number"
+                android:fontFamily="@font/popmed"
+                android:background="@drawable/layout_edittext1"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="B. Sumber Dana Kegiatan"
+                android:fontFamily="@font/popsem"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sumber"
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"/>
+
+            <EditText
+                android:id="@+id/etSumberDana"
+                android:layout_width="match_parent"
+                android:padding="@dimen/_10sdp"
+                android:textSize="@dimen/_11ssp"
+                android:hint="Sumber Dana"
+                android:fontFamily="@font/popmed"
+                android:background="@drawable/layout_edittext1"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nominal"
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"/>
+
+            <EditText
+                android:id="@+id/etNominalDanaKegiatan"
+                android:layout_width="match_parent"
+                android:padding="@dimen/_10sdp"
+                android:textSize="@dimen/_11ssp"
+                android:hint="Nominal Dana Kegiatan"
+                android:inputType="number"
+                android:fontFamily="@font/popmed"
+                android:background="@drawable/layout_edittext1"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="C. Prioritas Kebutuhan"
+                android:fontFamily="@font/popsem"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sumber"
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"/>
+
+            <EditText
+                android:id="@+id/etSumberPrioritas"
+                android:layout_width="match_parent"
+                android:padding="@dimen/_10sdp"
+                android:textSize="@dimen/_11ssp"
+                android:hint="Sumber Prioritas"
+                android:fontFamily="@font/popmed"
+                android:background="@drawable/layout_edittext1"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nominal"
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"/>
+
+            <EditText
+                android:id="@+id/etNominalPrioritas"
+                android:layout_width="match_parent"
+                android:padding="@dimen/_10sdp"
+                android:textSize="@dimen/_11ssp"
+                android:hint="Nominal Prioritas Kebutuhan"
+                android:inputType="number"
+                android:fontFamily="@font/popmed"
+                android:background="@drawable/layout_edittext1"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Unggah KTP"
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="File pdf, max 5MB"
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:textColor="@color/red"
+                android:textSize="@dimen/_8sdp"/>
+
+
+            <ImageView
+                android:id="@+id/ivKtp"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:src="@drawable/pdf"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/_15sdp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnKtpPicker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cornerRadius="@dimen/_10sdp"
+                    android:text="Pilih"
+                    android:layout_marginTop="@dimen/_10sdp"/>
+
+                <EditText
+                    android:id="@+id/etKtpPath"
+                    android:enabled="false"
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_gravity="bottom"
+                    android:fontFamily="@font/popmed"
+                    android:textSize="@dimen/_12ssp"
+                    android:maxLength="25"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Unggah Butab"
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="File pdf, max 5MB"
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:textColor="@color/red"
+                android:textSize="@dimen/_8sdp"/>
+
+
+            <ImageView
+                android:id="@+id/ivButab"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:src="@drawable/pdf"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/_15sdp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnButabPicker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cornerRadius="@dimen/_10sdp"
+                    android:text="Pilih"
+                    android:layout_marginTop="@dimen/_10sdp"/>
+
+                <EditText
+                    android:id="@+id/etButabPath"
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:enabled="false"
+                    android:layout_gravity="bottom"
+                    android:fontFamily="@font/popmed"
+                    android:textSize="@dimen/_12ssp"
+                    android:maxLength="25"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Unggah Foto Survey"
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="File pdf, max 5MB"
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:textColor="@color/red"
+                android:textSize="@dimen/_8sdp"/>
+
+
+            <ImageView
+                android:id="@+id/ivFotoSurvey"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:src="@drawable/pdf"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/_15sdp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnFotoSurveyPicker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cornerRadius="@dimen/_10sdp"
+                    android:text="Pilih"
+                    android:layout_marginTop="@dimen/_10sdp"/>
+
+                <EditText
+                    android:id="@+id/etFotoSurveyPath"
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_gravity="bottom"
+                    android:enabled="false"
+                    android:fontFamily="@font/popmed"
+                    android:textSize="@dimen/_12ssp"
+                    android:maxLength="25"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSubmit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Submit"
+                android:textColor="@color/white"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:fontFamily="@font/popsem"/>
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnBatal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Batal"
+                app:backgroundTint="@color/light_gray2"
+                android:textColor="@color/black"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/popsem"/>
+
+
+
+
+
+        </LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
+
+</RelativeLayout>
