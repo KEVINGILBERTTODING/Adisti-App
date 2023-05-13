@@ -19,13 +19,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.adisti.Model.ProposalModel;
 import com.example.adisti.PengajuFragment.PengajuProfileFragment;
-import com.example.adisti.PicAdapter.PicKajianManfaatAdapter;
-import com.example.adisti.PicAdapter.PicProposalKajianManfaatAdapter;
-import com.example.adisti.PtsAdapter.PtsKajianManfaatSurvey;
+import com.example.adisti.PtsAdapter.PtsKajianManfaatSurveyAdapter;
 import com.example.adisti.PtsAdapter.PtsSurveyAdapter;
 import com.example.adisti.R;
 import com.example.adisti.Util.DataApi;
-import com.example.adisti.Util.PicInterface;
 import com.example.adisti.Util.PtsInterface;
 import com.google.android.material.tabs.TabLayout;
 
@@ -42,7 +39,7 @@ public class PtsSurveyFragment extends Fragment {
     SearchView searchView;
     SharedPreferences sharedPreferences;
     PtsSurveyAdapter ptsSurveyAdapter;
-    PtsKajianManfaatSurvey ptsKajianManfaatSurvey;
+    PtsKajianManfaatSurveyAdapter ptsKajianManfaatSurvey;
     List<ProposalModel>proposalModelList;
     LinearLayoutManager linearLayoutManager;
     RecyclerView rvProposal;
@@ -172,7 +169,7 @@ public class PtsSurveyFragment extends Fragment {
 
                 if (response.isSuccessful() && response.body().size() > 0) {
                     proposalModelList = response.body();
-                    ptsKajianManfaatSurvey = new PtsKajianManfaatSurvey(getContext(), proposalModelList);
+                    ptsKajianManfaatSurvey = new PtsKajianManfaatSurveyAdapter(getContext(), proposalModelList);
                     linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
                     rvProposal.setAdapter(null);
                     rvProposal.setLayoutManager(linearLayoutManager);

@@ -28,7 +28,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PtsDetailKajianManfaatFragment extends Fragment {
-    String proposalId, kodeLoket;
+    String proposalId, kodeLoket, noUrutProposal;
     SharedPreferences sharedPreferences;
 
     PicInterface picInterface;
@@ -54,6 +54,7 @@ public class PtsDetailKajianManfaatFragment extends Fragment {
                 Fragment fragment = new PtsInsertSurveyFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("proposal_id", proposalId);
+                bundle.putString("no_urut_proposal", noUrutProposal);
                 fragment.setArguments(bundle);
                 ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction()
                         .replace(R.id.framePts, fragment).addToBackStack(null).commit();
@@ -88,6 +89,7 @@ public class PtsDetailKajianManfaatFragment extends Fragment {
         btnEntry = view.findViewById(R.id.btnEntrySurvey);
         btnKembali = view.findViewById(R.id.btnKembali);
         picInterface = DataApi.getClient().create(PicInterface.class);
+        noUrutProposal = getArguments().getString("no_urut_proposal");
 
 
 

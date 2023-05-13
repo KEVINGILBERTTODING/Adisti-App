@@ -9,38 +9,21 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
-import com.example.adisti.Model.BidangManfaatPerusahaanModel;
-import com.example.adisti.Model.IndikatorBidangManfaatPerusahaanModel;
-import com.example.adisti.Model.KategoriPemohonBantuanModel;
-import com.example.adisti.Model.PihakPenerimaBantuanModel;
-import com.example.adisti.Model.PilarModel;
-import com.example.adisti.Model.RanModel;
 import com.example.adisti.Model.ResponseModel;
-import com.example.adisti.Model.TpbModel;
-import com.example.adisti.PicAdapter.SpinnerBidangManfaatPerusahaanAdapter;
-import com.example.adisti.PicAdapter.SpinnerIndikatorBidangManfaatAdapter;
-import com.example.adisti.PicAdapter.SpinnerKategoriPemohonBantuanAdapter;
-import com.example.adisti.PicAdapter.SpinnerPemohonBantuanAdapter;
-import com.example.adisti.PicAdapter.SpinnerPilarAdapter;
-import com.example.adisti.PicAdapter.SpinnerRanAdapter;
-import com.example.adisti.PicAdapter.SpinnerTpbAdapter;
 import com.example.adisti.R;
 import com.example.adisti.Util.DataApi;
-import com.example.adisti.Util.PicInterface;
+import com.example.adisti.Util.PtsInterface;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -48,10 +31,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
-import java.util.List;
 
 import es.dmoral.toasty.Toasty;
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -60,12 +43,16 @@ import retrofit2.Response;
 public class PtsInsertSurveyFragment extends Fragment {
 
     EditText etNamaPetugasSurvey, etJabatanPetugasSurvey, etUnitKerja, etKetuaPanitia, etNamaPanitia,
-            etAlamatPanitia, etNoTelpPanitia, etNamaBendahara, etAlamatBendahara, etSumberDana,
+            etAlamatPanitia, etNoTelpPanitia, etNamaBendahara, etNotelpBendahara, etAlamatBendahara, etSumberDana,
             etNominalDanaKegiatan, etSumberPrioritas, etNominalPrioritas, etKtpPath, etButabPath, etFotoSurveyPath;
 
     Button btnKtpPicker, btnButabPicker, btnFotoSurveyPicker, btnSubmit, btnBatal;
     ImageView ivKtp, ivButab, ivFotoSurvey;
     private File fileKtp, fileButab, fileFotoSurvey;
+    SharedPreferences sharedPreferences;
+    String proposalId, kodeLoket;
+    PtsInterface ptsInterface;
+    String noUrutProposal;
 
 
 
@@ -103,6 +90,14 @@ public class PtsInsertSurveyFragment extends Fragment {
                 getActivity().onBackPressed();
             }
         });
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                insertData();
+
+            }
+        });
+
 
 
 
@@ -134,7 +129,175 @@ public class PtsInsertSurveyFragment extends Fragment {
         ivKtp = view.findViewById(R.id.ivKtp);
         ivButab = view.findViewById(R.id.ivButab);
         ivFotoSurvey = view.findViewById(R.id.ivFotoSurvey);
+        etNotelpBendahara = view.findViewById(R.id.etNoTelpBendahara);
 
+        sharedPreferences = getContext().getSharedPreferences("user_data", Context.MODE_PRIVATE);
+        proposalId = getArguments().getString("proposal_id");
+        kodeLoket = sharedPreferences.getString("kode_loket", null);
+        noUrutProposal = getArguments().getString("no_urut_proposal");
+        ptsInterface = DataApi.getClient().create(PtsInterface.class);
+    }
+
+    private void insertData() {
+        if (etNamaPetugasSurvey.getText().toString().isEmpty()) {
+            etNamaPetugasSurvey.setError("Nama Petugas Survey Tidak Boleh Kosong");
+            etNamaPetugasSurvey.requestFocus();
+            return;
+        }else if (etJabatanPetugasSurvey.getText().toString().isEmpty()) {
+            etJabatanPetugasSurvey.setError("Jabatan Petugas Survey Tidak Boleh Kosong");
+            etJabatanPetugasSurvey.requestFocus();
+            return;
+        }else if (etUnitKerja.getText().toString().isEmpty()) {
+            etUnitKerja.setError("Unit Kerja Tidak Boleh Kosong");
+            etUnitKerja.requestFocus();
+            return;
+        }else if (etKetuaPanitia.getText().toString().isEmpty()) {
+            etKetuaPanitia.setError("Nama Ketua Panitia Tidak Boleh Kosong");
+            etKetuaPanitia.requestFocus();
+            return;
+        }else if (etNamaPanitia.getText().toString().isEmpty()) {
+            etNamaPanitia.setError("Nama Panitia Tidak Boleh Kosong");
+            etNamaPanitia.requestFocus();
+            return;
+        }else if (etAlamatPanitia.getText().toString().isEmpty()) {
+            etAlamatPanitia.setError("Alamat Panitia Tidak Boleh Kosong");
+            etAlamatPanitia.requestFocus();
+            return;
+        }else if (etNoTelpPanitia.getText().toString().isEmpty()) {
+            etNoTelpPanitia.setError("No Telp Panitia Tidak Boleh Kosong");
+            etNoTelpPanitia.requestFocus();
+            return;
+        }else if (etNamaBendahara.getText().toString().isEmpty()) {
+            etNamaBendahara.setError("Nama Bendahara Tidak Boleh Kosong");
+            etNamaBendahara.requestFocus();
+            return;
+        }else if (etAlamatBendahara.getText().toString().isEmpty()) {
+            etAlamatBendahara.setError("Alamat Bendahara Tidak Boleh Kosong");
+            etAlamatBendahara.requestFocus();
+            return;
+        }else if (etSumberDana.getText().toString().isEmpty()) {
+            etSumberDana.setError("Sumber Dana Tidak Boleh Kosong");
+            etSumberDana.requestFocus();
+            return;
+        }else if (etNominalDanaKegiatan.getText().toString().isEmpty()) {
+            etNominalDanaKegiatan.setError("Nominal Dana Kegiatan Tidak Boleh Kosong");
+            etNominalDanaKegiatan.requestFocus();
+            return;
+        }else if (etSumberPrioritas.getText().toString().isEmpty()) {
+            etSumberPrioritas.setError("Sumber Prioritas Tidak Boleh Kosong");
+            etSumberPrioritas.requestFocus();
+            return;
+        }else if (etNominalPrioritas.getText().toString().isEmpty()) {
+            etNominalPrioritas.setError("Nominal Prioritas Tidak Boleh Kosong");
+            etNominalPrioritas.requestFocus();
+            return;
+        }else if (etKtpPath.getText().toString().isEmpty()) {
+            etKtpPath.setError("KTP Tidak Boleh Kosong");
+            etKtpPath.requestFocus();
+            return;
+        }else if (etButabPath.getText().toString().isEmpty()) {
+            etButabPath.setError("Buku Tabungan Tidak Boleh Kosong");
+            etButabPath.requestFocus();
+            return;
+        }else if (etNotelpBendahara.getText().toString().isEmpty()) {
+            etNotelpBendahara.setError("No. Telepon Bendahara Tidak Boleh Kosong");
+            etNotelpBendahara.requestFocus();
+            return;
+        }
+        else if (etFotoSurveyPath.getText().toString().isEmpty()) {
+            etFotoSurveyPath.setError("Foto Survey Tidak Boleh Kosong");
+            etFotoSurveyPath.requestFocus();
+            return;
+        }else {
+            Dialog progressDialog = new Dialog(getContext());
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.setCancelable(false);
+            progressDialog.setContentView(R.layout.dialog_progress_bar);
+            progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            progressDialog.show();
+
+
+            HashMap map = new HashMap();
+            map.put("proposal_id", RequestBody.create(MediaType.parse("text/plain"), proposalId));
+            map.put("kode_loket", RequestBody.create(MediaType.parse("text/plain"), kodeLoket));
+            map.put("no_urut_proposal", RequestBody.create(MediaType.parse("text/plain"), noUrutProposal));
+            map.put("nama_petugas_survey", RequestBody.create(MediaType.parse("text/plain"), etNamaPetugasSurvey.getText().toString()));
+            map.put("jabatan_petugas_survey", RequestBody.create(MediaType.parse("text/plain"), etJabatanPetugasSurvey.getText().toString()));
+            map.put("unit_kerja", RequestBody.create(MediaType.parse("text/plain"), etUnitKerja.getText().toString()));
+            map.put("ketua_panitia", RequestBody.create(MediaType.parse("text/plain"), etKetuaPanitia.getText().toString()));
+            map.put("nama_panitia", RequestBody.create(MediaType.parse("text/plain"), etNamaPanitia.getText().toString()));
+            map.put("alamat_panitia", RequestBody.create(MediaType.parse("text/plain"), etAlamatPanitia.getText().toString()));
+            map.put("no_telp_panitia", RequestBody.create(MediaType.parse("text/plain"), etNoTelpPanitia.getText().toString()));
+            map.put("nama_bendahara", RequestBody.create(MediaType.parse("text/plain"), etNamaBendahara.getText().toString()));
+            map.put("alamat_bendahara", RequestBody.create(MediaType.parse("text/plain"), etAlamatBendahara.getText().toString()));
+            map.put("no_telp_bendahara", RequestBody.create(MediaType.parse("text/plain"), etNotelpBendahara.getText().toString()));
+            map.put("sdk_1", RequestBody.create(MediaType.parse("text/plain"), etSumberDana.getText().toString()));
+            map.put("nominal_sdk_1", RequestBody.create(MediaType.parse("text/plain"), etNominalDanaKegiatan.getText().toString()));
+            map.put("pk_1", RequestBody.create(MediaType.parse("text/plain"), etSumberPrioritas.getText().toString()));
+            map.put("nominal_pk_1", RequestBody.create(MediaType.parse("text/plain"), etNominalPrioritas.getText().toString()));
+
+            RequestBody requestBodyKtp, requestBodyButab, requestBodyFotoSurvey;
+            requestBodyKtp = RequestBody.create(MediaType.parse("application/pdf"), fileKtp);
+            requestBodyButab = RequestBody.create(MediaType.parse("application/pdf"), fileButab);
+            requestBodyFotoSurvey = RequestBody.create(MediaType.parse("application/pdf"), fileFotoSurvey);
+
+            MultipartBody.Part ktp, butab, fotoSurvey;
+            ktp = MultipartBody.Part.createFormData("file_ktp", fileKtp.getName(), requestBodyKtp);
+            butab = MultipartBody.Part.createFormData("file_butab", fileButab.getName(), requestBodyButab);
+            fotoSurvey = MultipartBody.Part.createFormData("file_foto_survey", fileFotoSurvey.getName(), requestBodyFotoSurvey);
+
+
+
+
+
+            ptsInterface.insertSurvey(map, ktp, butab, fotoSurvey).enqueue(new Callback<ResponseModel>() {
+                @Override
+                public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                    ResponseModel responseModel = response.body();
+                    if (response.isSuccessful() && responseModel.getCode() == 200) {
+                        progressDialog.dismiss();
+                        Dialog dialogSuccess = new Dialog(getContext());
+                        dialogSuccess.setContentView(R.layout.dialog_success);
+                        dialogSuccess.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                        dialogSuccess.setCancelable(false);
+                        dialogSuccess.setCanceledOnTouchOutside(false);
+                        Button btnOke = dialogSuccess.findViewById(R.id.btnOke);
+                        btnOke.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialogSuccess.dismiss();
+                            }
+                        });
+                        dialogSuccess.show();
+                        ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.framePts, new PtsSurveyFragment()).commit();
+                    }else {
+                        progressDialog.dismiss();
+                        Toasty.error(getContext(), responseModel.getMessage(), Toasty.LENGTH_SHORT).show();
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<ResponseModel>call, Throwable t) {
+                    Dialog dialogNoConnection = new Dialog(getContext());
+                    dialogNoConnection.setContentView(R.layout.dialog_no_connection);
+                    dialogNoConnection.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                    Button btnRefresh = dialogNoConnection.findViewById(R.id.btnRefresh);
+                    btnRefresh.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            insertData();
+                            dialogNoConnection.dismiss();
+                        }
+                    });
+                    dialogNoConnection.show();
+
+                }
+            });
+
+
+        }
     }
     private void pdfFilePicker(Integer code) {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);

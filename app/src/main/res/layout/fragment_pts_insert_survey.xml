@@ -264,7 +264,7 @@
                 android:textSize="@dimen/_10sdp"/>
 
             <EditText
-                android:id="@+id/etAlamatBendahara"
+                android:id="@+id/etNoTelpBendahara"
                 android:layout_width="match_parent"
                 android:padding="@dimen/_10sdp"
                 android:textSize="@dimen/_11ssp"

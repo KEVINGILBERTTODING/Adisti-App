@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.adisti.Model.ProposalModel;
 import com.example.adisti.Model.ResponseModel;
-import com.example.adisti.PicFragment.PicDetailKajianManfaatFragment;
 import com.example.adisti.PtsFragment.PtsDetailKajianManfaatFragment;
 import com.example.adisti.R;
 import com.example.adisti.Util.DataApi;
@@ -33,26 +32,26 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PtsKajianManfaatSurvey extends RecyclerView.Adapter<PtsKajianManfaatSurvey.ViewHolder> {
+public class PtsKajianManfaatSurveyAdapter extends RecyclerView.Adapter<PtsKajianManfaatSurveyAdapter.ViewHolder> {
     Context context;
     List<ProposalModel>proposalModelList;
     PengajuInterface pengajuInterface;
 
 
-    public PtsKajianManfaatSurvey(Context context, List<ProposalModel> proposalModelList) {
+    public PtsKajianManfaatSurveyAdapter(Context context, List<ProposalModel> proposalModelList) {
         this.context = context;
         this.proposalModelList = proposalModelList;
     }
 
     @NonNull
     @Override
-    public PtsKajianManfaatSurvey.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PtsKajianManfaatSurveyAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.list_proposal, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PtsKajianManfaatSurvey.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PtsKajianManfaatSurveyAdapter.ViewHolder holder, int position) {
         holder.tvNamaProposal.setText(proposalModelList.get(holder.getAdapterPosition()).getBantuanDiajukan());
         holder.tvNoProposal.setText(proposalModelList.get(holder.getAdapterPosition()).getNoProposal());
 
@@ -167,9 +166,11 @@ public class PtsKajianManfaatSurvey extends RecyclerView.Adapter<PtsKajianManfaa
             cvMain.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     Fragment fragment = new PtsDetailKajianManfaatFragment();
                     Bundle bundle = new Bundle();
                     bundle.putString("proposal_id", proposalModelList.get(getAdapterPosition()).getProposalId());
+                    bundle.putString("no_urut_proposal", proposalModelList.get(getAdapterPosition()).getNoUrutProposal());
                     fragment.setArguments(bundle);
                     ((FragmentActivity) context).getSupportFragmentManager().beginTransaction()
                             .addToBackStack(null).replace(R.id.framePts, fragment).commit();
