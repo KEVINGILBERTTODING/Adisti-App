@@ -63,18 +63,7 @@ public class PtsHasilSurveyFragment extends Fragment {
         getProposalSurvey(0);
 
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
 
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                filter(newText);
-                return false;
-            }
-        });
         ivProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -156,6 +145,22 @@ public class PtsHasilSurveyFragment extends Fragment {
         tabLayout.addTab(tabLayout.newTab().setText("Hasil Survey"));
     }
 
+    @Override
+    public void onResume() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filter(newText);
+                return false;
+            }
+        });
+        super.onResume();
+    }
 
     // Get proposal yang belum di input hasil survey
     private void getProposalSurvey(Integer status){

@@ -60,8 +60,7 @@ public class PtsDetailHasilSurveyFragment extends Fragment {
         btnBatal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.framePts, new PtsHasilSurveyFragment()).commit();
+                getActivity().onBackPressed();
             }
         });
         btnEdit.setOnClickListener(new View.OnClickListener() {
