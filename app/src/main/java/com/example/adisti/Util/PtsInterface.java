@@ -95,4 +95,10 @@ public interface PtsInterface {
             @Query("proposal_id") String proposalId
     );
 
+    @Multipart
+    @POST("pts/updateHasilSurvey")
+    Call<ResponseModel>updateHasilSurvey(
+            @PartMap Map<String, RequestBody>textData
+    );
+
 }

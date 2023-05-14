@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:padding="@dimen/_14sdp"
-    tools:context=".PtsFragment.PtsDetailHasilSurveyFragment">
+    tools:context=".PtsFragment.PtsEditHasilSurveyFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Detail Hasil\nSurvey"
+                android:text="Edit Hasil\nSurvey"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_22ssp"
                 android:fontFamily="@font/popsem"/>
@@ -92,12 +92,11 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:textSize="@dimen/_10sdp"/>
 
-            <EditText
+            <Spinner
                 android:id="@+id/spKelayakan"
                 android:layout_width="match_parent"
                 android:padding="@dimen/_10sdp"
                 android:textSize="@dimen/_11ssp"
-                android:enabled="false"
                 android:fontFamily="@font/popmed"
                 android:background="@drawable/layout_edittext1"
                 android:layout_height="wrap_content"
@@ -113,13 +112,12 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:textSize="@dimen/_10sdp"/>
 
-            <EditText
+            <Spinner
                 android:id="@+id/spBentukBantuan"
                 android:layout_width="match_parent"
                 android:padding="@dimen/_10sdp"
                 android:textSize="@dimen/_11ssp"
                 android:fontFamily="@font/popmed"
-                android:enabled="false"
                 android:background="@drawable/layout_edittext1"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"/>
@@ -138,7 +136,6 @@
                 android:layout_width="match_parent"
                 android:padding="@dimen/_10sdp"
                 android:textSize="@dimen/_11ssp"
-                android:enabled="false"
                 android:hint="1-100"
                 android:inputType="number"
                 android:maxLength="3"
@@ -168,7 +165,6 @@
                     android:layout_width="match_parent"
                     android:padding="@dimen/_10sdp"
                     android:textSize="@dimen/_11ssp"
-                    android:enabled="false"
                     android:hint="Barang yang diajukan"
                     android:fontFamily="@font/popmed"
                     android:background="@drawable/layout_edittext1"
@@ -179,10 +175,10 @@
 
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnEdit"
+                android:id="@+id/btnSubmit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Edit"
+                android:text="Simpan"
                 android:textColor="@color/white"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:fontFamily="@font/popsem"/>
@@ -192,7 +188,7 @@
                 android:id="@+id/btnBatal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Kembali"
+                android:text="Batal"
                 app:backgroundTint="@color/light_gray2"
                 android:textColor="@color/black"
                 android:layout_marginTop="@dimen/_10sdp"

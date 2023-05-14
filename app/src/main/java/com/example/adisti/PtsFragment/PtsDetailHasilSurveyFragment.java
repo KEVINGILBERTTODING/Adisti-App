@@ -60,12 +60,20 @@ public class PtsDetailHasilSurveyFragment extends Fragment {
         btnBatal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().onBackPressed();
+                ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.framePts, new PtsHasilSurveyFragment()).commit();
             }
         });
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Fragment fragment = new PtsEditHasilSurveyFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("proposal_id", proposalId);
+                bundle.putString("no_urut_proposal", noUrutProposal);
+                fragment.setArguments(bundle);
+                ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.framePts, fragment).addToBackStack(null).commit();
 
 
             }
