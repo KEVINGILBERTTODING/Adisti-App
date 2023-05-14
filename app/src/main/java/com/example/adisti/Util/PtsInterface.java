@@ -75,4 +75,17 @@ public interface PtsInterface {
     Call<ResponseModel>editSurveyTextOnly(
             @PartMap Map<String, RequestBody>textData
     );
+
+    @GET("pts/getProposalHasilSurvey")
+    Call<List<ProposalModel>> getProposalHasilSurvey(
+            @Query("kode_loket") String kodeLoket,
+            @Query("hasil_survey") Integer survey
+    );
+
+    @Multipart
+    @POST("pts/inserthasilsurvey")
+    Call<ResponseModel>insertHasilSurvey(
+            @PartMap Map<String, RequestBody> textData
+    );
+
 }

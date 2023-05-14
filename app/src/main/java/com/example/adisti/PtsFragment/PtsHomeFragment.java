@@ -23,8 +23,6 @@ public class PtsHomeFragment extends Fragment {
 
 
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -42,7 +40,7 @@ public class PtsHomeFragment extends Fragment {
         cvMenuHasilSurvey.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                replace(new PicKajianManfaatFragment());
+                replace(new PtsHasilSurveyFragment());
             }
         });
 
