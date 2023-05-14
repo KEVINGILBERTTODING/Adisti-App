@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.adisti.Model.ProposalModel;
 import com.example.adisti.Model.ResponseModel;
+import com.example.adisti.PtsFragment.PtsDetailHasilSurveyFragment;
 import com.example.adisti.PtsFragment.PtsDetailSurveyFragment;
 import com.example.adisti.R;
 import com.example.adisti.Util.DataApi;
@@ -166,9 +167,10 @@ public class PtsHasilSurveyAdapter extends RecyclerView.Adapter<PtsHasilSurveyAd
             cvMain.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Fragment fragment = new PtsDetailSurveyFragment();
+                    Fragment fragment = new PtsDetailHasilSurveyFragment();
                     Bundle bundle = new Bundle();
                     bundle.putString("proposal_id", proposalModelList.get(getAdapterPosition()).getProposalId());
+                    bundle.putString("no_urut_proposal", proposalModelList.get(getAdapterPosition()).getProposalId());
                     fragment.setArguments(bundle);
                     ((FragmentActivity) context).getSupportFragmentManager().beginTransaction()
                             .addToBackStack(null).replace(R.id.framePts, fragment).commit();

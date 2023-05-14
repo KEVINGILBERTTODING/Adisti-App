@@ -1,5 +1,6 @@
 package com.example.adisti.Util;
 
+import com.example.adisti.Model.HasilSurveyModel;
 import com.example.adisti.Model.ProposalModel;
 import com.example.adisti.Model.ResponseModel;
 import com.example.adisti.Model.SurveyModel;
@@ -10,6 +11,7 @@ import java.util.Map;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -86,6 +88,11 @@ public interface PtsInterface {
     @POST("pts/inserthasilsurvey")
     Call<ResponseModel>insertHasilSurvey(
             @PartMap Map<String, RequestBody> textData
+    );
+
+    @GET("pts/getHasilSurveyById/")
+    Call<HasilSurveyModel>getHasilSurveyById(
+            @Query("proposal_id") String proposalId
     );
 
 }
