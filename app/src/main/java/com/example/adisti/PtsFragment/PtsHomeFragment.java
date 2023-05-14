@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.adisti.Model.UserModel;
 import com.example.adisti.PicFragment.PicKajianManfaatFragment;
+import com.example.adisti.PicFragment.PicProfileFragment;
 import com.example.adisti.PicFragment.PicProposalFragment;
 import com.example.adisti.R;
 import com.example.adisti.Util.DataApi;
@@ -57,6 +58,14 @@ public class PtsHomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 replace(new PtsHasilSurveyFragment());
+            }
+        });
+
+        img_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framePts, new PicProfileFragment())
+                        .addToBackStack(null).commit();
             }
         });
 
