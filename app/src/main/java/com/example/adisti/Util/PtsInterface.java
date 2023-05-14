@@ -39,4 +39,40 @@ public interface PtsInterface {
     Call<SurveyModel>getSurveyById(
             @Query("proposal_id") String proposalId
     );
+
+    @Multipart
+    @POST("pts/updateSurvey")
+    Call<ResponseModel>editSurveyAll(
+            @PartMap Map<String, RequestBody>textData,
+            @Part MultipartBody.Part ktp,
+            @Part MultipartBody.Part butab,
+            @Part MultipartBody.Part fotoSurvey
+    );
+
+    @Multipart
+    @POST("pts/updateSurvey")
+    Call<ResponseModel>editSurveyKtp(
+            @PartMap Map<String, RequestBody>textData,
+            @Part MultipartBody.Part ktp
+    );
+
+    @Multipart
+    @POST("pts/updateSurvey")
+    Call<ResponseModel>editSurveyButab(
+            @PartMap Map<String, RequestBody>textData,
+            @Part MultipartBody.Part butab
+    );
+
+    @Multipart
+    @POST("pts/updateSurvey")
+    Call<ResponseModel>editSurveyFotoSurvey(
+            @PartMap Map<String, RequestBody>textData,
+            @Part MultipartBody.Part fotoSurvey
+    );
+
+    @Multipart
+    @POST("pts/updateSurvey")
+    Call<ResponseModel>editSurveyTextOnly(
+            @PartMap Map<String, RequestBody>textData
+    );
 }

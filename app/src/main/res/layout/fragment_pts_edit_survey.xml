@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:padding="@dimen/_14sdp"
-    tools:context=".PtsFragment.PtsDetailSurveyFragment">
+    tools:context=".PtsFragment.PtsEditSurveyFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Detail Survey"
+                android:text="Edit Survey"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_22ssp"
                 android:fontFamily="@font/popsem"/>
@@ -51,7 +51,6 @@
                 android:layout_width="match_parent"
                 android:padding="@dimen/_10sdp"
                 android:textSize="@dimen/_11ssp"
-                android:enabled="false"
                 android:hint="Nama Petugas Survey"
                 android:fontFamily="@font/popmed"
                 android:background="@drawable/layout_edittext1"
@@ -75,7 +74,6 @@
                 android:padding="@dimen/_10sdp"
                 android:textSize="@dimen/_11ssp"
                 android:hint="Jabatan"
-                android:enabled="false"
                 android:fontFamily="@font/popmed"
                 android:background="@drawable/layout_edittext1"
                 android:layout_height="wrap_content"
@@ -96,7 +94,6 @@
                 android:padding="@dimen/_10sdp"
                 android:textSize="@dimen/_11ssp"
                 android:hint="Unit Kerja"
-                android:enabled="false"
                 android:fontFamily="@font/popmed"
                 android:background="@drawable/layout_edittext1"
                 android:layout_height="wrap_content"
@@ -137,7 +134,6 @@
                 android:textSize="@dimen/_11ssp"
                 android:hint="Ketua Panitia"
                 android:fontFamily="@font/popmed"
-                android:enabled="false"
                 android:background="@drawable/layout_edittext1"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"/>
@@ -158,7 +154,6 @@
                 android:textSize="@dimen/_11ssp"
                 android:hint="Nama"
                 android:fontFamily="@font/popmed"
-                android:enabled="false"
                 android:background="@drawable/layout_edittext1"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"/>
@@ -178,7 +173,6 @@
                 android:layout_width="match_parent"
                 android:padding="@dimen/_10sdp"
                 android:textSize="@dimen/_11ssp"
-                android:enabled="false"
                 android:hint="Alamat Panitia"
                 android:gravity="start"
                 android:lines="4"
@@ -200,7 +194,6 @@
                 android:id="@+id/etNoTelpPanitia"
                 android:layout_width="match_parent"
                 android:padding="@dimen/_10sdp"
-                android:enabled="false"
                 android:textSize="@dimen/_11ssp"
                 android:hint="No Telepon Panitia"
                 android:inputType="number"
@@ -232,7 +225,6 @@
                 android:layout_width="match_parent"
                 android:padding="@dimen/_10sdp"
                 android:textSize="@dimen/_11ssp"
-                android:enabled="false"
                 android:hint="Nama Bendahara"
                 android:fontFamily="@font/popmed"
                 android:background="@drawable/layout_edittext1"
@@ -254,7 +246,6 @@
                 android:layout_width="match_parent"
                 android:padding="@dimen/_10sdp"
                 android:textSize="@dimen/_11ssp"
-                android:enabled="false"
                 android:hint="Alamat Bendahara"
                 android:gravity="start"
                 android:lines="4"
@@ -279,7 +270,6 @@
                 android:textSize="@dimen/_11ssp"
                 android:hint="No Telepon Bendahara"
                 android:inputType="number"
-                android:enabled="false"
                 android:fontFamily="@font/popmed"
                 android:background="@drawable/layout_edittext1"
                 android:layout_height="wrap_content"
@@ -310,7 +300,6 @@
                 android:padding="@dimen/_10sdp"
                 android:textSize="@dimen/_11ssp"
                 android:hint="Sumber Dana"
-                android:enabled="false"
                 android:fontFamily="@font/popmed"
                 android:background="@drawable/layout_edittext1"
                 android:layout_height="wrap_content"
@@ -330,7 +319,6 @@
                 android:layout_width="match_parent"
                 android:padding="@dimen/_10sdp"
                 android:textSize="@dimen/_11ssp"
-                android:enabled="false"
                 android:hint="Nominal Dana Kegiatan"
                 android:inputType="number"
                 android:fontFamily="@font/popmed"
@@ -354,7 +342,6 @@
                 android:padding="@dimen/_10sdp"
                 android:textSize="@dimen/_11ssp"
                 android:hint="Sumber Dana"
-                android:enabled="false"
                 android:fontFamily="@font/popmed"
                 android:background="@drawable/layout_edittext1"
                 android:layout_height="wrap_content"
@@ -376,7 +363,6 @@
                 android:textSize="@dimen/_11ssp"
                 android:hint="Nominal Dana Kegiatan"
                 android:inputType="number"
-                android:enabled="false"
                 android:fontFamily="@font/popmed"
                 android:background="@drawable/layout_edittext1"
                 android:layout_height="wrap_content"
@@ -399,7 +385,6 @@
                 android:padding="@dimen/_10sdp"
                 android:textSize="@dimen/_11ssp"
                 android:hint="Sumber Dana"
-                android:enabled="false"
                 android:fontFamily="@font/popmed"
                 android:background="@drawable/layout_edittext1"
                 android:layout_height="wrap_content"
@@ -420,7 +405,6 @@
                 android:layout_width="match_parent"
                 android:padding="@dimen/_10sdp"
                 android:textSize="@dimen/_11ssp"
-                android:enabled="false"
                 android:hint="Nominal Dana Kegiatan"
                 android:inputType="number"
                 android:fontFamily="@font/popmed"
@@ -453,7 +437,6 @@
                 android:layout_width="match_parent"
                 android:padding="@dimen/_10sdp"
                 android:textSize="@dimen/_11ssp"
-                android:enabled="false"
                 android:hint="Sumber Prioritas"
                 android:fontFamily="@font/popmed"
                 android:background="@drawable/layout_edittext1"
@@ -473,7 +456,6 @@
                 android:id="@+id/etNominalPrioritas"
                 android:layout_width="match_parent"
                 android:padding="@dimen/_10sdp"
-                android:enabled="false"
                 android:textSize="@dimen/_11ssp"
                 android:hint="Nominal Prioritas Kebutuhan"
                 android:inputType="number"
@@ -495,7 +477,6 @@
                 android:id="@+id/etSumberPrioritas2"
                 android:layout_width="match_parent"
                 android:padding="@dimen/_10sdp"
-                android:enabled="false"
                 android:textSize="@dimen/_11ssp"
                 android:hint="Sumber Prioritas 2"
                 android:fontFamily="@font/popmed"
@@ -517,7 +498,6 @@
                 android:layout_width="match_parent"
                 android:padding="@dimen/_10sdp"
                 android:textSize="@dimen/_11ssp"
-                android:enabled="false"
                 android:hint="Nominal Prioritas Kebutuhan 2"
                 android:inputType="number"
                 android:fontFamily="@font/popmed"
@@ -538,7 +518,6 @@
                 android:id="@+id/etSumberPrioritas3"
                 android:layout_width="match_parent"
                 android:padding="@dimen/_10sdp"
-                android:enabled="false"
                 android:textSize="@dimen/_11ssp"
                 android:hint="Sumber Prioritas 2"
                 android:fontFamily="@font/popmed"
@@ -559,7 +538,6 @@
                 android:id="@+id/etNominalPrioritas3"
                 android:layout_width="match_parent"
                 android:padding="@dimen/_10sdp"
-                android:enabled="false"
                 android:textSize="@dimen/_11ssp"
                 android:hint="Nominal Prioritas Kebutuhan 2"
                 android:inputType="number"
@@ -573,12 +551,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="KTP"
+                android:text="Unggah KTP"
                 android:fontFamily="@font/popmed"
                 android:layout_gravity="start"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:textSize="@dimen/_10sdp"/>
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="File pdf, max 5MB"
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:textColor="@color/red"
+                android:textSize="@dimen/_8sdp"/>
 
 
             <ImageView
@@ -595,12 +580,11 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnDownloadKtp"
+                    android:id="@+id/btnKtpPicker"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:cornerRadius="@dimen/_10sdp"
-                    app:backgroundTint="@color/green"
-                    android:text="Download"
+                    android:text="Pilih"
                     android:layout_marginTop="@dimen/_10sdp"/>
 
                 <EditText
@@ -619,12 +603,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Butab"
+                android:text="Unggah Butab"
                 android:fontFamily="@font/popmed"
                 android:layout_gravity="start"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:textSize="@dimen/_10sdp"/>
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="File pdf, max 5MB"
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:textColor="@color/red"
+                android:textSize="@dimen/_8sdp"/>
 
 
             <ImageView
@@ -641,12 +632,11 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnDownloadButab"
+                    android:id="@+id/btnButabPicker"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:cornerRadius="@dimen/_10sdp"
-                    app:backgroundTint="@color/green"
-                    android:text="Download"
+                    android:text="Pilih"
                     android:layout_marginTop="@dimen/_10sdp"/>
 
                 <EditText
@@ -665,12 +655,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Foto Survey"
+                android:text="Unggah Foto Survey"
                 android:fontFamily="@font/popmed"
                 android:layout_gravity="start"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:textSize="@dimen/_10sdp"/>
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="File pdf, max 5MB"
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:textColor="@color/red"
+                android:textSize="@dimen/_8sdp"/>
 
 
             <ImageView
@@ -687,12 +684,11 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnDownloadFotoSurvey"
+                    android:id="@+id/btnFotoSurveyPicker"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:cornerRadius="@dimen/_10sdp"
-                    android:text="Download"
-                    app:backgroundTint="@color/green"
+                    android:text="Pilih"
                     android:layout_marginTop="@dimen/_10sdp"/>
 
                 <EditText
@@ -709,20 +705,20 @@
             </LinearLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnEdit"
+                android:id="@+id/btnSubmit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Edit Survey"
+                android:text="Simpan"
                 android:textColor="@color/white"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:fontFamily="@font/popsem"/>
 
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnKembali"
+                android:id="@+id/btnBatal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Kembali"
+                android:text="Batal"
                 app:backgroundTint="@color/light_gray2"
                 android:textColor="@color/black"
                 android:layout_marginTop="@dimen/_10sdp"

@@ -52,15 +52,11 @@ public class PtsDetailSurveyFragment extends Fragment {
             etNominalDanaKegiatan, etSumberPrioritas, etSumberPrioritas2, etSumberPrioritas3, etNominalPrioritas, etNominalPrioritas2, etNominalPrioritas3, etKtpPath, etButabPath, etFotoSurveyPath,
             etSumberDana2, etSumberDana3, etNominalDanaKegiatan2, etNominalDanaKegiatan3;
 
-    Button btnDownloadKtp, btnDownloadButab, btnDownloadFotoSurvey, btnEditSurvey, btnBatal;
+    Button btnDownloadKtp, btnDownloadButab, btnDownloadFotoSurvey, btnEditSurvey, btnKembali;
     ImageView ivKtp, ivButab, ivFotoSurvey;
     SharedPreferences sharedPreferences;
-    String proposalId, kodeLoket;
+    String proposalId, kodeLoket, noUrutProposal;
     PtsInterface ptsInterface;
-
-
-
-
 
 
     @Override
@@ -152,6 +148,24 @@ public class PtsDetailSurveyFragment extends Fragment {
                 }
             }
         });
+        btnKembali.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
+        btnEditSurvey.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new PtsEditSurveyFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("proposal_id", proposalId);
+                bundle.putString("no_urut_proposal", noUrutProposal);
+                fragment.setArguments(bundle);
+                ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.framePts, fragment).addToBackStack(null).commit();
+            }
+        });
 
 
         return view;
@@ -186,7 +200,7 @@ public class PtsDetailSurveyFragment extends Fragment {
         btnEditSurvey = view.findViewById(R.id.btnEdit);
         etSumberDana2 = view.findViewById(R.id.etSumberDana2);
         etSumberDana3 = view.findViewById(R.id.etSumberDana3);
-        btnBatal = view.findViewById(R.id.btnBatal);
+        btnKembali = view.findViewById(R.id.btnKembali);
         ivKtp = view.findViewById(R.id.ivKtp);
         ivButab = view.findViewById(R.id.ivButab);
         ivFotoSurvey = view.findViewById(R.id.ivFotoSurvey);
@@ -232,10 +246,14 @@ public class PtsDetailSurveyFragment extends Fragment {
                     etNominalDanaKegiatan3.setText(response.body().getNominalSdk3());
                     etSumberPrioritas.setText(response.body().getPk1());
                     etNominalPrioritas.setText(response.body().getNominalPk1());
+                    noUrutProposal = response.body().getNoUrutProposal();
                     etSumberPrioritas2.setText(response.body().getPk2());
                     etNominalPrioritas2.setText(response.body().getNominalPk2());
                     etSumberPrioritas3.setText(response.body().getPk3());
                     etNominalPrioritas3.setText(response.body().getNominalPk3());
+                    etKtpPath.setText(response.body().getFileKtp());
+                    etButabPath.setText(response.body().getFileButab());
+                    etFotoSurveyPath.setText(response.body().getFileFotoSurvey());
 
                     if (response.body().getFileKtp() != null) {
                         ivKtp.setVisibility(View.VISIBLE);
