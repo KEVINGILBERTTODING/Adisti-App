@@ -47,6 +47,9 @@ public class LoginActivity extends AppCompatActivity {
             } else if (sharedPreferences.getString("role", null).equals("pts")) {
                 startActivity(new Intent(LoginActivity.this, PtsMainActivity.class));
                 finish();
+            }else if (sharedPreferences.getString("role", null).equals("dcm")) {
+                startActivity(new Intent(LoginActivity.this, DcmMainActivty.class));
+                finish();
             }
         }
 
@@ -101,8 +104,6 @@ public class LoginActivity extends AppCompatActivity {
                             if (response.isSuccessful() && userModel.getCode() == 200) {
 
 
-                                Toasty.success(LoginActivity.this, "Hai "+ userModel.getNama(), Toasty.LENGTH_SHORT).show();
-
                                 if (userModel.getRole().equals("pengaju")){
                                     editor.putBoolean("logged_in", true);
                                     editor.putString("user_id", userModel.getUserId());
@@ -130,6 +131,14 @@ public class LoginActivity extends AppCompatActivity {
                                     editor.putString("nama_loket", userModel.getNamaLoket());
                                     editor.apply();
                                     startActivity(new Intent(LoginActivity.this, PtsMainActivity.class));
+                                    finish();
+                                }else if (userModel.getRole().equals("dcm")) {
+                                    editor.putBoolean("logged_in", true);
+                                    editor.putString("user_id", userModel.getUserId());
+                                    editor.putString("nama", userModel.getNama());
+                                    editor.putString("role", userModel.getRole());
+                                    editor.apply();
+                                    startActivity(new Intent(LoginActivity.this, DcmMainActivty.class));
                                     finish();
                                 }
                                 dialog.dismiss();

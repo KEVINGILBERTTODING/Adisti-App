@@ -18,6 +18,7 @@
             android:id="@+id/img_profile"
             android:layout_width="@dimen/_40sdp"
             android:layout_height="@dimen/_40sdp"
+            android:visibility="gone"
             android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
             android:layout_marginTop="@dimen/_13sdp"
