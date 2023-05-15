@@ -10,14 +10,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 
 import com.example.adisti.Model.HasilSurveyModel;
-import com.example.adisti.PtsFragment.PtsEditHasilSurveyFragment;
+import com.example.adisti.Model.ProposalModel;
 import com.example.adisti.R;
 import com.example.adisti.Util.DataApi;
+import com.example.adisti.Util.PengajuInterface;
 import com.example.adisti.Util.PtsInterface;
 
 import es.dmoral.toasty.Toasty;
@@ -25,15 +26,16 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DcmDetailHasilSurveyFragment extends Fragment {
+public class DcmDetailPendapatTanggapanFragment extends Fragment {
 
     EditText etNamaPetugasSurvey, etJabatanPetugasSurvey, etNilaiPengajuan, etBarangDiajukan, etKelayakan, etBentukBantuan;
 
-    Button  btnInsertKasubag, btnBatal, btnDetailPendapatKasubag, btnInsertKabag, btnDetailPendapatKabag,
-            btnBatal2, btnInsertKacab, btnDetailPendapatKacab, btnBatal3;
+    Button  btnBatal, btnDetailPendapatKasubag, btnDetailPendapatKabag,
+            btnDetailPendapatKacab;
     SharedPreferences sharedPreferences;
     String proposalId, kodeLoket, noUrutProposal, userId;
     PtsInterface ptsInterface;
+    PengajuInterface pengajuInterface;
     LinearLayout layoutBentukBantuan, layoutKabag, layoutKacab;
 
 
@@ -44,16 +46,11 @@ public class DcmDetailHasilSurveyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_dcm_detail_hasil_survey, container, false);
+        View view = inflater.inflate(R.layout.fragment_dcm_detail_pendapat_tanggapan, container, false);
         init(view);
         displayHasilSurvey();
 
-        btnInsertKasubag.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                replace(new DcmKasubagInsertPendapatFragment());
-            }
-        });
+
 
         btnDetailPendapatKasubag.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,47 +68,10 @@ public class DcmDetailHasilSurveyFragment extends Fragment {
             }
         });
 
-        btnBatal2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().onBackPressed();
-            }
-        });
-        btnBatal3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().onBackPressed();
-            }
-        });
 
 
 
 
-
-
-        // Hilangkan button
-
-        if (userId.equals("27")) {
-            layoutKabag.setVisibility(View.GONE);
-            layoutKacab.setVisibility(View.GONE);
-            btnDetailPendapatKasubag.setVisibility(View.GONE);
-        }else if (userId.equals("28")) {
-            btnInsertKasubag.setVisibility(View.GONE);
-            btnBatal.setVisibility(View.GONE);
-            btnDetailPendapatKasubag.setVisibility(View.VISIBLE);
-            btnDetailPendapatKabag.setVisibility(View.GONE);
-            layoutKacab.setVisibility(View.GONE);
-        }else {
-            btnInsertKasubag.setVisibility(View.GONE);
-            btnBatal.setVisibility(View.GONE);
-            btnDetailPendapatKasubag.setVisibility(View.VISIBLE);
-            btnInsertKabag.setVisibility(View.GONE);
-            btnBatal2.setVisibility(View.GONE);
-            btnDetailPendapatKabag.setVisibility(View.VISIBLE);
-            btnInsertKacab.setVisibility(View.VISIBLE);
-            btnDetailPendapatKabag.setVisibility(View.GONE);
-            btnBatal3.setVisibility(View.VISIBLE);
-        }
 
 
 
@@ -122,7 +82,6 @@ public class DcmDetailHasilSurveyFragment extends Fragment {
     private void init(View view) {
         etNamaPetugasSurvey = view.findViewById(R.id.etNamaPetugasSurvey);
         etJabatanPetugasSurvey = view.findViewById(R.id.etJabatanPetugasSurvey);
-        btnInsertKasubag = view.findViewById(R.id.btnInsertKasubag);
         btnBatal = view.findViewById(R.id.btnBatal);
         etKelayakan = view.findViewById(R.id.spKelayakan);
         layoutKabag = view.findViewById(R.id.layoutKabag);
@@ -132,18 +91,18 @@ public class DcmDetailHasilSurveyFragment extends Fragment {
         etBentukBantuan = view.findViewById(R.id.spBentukBantuan);
         layoutBentukBantuan = view.findViewById(R.id.layoutBantuan);
         btnDetailPendapatKasubag = view.findViewById(R.id.btnDetailPendapatKasubag);
-        btnInsertKabag = view.findViewById(R.id.btnInsertKabag);
         btnDetailPendapatKabag = view.findViewById(R.id.btnDetailPendapatKabag);
-        btnBatal2 = view.findViewById(R.id.btnBatal2);
-        btnInsertKacab = view.findViewById(R.id.btnInsertKacab);
+
         btnDetailPendapatKacab = view.findViewById(R.id.btnDetailPendapatKacab);
-        btnBatal3 = view.findViewById(R.id.btnBatal3);
+        pengajuInterface = DataApi.getClient().create(PengajuInterface.class);
         sharedPreferences = getContext().getSharedPreferences("user_data", Context.MODE_PRIVATE);
         proposalId = getArguments().getString("proposal_id");
         userId = sharedPreferences.getString("user_id", null);
         kodeLoket = sharedPreferences.getString("kode_loket", null);
         noUrutProposal = getArguments().getString("no_urut_proposal");
         ptsInterface = DataApi.getClient().create(PtsInterface.class);
+
+        getProposalDetail();
 
 
     }
@@ -180,18 +139,14 @@ public class DcmDetailHasilSurveyFragment extends Fragment {
                 }else {
                     progressDialog.dismiss();
                     Toasty.error(getContext(), "Terjadi Kesalahan", Toasty.LENGTH_SHORT).show();
-                    btnInsertKasubag.setEnabled(false);
-                    btnInsertKacab.setEnabled(false);
-                    btnInsertKabag.setEnabled(false);
+
                 }
             }
 
             @Override
             public void onFailure(Call<HasilSurveyModel> call, Throwable t) {
                 progressDialog.dismiss();
-                btnInsertKasubag.setEnabled(false);
-                btnInsertKacab.setEnabled(false);
-                btnInsertKabag.setEnabled(false);
+
                 Dialog dialogNoConnection = new Dialog(getContext());
                 dialogNoConnection.setContentView(R.layout.dialog_no_connection);
                 dialogNoConnection.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
@@ -219,6 +174,91 @@ public class DcmDetailHasilSurveyFragment extends Fragment {
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frameDcm, fragment)
                 .addToBackStack(null).commit();
     }
+
+
+    private void getProposalDetail() {
+        Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.dialog_progress_bar);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.setCanceledOnTouchOutside(false);
+        final TextView tvMain;
+        tvMain = dialog.findViewById(R.id.tvMainText);
+        tvMain.setText("Memuat Data...");
+        dialog.show();
+
+
+
+        pengajuInterface.getProposalById(proposalId)
+                .enqueue(new Callback<ProposalModel>() {
+                    @Override
+                    public void onResponse(Call<ProposalModel> call, Response<ProposalModel> response) {
+
+                        if (response.isSuccessful() && response.body() != null) {
+
+                            if (response.body().getPendapatKasubag().equals("1")) {
+                                btnDetailPendapatKasubag.setEnabled(true);
+                            }else {
+                                btnDetailPendapatKasubag.setEnabled(false);
+                                btnDetailPendapatKasubag.setBackgroundColor(getContext().getColor(R.color.light_gray2));
+                                btnDetailPendapatKasubag.setText("Belum input pendapat");
+                            }
+                            if (response.body().getPendapatKabag().equals("1")) {
+                                btnDetailPendapatKabag.setEnabled(true);
+                            }else {
+                                btnDetailPendapatKabag.setEnabled(false);
+                                btnDetailPendapatKabag.setBackgroundColor(getContext().getColor(R.color.light_gray2));
+                                btnDetailPendapatKabag.setText("Belum input pendapat");
+                            }
+
+                            if (response.body().getPendapatKacab().equals("1")) {
+                                btnDetailPendapatKacab.setEnabled(true);
+                            }else {
+                                btnDetailPendapatKacab.setEnabled(false);
+                                btnDetailPendapatKacab.setBackgroundColor(getContext().getColor(R.color.light_gray2));
+                                btnDetailPendapatKacab.setText("Belum input pendapat");
+
+                            }
+
+
+
+
+
+
+
+                            dialog.dismiss();
+
+                        }else {
+                            Toasty.error(getContext(), "Terjadi kesalahan", Toasty.LENGTH_SHORT).show();
+                            dialog.dismiss();
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<ProposalModel> call, Throwable t) {
+
+                        dialog.dismiss();
+                        Dialog dialogNoConnection = new Dialog(getContext());
+                        dialogNoConnection.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                        dialogNoConnection.setCanceledOnTouchOutside(false);
+                        Button btnRefresh = dialogNoConnection.findViewById(R.id.btnRefresh);
+                        btnRefresh.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                getProposalDetail();
+                                dialogNoConnection.dismiss();
+                            }
+                        });
+                        dialogNoConnection.show();
+
+
+
+                    }
+                });
+
+    }
+
 
 
 

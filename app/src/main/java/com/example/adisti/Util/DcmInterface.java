@@ -1,5 +1,6 @@
 package com.example.adisti.Util;
 
+import com.example.adisti.Model.PendapatTanggapanModel;
 import com.example.adisti.Model.ProposalModel;
 import com.example.adisti.Model.ResponseModel;
 import com.example.adisti.Model.UserModel;
@@ -9,6 +10,7 @@ import java.util.Map;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -42,4 +44,21 @@ public interface DcmInterface {
     Call<ResponseModel>insertPendapatKasubag(
             @PartMap Map<String, RequestBody> textData
             );
+
+    @GET("dcm/getPendapatTanggapanById")
+    Call<PendapatTanggapanModel>getPendapatById(
+            @Query("proposal_id") String proposalId
+    );
+
+    // Get all proposal yang telah diinput
+    // pendapat kasubag
+    @GET("dcm/getProposalKasubagPendapat")
+    Call<List<ProposalModel>>getProposalKasubagPendapat();
+
+    @Multipart
+    @POST("dcm/updatePendapatTanggapanKasubag")
+    Call<ResponseModel>updatePendapatKasubag(
+            @PartMap Map<String, RequestBody> textData
+    );
+
 }

@@ -263,6 +263,7 @@ public class PengajuDetailProposalFragment extends Fragment {
 
                         dialog.dismiss();
                         Dialog dialogNoConnection = new Dialog(getContext());
+                        dialogNoConnection.setContentView(R.layout.dialog_no_connection);
                         dialogNoConnection.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                         dialogNoConnection.setCanceledOnTouchOutside(false);
                         btnRefresh = dialogNoConnection.findViewById(R.id.btnRefresh);
