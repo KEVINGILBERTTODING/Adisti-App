@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.adisti.DcmAdapter.DcmHasilSurveyAdapter;
 import com.example.adisti.Model.ProposalModel;
 import com.example.adisti.Model.UserModel;
 import com.example.adisti.PengajuFragment.PengajuProfileFragment;
@@ -27,6 +28,7 @@ import com.example.adisti.PtsAdapter.PtsHasilSurveyAdapter;
 import com.example.adisti.PtsAdapter.PtsSurvey2Adapter;
 import com.example.adisti.R;
 import com.example.adisti.Util.DataApi;
+import com.example.adisti.Util.DcmInterface;
 import com.example.adisti.Util.PicInterface;
 import com.example.adisti.Util.PtsInterface;
 import com.google.android.material.tabs.TabLayout;
@@ -41,18 +43,17 @@ import retrofit2.Response;
 
 public class DcmPendapatTanggapanFragment extends Fragment {
     TextView tvUsername, tvEmpty;
-    String userId, kodeLoket;
+    String userId;
     SearchView searchView;
     SharedPreferences sharedPreferences;
-    PtsSurvey2Adapter ptsSurvey2Adapter;
-    PtsHasilSurveyAdapter ptsHasilSurveyAdapter;
+    DcmHasilSurveyAdapter dcmHasilSurveyAdapter;
     PicInterface picInterface;
     ImageView img_profile;
 
     List<ProposalModel>proposalModelList;
     LinearLayoutManager linearLayoutManager;
     RecyclerView rvProposal;
-    PtsInterface ptsInterface;
+    DcmInterface dcmInterface;
 
     ImageView ivProfile;
     TabLayout tabLayout;
@@ -66,8 +67,17 @@ public class DcmPendapatTanggapanFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_dcm_pendapat_tanggapan, container, false);
         init(view);
-//        getProposalSurvey(0);
 
+        if (userId.equals("27")) {
+            getProposalHasilSurveyKasubag();
+
+        } else if (userId.equals("28")) {
+            getProposalHasilSurveyKabag();
+
+        } else if (userId.equals("29")) {
+            getProposalHasilSurveyKacab();
+
+        }
 
 
         ivProfile.setOnClickListener(new View.OnClickListener() {
@@ -84,7 +94,18 @@ public class DcmPendapatTanggapanFragment extends Fragment {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if ((tab.getPosition() == 0)){
-//                    getProposalSurvey(0);
+
+                    if (userId.equals("27")) {
+                        getProposalHasilSurveyKasubag();
+
+                    } else if (userId.equals("28")) {
+                        getProposalHasilSurveyKabag();
+
+                    } else if (userId.equals("29")) {
+                        getProposalHasilSurveyKacab();
+
+                    }
+
                     searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                         @Override
                         public boolean onQueryTextSubmit(String query) {
@@ -98,7 +119,7 @@ public class DcmPendapatTanggapanFragment extends Fragment {
                         }
                     });
                 } else if (tab.getPosition() == 1) {
-//                    getProposalHasilSurvey(1);
+
 
                     searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                         @Override
@@ -108,7 +129,7 @@ public class DcmPendapatTanggapanFragment extends Fragment {
 
                         @Override
                         public boolean onQueryTextChange(String newText) {
-                            filter2(newText);
+//                            filter2(newText);
                             return false;
                         }
                     });
@@ -137,7 +158,7 @@ public class DcmPendapatTanggapanFragment extends Fragment {
         tvUsername.setText(sharedPreferences.getString("nama", null));
         rvProposal = view.findViewById(R.id.rvProposal);
         tvEmpty = view.findViewById(R.id.tvEmpty);
-        ptsInterface = DataApi.getClient().create(PtsInterface.class);
+        dcmInterface = DataApi.getClient().create(DcmInterface.class);
         ivProfile = view.findViewById(R.id.img_profile);
         tabLayout = view.findViewById(R.id.tab_layout);
         searchView = view.findViewById(R.id.searchView);
@@ -145,8 +166,8 @@ public class DcmPendapatTanggapanFragment extends Fragment {
         userId = sharedPreferences.getString("user_id", null);
 
         // set tablayout
-        tabLayout.addTab(tabLayout.newTab().setText("Survey"));
         tabLayout.addTab(tabLayout.newTab().setText("Hasil Survey"));
+        tabLayout.addTab(tabLayout.newTab().setText("Pendapat & Tanggapan"));
         picInterface = DataApi.getClient().create(PicInterface.class);
 
         loadProfile();
@@ -169,8 +190,8 @@ public class DcmPendapatTanggapanFragment extends Fragment {
         super.onResume();
     }
 
-    // Get proposal yang belum di input hasil survey
-    private void getProposalSurvey(Integer status){
+    // Get proposal yang belum di input pendapat & tanggapan KASUBAG
+    private void getProposalHasilSurveyKasubag(){
         Dialog dialogProgressBar = new Dialog(getContext());
         dialogProgressBar.setContentView(R.layout.dialog_progress_bar);
         dialogProgressBar.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
@@ -178,17 +199,17 @@ public class DcmPendapatTanggapanFragment extends Fragment {
         dialogProgressBar.setCanceledOnTouchOutside(false);
         dialogProgressBar.show();
 
-        ptsInterface.getProposalHasilSurvey(kodeLoket, status).enqueue(new Callback<List<ProposalModel>>() {
+        dcmInterface.getProposalKasubag().enqueue(new Callback<List<ProposalModel>>() {
             @Override
             public void onResponse(Call<List<ProposalModel>> call, Response<List<ProposalModel>> response) {
 
                 if (response.isSuccessful() && response.body().size() > 0) {
                     proposalModelList = response.body();
-                    ptsSurvey2Adapter = new PtsSurvey2Adapter(getContext(), proposalModelList);
+                    dcmHasilSurveyAdapter = new DcmHasilSurveyAdapter(getContext(), proposalModelList);
                     linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
                     rvProposal.setAdapter(null);
                     rvProposal.setLayoutManager(linearLayoutManager);
-                    rvProposal.setAdapter(ptsSurvey2Adapter);
+                    rvProposal.setAdapter(dcmHasilSurveyAdapter);
                     rvProposal.setHasFixedSize(true);
                     dialogProgressBar.dismiss();
                     tvEmpty.setVisibility(View.GONE);
@@ -211,7 +232,7 @@ public class DcmPendapatTanggapanFragment extends Fragment {
                 btnRefresh.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                         getProposalSurvey(status);
+                         getProposalHasilSurveyKasubag();
                          dialogProgressBar.dismiss();
                     }
                 });
@@ -223,9 +244,8 @@ public class DcmPendapatTanggapanFragment extends Fragment {
 
     }
 
-
-    // get proposal yang telah diinpput hasil survey
-    private void getProposalHasilSurvey(Integer status){
+    // Get proposal yang belum di input pendapat & tanggapan KABAG
+    private void getProposalHasilSurveyKabag(){
         Dialog dialogProgressBar = new Dialog(getContext());
         dialogProgressBar.setContentView(R.layout.dialog_progress_bar);
         dialogProgressBar.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
@@ -233,17 +253,17 @@ public class DcmPendapatTanggapanFragment extends Fragment {
         dialogProgressBar.setCanceledOnTouchOutside(false);
         dialogProgressBar.show();
 
-        ptsInterface.getProposalHasilSurvey(kodeLoket, status).enqueue(new Callback<List<ProposalModel>>() {
+        dcmInterface.getProposalKabag().enqueue(new Callback<List<ProposalModel>>() {
             @Override
             public void onResponse(Call<List<ProposalModel>> call, Response<List<ProposalModel>> response) {
 
                 if (response.isSuccessful() && response.body().size() > 0) {
                     proposalModelList = response.body();
-                    ptsHasilSurveyAdapter = new PtsHasilSurveyAdapter(getContext(), proposalModelList);
+                    dcmHasilSurveyAdapter = new DcmHasilSurveyAdapter(getContext(), proposalModelList);
                     linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
                     rvProposal.setAdapter(null);
                     rvProposal.setLayoutManager(linearLayoutManager);
-                    rvProposal.setAdapter(ptsHasilSurveyAdapter);
+                    rvProposal.setAdapter(dcmHasilSurveyAdapter);
                     rvProposal.setHasFixedSize(true);
                     dialogProgressBar.dismiss();
                     tvEmpty.setVisibility(View.GONE);
@@ -266,7 +286,61 @@ public class DcmPendapatTanggapanFragment extends Fragment {
                 btnRefresh.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        getProposalHasilSurvey(status);
+                        getProposalHasilSurveyKabag();
+                        dialogProgressBar.dismiss();
+                    }
+                });
+                tvEmpty.setVisibility(View.GONE);
+                dialogProgressBar.dismiss();
+
+            }
+        });
+
+    }
+
+    // Get proposal yang belum di input pendapat & tanggapan KACAB
+    private void getProposalHasilSurveyKacab(){
+        Dialog dialogProgressBar = new Dialog(getContext());
+        dialogProgressBar.setContentView(R.layout.dialog_progress_bar);
+        dialogProgressBar.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialogProgressBar.setCancelable(false);
+        dialogProgressBar.setCanceledOnTouchOutside(false);
+        dialogProgressBar.show();
+
+        dcmInterface.getProposalKabag().enqueue(new Callback<List<ProposalModel>>() {
+            @Override
+            public void onResponse(Call<List<ProposalModel>> call, Response<List<ProposalModel>> response) {
+
+                if (response.isSuccessful() && response.body().size() > 0) {
+                    proposalModelList = response.body();
+                    dcmHasilSurveyAdapter = new DcmHasilSurveyAdapter(getContext(), proposalModelList);
+                    linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                    rvProposal.setAdapter(null);
+                    rvProposal.setLayoutManager(linearLayoutManager);
+                    rvProposal.setAdapter(dcmHasilSurveyAdapter);
+                    rvProposal.setHasFixedSize(true);
+                    dialogProgressBar.dismiss();
+                    tvEmpty.setVisibility(View.GONE);
+                }else {
+                    tvEmpty.setVisibility(View.VISIBLE);
+                    rvProposal.setAdapter(null);
+                    dialogProgressBar.dismiss();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ProposalModel>> call, Throwable t) {
+                Dialog dialogNoConnection = new Dialog(getContext());
+                dialogNoConnection.setContentView(R.layout.dialog_no_connection);
+                dialogNoConnection.setCancelable(false);
+                dialogProgressBar.setCanceledOnTouchOutside(false);
+                dialogProgressBar.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                Button  btnRefresh = dialogNoConnection.findViewById(R.id.btnRefresh);
+                btnRefresh.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        getProposalHasilSurveyKacab();
                         dialogProgressBar.dismiss();
                     }
                 });
@@ -281,7 +355,9 @@ public class DcmPendapatTanggapanFragment extends Fragment {
 
 
 
-    //filter proposal belum input hasil survey
+
+
+    //filter proposal belum input pendapat dan tanggapan
     private void filter(String text){
         ArrayList<ProposalModel>filteredList = new ArrayList<>();
         for (ProposalModel item : proposalModelList) {
@@ -290,33 +366,33 @@ public class DcmPendapatTanggapanFragment extends Fragment {
             }
         }
 
-        ptsSurvey2Adapter.filter(filteredList);
+        dcmHasilSurveyAdapter.filter(filteredList);
         if (filteredList.isEmpty()) {
 
         }else {
-            ptsSurvey2Adapter.filter(filteredList);
+            dcmHasilSurveyAdapter.filter(filteredList);
         }
 
     }
 
-    //filter proposal telah input hasil survey
-    private void filter2(String text){
-        ArrayList<ProposalModel>filteredList = new ArrayList<>();
-        for (ProposalModel item : proposalModelList) {
-            if (item.getNoProposal().toLowerCase().contains(text.toLowerCase())) {
-                filteredList.add(item);
-            }
-        }
-
-        ptsHasilSurveyAdapter.filter(filteredList);
-
-        if (filteredList.isEmpty()) {
-
-        }else {
-            ptsHasilSurveyAdapter.filter(filteredList);
-        }
-
-    }
+    //filter proposal telah input pendapat tanggapan
+//    private void filter2(String text){
+//        ArrayList<ProposalModel>filteredList = new ArrayList<>();
+//        for (ProposalModel item : proposalModelList) {
+//            if (item.getNoProposal().toLowerCase().contains(text.toLowerCase())) {
+//                filteredList.add(item);
+//            }
+//        }
+//
+//        ptsHasilSurveyAdapter.filter(filteredList);
+//
+//        if (filteredList.isEmpty()) {
+//
+//        }else {
+//            ptsHasilSurveyAdapter.filter(filteredList);
+//        }
+//
+//    }
 
     private void loadProfile(){
         Dialog dialog = new Dialog(getContext());
