@@ -59,6 +59,13 @@ public class DcmDetailPendapatTanggapanFragment extends Fragment {
             }
         });
 
+        btnDetailPendapatKabag.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replace(new DcmKabagDetailPendapatFragment());
+            }
+        });
+
 
 
         btnBatal.setOnClickListener(new View.OnClickListener() {

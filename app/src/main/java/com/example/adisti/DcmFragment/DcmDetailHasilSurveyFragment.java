@@ -55,10 +55,24 @@ public class DcmDetailHasilSurveyFragment extends Fragment {
             }
         });
 
+        btnInsertKabag.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replace(new DcmKabagInsertPendapatFragment());
+            }
+        });
+
         btnDetailPendapatKasubag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 replace(new DcmKasubagDetailPendapatFragment());
+            }
+        });
+
+        btnDetailPendapatKabag.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replace(new DcmKabagDetailPendapatFragment());
             }
         });
 
