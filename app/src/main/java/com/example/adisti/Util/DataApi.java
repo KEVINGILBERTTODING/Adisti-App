@@ -10,6 +10,7 @@ public class DataApi {
     public static final String URL_PHOTO_PROFILE = "http://"+IP_ADDRESS+"/adisti-jr/uploads/photo_profile/";
     public static final String URL_DOWNLOAD_PROPOSAL = "http://"+IP_ADDRESS+"/adisti-jr/api/pengaju/downloadProposal/";
     public static final String URL_DOWNLOAD_FILE_SURVEY = "http://" + IP_ADDRESS +"/adisti-jr/api/pts/downloadfile/";
+    public static final String URL_QR_CODE = "http://" + IP_ADDRESS + "/adisti-jr/uploads/qrcode/";
     public static Retrofit retrofit = null;
     public static Retrofit getClient() {
         if (retrofit == null) {

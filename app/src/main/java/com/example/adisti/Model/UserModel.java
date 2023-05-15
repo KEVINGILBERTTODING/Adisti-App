@@ -24,8 +24,14 @@ public class UserModel implements Serializable {
     String username;
     @SerializedName("photo_profile")
     String photoProfile;
+    @SerializedName("nama_lengkap")
+    String namaLengkap;
+    @SerializedName("jabatan")
+    String jabatan;
+    @SerializedName("file_qrcode")
+    String fileQrCode;
 
-    public UserModel(String userId, String nama, String kodeLoket, String role, String message, Integer code, String namaLoket, String username, String photoProfile) {
+    public UserModel(String userId, String nama, String kodeLoket, String namaLengkap, String jabatan, String fileQrCode, String role, String message, Integer code, String namaLoket, String username, String photoProfile) {
         this.userId = userId;
         this.nama = nama;
         this.kodeLoket = kodeLoket;
@@ -35,6 +41,9 @@ public class UserModel implements Serializable {
         this.namaLoket = namaLoket;
         this.username = username;
         this.photoProfile = photoProfile;
+        this.namaLengkap = namaLengkap;
+        this.jabatan = jabatan;
+        this.fileQrCode = fileQrCode;
     }
 
     public String getUserId() {
@@ -107,5 +116,29 @@ public class UserModel implements Serializable {
 
     public void setPhotoProfile(String photoProfile) {
         this.photoProfile = photoProfile;
+    }
+
+    public String getNamaLengkap() {
+        return namaLengkap;
+    }
+
+    public void setNamaLengkap(String namaLengkap) {
+        this.namaLengkap = namaLengkap;
+    }
+
+    public String getJabatan() {
+        return jabatan;
+    }
+
+    public void setJabatan(String jabatan) {
+        this.jabatan = jabatan;
+    }
+
+    public String getFileQrCode() {
+        return DataApi.URL_QR_CODE + fileQrCode;
+    }
+
+    public void setFileQrCode(String fileQrCode) {
+        this.fileQrCode = fileQrCode;
     }
 }

@@ -48,6 +48,13 @@ public class DcmDetailHasilSurveyFragment extends Fragment {
         init(view);
         displayHasilSurvey();
 
+        btnInsertKasubag.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replace(new DcmKasubagInsertPendapatFragment());
+            }
+        });
+
 
 
         btnBatal.setOnClickListener(new View.OnClickListener() {
@@ -56,20 +63,24 @@ public class DcmDetailHasilSurveyFragment extends Fragment {
                 getActivity().onBackPressed();
             }
         });
-        btnInsertKasubag.setOnClickListener(new View.OnClickListener() {
+
+        btnBatal2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment fragment = new PtsEditHasilSurveyFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("proposal_id", proposalId);
-                bundle.putString("no_urut_proposal", noUrutProposal);
-                fragment.setArguments(bundle);
-                ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.framePts, fragment).addToBackStack(null).commit();
-
-
+                getActivity().onBackPressed();
             }
         });
+        btnBatal3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
+
+
+
+
+
 
         // Hilangkan button
 
@@ -189,6 +200,14 @@ public class DcmDetailHasilSurveyFragment extends Fragment {
         });
 
 
+    }
+
+    private void replace(Fragment fragment) {
+        Bundle bundle = new Bundle();
+        bundle.putString("proposal_id", proposalId);
+        fragment.setArguments(bundle);
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frameDcm, fragment)
+                .addToBackStack(null).commit();
     }
 
 
