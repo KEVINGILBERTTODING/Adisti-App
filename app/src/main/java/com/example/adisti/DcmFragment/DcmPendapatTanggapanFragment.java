@@ -129,7 +129,8 @@ public class DcmPendapatTanggapanFragment extends Fragment {
                         getProposalPendpatTanggapanKabag();
 
                     } else if (userId.equals("29")) {
-//                        getProposalHasilSurveyKacab();
+                        getProposalPendpatTanggapanKacab();
+
 
                     }
 
@@ -320,7 +321,7 @@ public class DcmPendapatTanggapanFragment extends Fragment {
         dialogProgressBar.setCanceledOnTouchOutside(false);
         dialogProgressBar.show();
 
-        dcmInterface.getProposalKabag().enqueue(new Callback<List<ProposalModel>>() {
+        dcmInterface.getProposalKacab().enqueue(new Callback<List<ProposalModel>>() {
             @Override
             public void onResponse(Call<List<ProposalModel>> call, Response<List<ProposalModel>> response) {
 
@@ -366,7 +367,7 @@ public class DcmPendapatTanggapanFragment extends Fragment {
     }
 
 
-    // Get proposal yang teah di input pendapat & tanggapan Kasubag
+    // Get proposal yang telah di input pendapat & tanggapan Kasubag
     private void getProposalPendpatTanggapanKasubag(){
         Dialog dialogProgressBar = new Dialog(getContext());
         dialogProgressBar.setContentView(R.layout.dialog_progress_bar);
@@ -430,6 +431,58 @@ public class DcmPendapatTanggapanFragment extends Fragment {
         dialogProgressBar.show();
 
         dcmInterface.getProposalKabagPendapat().enqueue(new Callback<List<ProposalModel>>() {
+            @Override
+            public void onResponse(Call<List<ProposalModel>> call, Response<List<ProposalModel>> response) {
+
+                if (response.isSuccessful() && response.body().size() > 0) {
+                    proposalModelList = response.body();
+                    dcmPendapatTanggapanAdapter = new DcmPendapatTanggapanAdapter(getContext(), proposalModelList);
+                    linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                    rvProposal.setAdapter(null);
+                    rvProposal.setLayoutManager(linearLayoutManager);
+                    rvProposal.setAdapter(dcmPendapatTanggapanAdapter);
+                    rvProposal.setHasFixedSize(true);
+                    dialogProgressBar.dismiss();
+                    tvEmpty.setVisibility(View.GONE);
+                }else {
+                    tvEmpty.setVisibility(View.VISIBLE);
+                    rvProposal.setAdapter(null);
+                    dialogProgressBar.dismiss();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ProposalModel>> call, Throwable t) {
+                Dialog dialogNoConnection = new Dialog(getContext());
+                dialogNoConnection.setContentView(R.layout.dialog_no_connection);
+                dialogNoConnection.setCancelable(false);
+                dialogProgressBar.setCanceledOnTouchOutside(false);
+                dialogProgressBar.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                Button  btnRefresh = dialogNoConnection.findViewById(R.id.btnRefresh);
+                btnRefresh.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        getProposalPendpatTanggapanKasubag();
+                        dialogProgressBar.dismiss();
+                    }
+                });
+                tvEmpty.setVisibility(View.GONE);
+                dialogProgressBar.dismiss();
+
+            }
+        });
+
+    }
+    private void getProposalPendpatTanggapanKacab(){
+        Dialog dialogProgressBar = new Dialog(getContext());
+        dialogProgressBar.setContentView(R.layout.dialog_progress_bar);
+        dialogProgressBar.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialogProgressBar.setCancelable(false);
+        dialogProgressBar.setCanceledOnTouchOutside(false);
+        dialogProgressBar.show();
+
+        dcmInterface.getProposalKacabPendapat().enqueue(new Callback<List<ProposalModel>>() {
             @Override
             public void onResponse(Call<List<ProposalModel>> call, Response<List<ProposalModel>> response) {
 

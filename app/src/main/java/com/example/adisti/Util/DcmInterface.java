@@ -51,6 +51,12 @@ public interface DcmInterface {
             @PartMap Map<String, RequestBody> textData
     );
 
+    @Multipart
+    @POST("dcm/insertPendapatKacab")
+    Call<ResponseModel>insertPendapatKacab(
+            @PartMap Map<String, RequestBody> textData
+    );
+
     @GET("dcm/getPendapatTanggapanById")
     Call<PendapatTanggapanModel>getPendapatById(
             @Query("proposal_id") String proposalId
@@ -66,6 +72,11 @@ public interface DcmInterface {
     @GET("dcm/getProposalKabagPendapat")
     Call<List<ProposalModel>>getProposalKabagPendapat();
 
+    // Get all proposal yang telah diinput
+    // pendapat kabag
+    @GET("dcm/getProposalKacabPendapat")
+    Call<List<ProposalModel>>getProposalKacabPendapat();
+
     @Multipart
     @POST("dcm/updatePendapatTanggapanKasubag")
     Call<ResponseModel>updatePendapatKasubag(
@@ -77,5 +88,14 @@ public interface DcmInterface {
     Call<ResponseModel>updatePendapatKabag(
             @PartMap Map<String, RequestBody> textData
     );
+
+
+    @Multipart
+    @POST("dcm/updatePendapatTanggapanKacab")
+    Call<ResponseModel>updatePendapatKacab(
+            @PartMap Map<String, RequestBody> textData
+    );
+
+
 
 }

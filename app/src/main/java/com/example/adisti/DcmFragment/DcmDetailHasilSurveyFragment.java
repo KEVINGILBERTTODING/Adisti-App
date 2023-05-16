@@ -62,6 +62,13 @@ public class DcmDetailHasilSurveyFragment extends Fragment {
             }
         });
 
+        btnInsertKacab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replace(new DcmKacabInsertPendapatFragment());
+            }
+        });
+
         btnDetailPendapatKasubag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,6 +80,12 @@ public class DcmDetailHasilSurveyFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 replace(new DcmKabagDetailPendapatFragment());
+            }
+        });
+        btnDetailPendapatKacab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replace(new DcmKacabDetailPendapatFragment());
             }
         });
 
@@ -115,7 +128,7 @@ public class DcmDetailHasilSurveyFragment extends Fragment {
             btnDetailPendapatKasubag.setVisibility(View.VISIBLE);
             btnDetailPendapatKabag.setVisibility(View.GONE);
             layoutKacab.setVisibility(View.GONE);
-        }else {
+        }else if (userId.equals("29")){
             btnInsertKasubag.setVisibility(View.GONE);
             btnBatal.setVisibility(View.GONE);
             btnDetailPendapatKasubag.setVisibility(View.VISIBLE);
@@ -123,7 +136,7 @@ public class DcmDetailHasilSurveyFragment extends Fragment {
             btnBatal2.setVisibility(View.GONE);
             btnDetailPendapatKabag.setVisibility(View.VISIBLE);
             btnInsertKacab.setVisibility(View.VISIBLE);
-            btnDetailPendapatKabag.setVisibility(View.GONE);
+            btnDetailPendapatKacab.setVisibility(View.GONE);
             btnBatal3.setVisibility(View.VISIBLE);
         }
 

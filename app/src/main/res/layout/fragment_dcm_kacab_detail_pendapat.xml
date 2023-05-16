@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="@dimen/_14sdp"
+    tools:context=".DcmFragment.DcmKacabDetailPendapatFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pendapat dan Tanggapan"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_22ssp"
+                android:fontFamily="@font/popsem"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kepala Cabang"
+                android:textColor="@color/black"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:textSize="@dimen/_15ssp"
+                android:fontFamily="@font/popsem"/>
+
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nama Kepala Cabang"
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"/>
+
+            <EditText
+                android:id="@+id/etNamaKacab"
+                android:layout_width="match_parent"
+                android:padding="@dimen/_10sdp"
+                android:textSize="@dimen/_11ssp"
+                android:enabled="false"
+                android:fontFamily="@font/popmed"
+                android:background="@drawable/layout_edittext1"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Jabatan"
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"/>
+
+            <EditText
+                android:id="@+id/etJabatanKacab"
+                android:layout_width="match_parent"
+                android:padding="@dimen/_10sdp"
+                android:textSize="@dimen/_11ssp"
+                android:hint="Jabatan"
+                android:enabled="false"
+                android:fontFamily="@font/popmed"
+                android:background="@drawable/layout_edittext1"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pendapat"
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"/>
+
+            <EditText
+                android:id="@+id/etPendapatKacab"
+                android:layout_width="match_parent"
+                android:padding="@dimen/_10sdp"
+                android:textSize="@dimen/_11ssp"
+                android:hint="Pendapat"
+                android:lines="5"
+                android:enabled="false"
+                android:gravity="start"
+                android:fontFamily="@font/popmed"
+                android:background="@drawable/layout_edittext1"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tanggapan"
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"/>
+
+            <EditText
+                android:id="@+id/etTanggapan"
+                android:layout_width="match_parent"
+                android:padding="@dimen/_10sdp"
+                android:textSize="@dimen/_11ssp"
+                android:enabled="false"
+                android:fontFamily="@font/popmed"
+                android:background="@drawable/layout_edittext1"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+            <Spinner
+                android:id="@+id/spTanggapan"
+                android:layout_width="match_parent"
+                android:padding="@dimen/_10sdp"
+                android:visibility="gone"
+                android:textSize="@dimen/_11ssp"
+                android:fontFamily="@font/popmed"
+                android:background="@drawable/layout_edittext1"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nilai Pengajuan"
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"/>
+
+            <EditText
+                android:id="@+id/etNilaiPengajuan"
+                android:layout_width="match_parent"
+                android:padding="@dimen/_10sdp"
+                android:textSize="@dimen/_11ssp"
+                android:hint="1-100"
+                android:inputType="number"
+                android:maxLength="3"
+                android:enabled="false"
+                android:fontFamily="@font/popmed"
+                android:background="@drawable/layout_edittext1"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+            <ImageView
+                android:id="@+id/ivQrCode"
+                android:layout_width="@dimen/_90sdp"
+                android:background="@color/main"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_height="@dimen/_90sdp"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Edit"
+                android:textColor="@color/white"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:fontFamily="@font/popsem"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSimpan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Simpan"
+                android:visibility="gone"
+                android:textColor="@color/white"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:fontFamily="@font/popsem"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnBatal2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Batal"
+                android:visibility="gone"
+                app:backgroundTint="@color/light_gray2"
+                android:textColor="@color/black"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/popsem"/>
+
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnBatal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Kembali"
+                app:backgroundTint="@color/light_gray2"
+                android:textColor="@color/black"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/popsem"/>
+
+
+
+
+
+        </LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
+
+</RelativeLayout>
