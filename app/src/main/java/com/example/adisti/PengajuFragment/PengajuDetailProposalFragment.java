@@ -65,7 +65,7 @@ public class PengajuDetailProposalFragment extends Fragment {
     String userID, proposalId, fileProposal;
     EditText etNoProposal,  etInstansi, etBantuan, etNamaPengaju,
     etEmail, etAlamat, etNoTelp, etJabatan, etPdfPath, et_loket, etTanggalProposal, etLatarBelakangProposal;
-    Button btnKembali, btnRefresh, btnUbah;
+    Button btnKembali, btnRefresh, btnUbah, btnDownloadSurat;
     TextView tvStatus;
     CardView cvStatus;
 
@@ -132,6 +132,35 @@ public class PengajuDetailProposalFragment extends Fragment {
             }
         });
 
+        btnDownloadSurat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String url = DataApi.URL_DOWNLOAD_SURAT_KACAB + proposalId;
+                String title = "FileSuratKacab";
+                String description = "Downloading PDF file";
+                String fileName = fileProposal;
+
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (getActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+
+                        String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                        requestPermissions(permissions, 1000);
+                    } else {
+
+                        FileDownload fileDownload = new FileDownload(getContext());
+                        fileDownload.downloadFile(url, title, description, fileName);
+
+                    }
+                } else {
+
+                    FileDownload fileDownload = new FileDownload(getContext());
+                    fileDownload.downloadFile(url, title, description, fileName);
+                }
+            }
+        });
+
 
 
        return view;
@@ -148,6 +177,7 @@ public class PengajuDetailProposalFragment extends Fragment {
         etInstansi = view.findViewById(R.id.et_instansi);
         etTanggalProposal = view.findViewById(R.id.et_tglProposal);
         etBantuan = view.findViewById(R.id.et_bantuan);
+        btnDownloadSurat = view.findViewById(R.id.btnDownloadSurat);
         etNamaPengaju = view.findViewById(R.id.et_namaPengaju);
         etEmail = view.findViewById(R.id.et_emailPengaju);
         etLatarBelakangProposal = view.findViewById(R.id.et_latarBelakangProposal);
@@ -211,8 +241,9 @@ public class PengajuDetailProposalFragment extends Fragment {
 
                             if (response.body().getStatus().equals("Diterima")){
                                 tvStatus.setText("Diterima");
+                                btnDownloadSurat.setText("Download Surat Persetujuan");
+                                btnDownloadSurat.setVisibility(View.VISIBLE);
                                 cvStatus.setCardBackgroundColor(getContext().getColor(R.color.green));
-
                                 Dialog dialogSuccess = new Dialog(getContext());
                                 dialogSuccess.setContentView(R.layout.dialog_proposal_diterima);
                                 dialogSuccess.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
@@ -230,9 +261,12 @@ public class PengajuDetailProposalFragment extends Fragment {
                             }else if (response.body().getStatus().equals("Ditolak")){
                                 tvStatus.setText("Ditolak");
                                 cvStatus.setCardBackgroundColor(getContext().getColor(R.color.red));
+                                btnDownloadSurat.setText("Download Surat Penolakan");
+                                btnDownloadSurat.setVisibility(View.VISIBLE);
                             }else {
                                 tvStatus.setText("Menunggu");
                                 cvStatus.setCardBackgroundColor(getContext().getColor(R.color.yelllow));
+                                btnDownloadSurat.setVisibility(View.GONE);
                             }
 
                             if (response.body().getVerified().equals("1")) {

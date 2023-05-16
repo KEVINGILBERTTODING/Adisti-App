@@ -363,6 +363,20 @@
                 android:textColor="@color/white"
                 app:cornerRadius="@dimen/_15sdp"/>
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDownloadSurat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Download surat"
+                android:padding="@dimen/_10sdp"
+                android:elevation="0dp"
+                android:visibility="gone"
+                app:backgroundTint="@color/green"
+                android:fontFamily="@font/popmed"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textAllCaps="false"
+                app:cornerRadius="@dimen/_15sdp"/>
+
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnKembali"

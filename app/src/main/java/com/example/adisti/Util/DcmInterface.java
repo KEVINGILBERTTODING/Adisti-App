@@ -11,6 +11,7 @@ import java.util.Map;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -95,6 +96,15 @@ public interface DcmInterface {
     Call<ResponseModel>updatePendapatKacab(
             @PartMap Map<String, RequestBody> textData
     );
+
+    @FormUrlEncoded
+    @POST("sendEmail/kirimEmail")
+    Call<ResponseModel>sendNotificationEmail(
+            @Field("proposal_id") String proposalId
+    );
+
+
+
 
 
 

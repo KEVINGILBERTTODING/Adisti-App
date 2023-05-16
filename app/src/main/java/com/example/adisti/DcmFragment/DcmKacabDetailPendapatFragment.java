@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -295,19 +296,74 @@ public class DcmKacabDetailPendapatFragment extends Fragment {
                 @Override
                 public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
                     if (response.isSuccessful() && response.body().getCode() == 200) {
-                        progressDialog.dismiss();
-                        Dialog dialogSuccess = new Dialog(getContext());
-                        dialogSuccess.setCanceledOnTouchOutside(false);
-                        dialogSuccess.setCancelable(false);
-                        dialogSuccess.setContentView(R.layout.dialog_success);
-                        dialogSuccess.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-                        Button btnOke = dialogSuccess.findViewById(R.id.btnOke);
-                        btnOke.setOnClickListener(new View.OnClickListener() {
+
+                        // send notification email
+                        dcmInterface.sendNotificationEmail(proposalId).enqueue(new Callback<ResponseModel>() {
                             @Override
-                            public void onClick(View v) {
-                                dialogSuccess.dismiss();
+                            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                                if (response.isSuccessful() && response.body().getCode() == 200) {
+
+                                    Dialog dialogSuccess = new Dialog(getContext());
+                                    dialogSuccess.setCanceledOnTouchOutside(false);
+                                    dialogSuccess.setCancelable(false);
+                                    dialogSuccess.setContentView(R.layout.dialog_success_send_email);
+                                    dialogSuccess.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                                    Button btnOke = dialogSuccess.findViewById(R.id.btnOke);
+                                    btnOke.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            dialogSuccess.dismiss();
+                                        }
+                                    });
+                                    dialogSuccess.show();
+                                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frameDcm, new DcmPendapatTanggapanFragment())
+                                            .commit();
+
+                                    progressDialog.dismiss();
+
+                                }else{
+                                    progressDialog.dismiss();
+
+                                    Dialog dialogFailed = new Dialog(getContext());
+                                    dialogFailed.setCanceledOnTouchOutside(false);
+                                    dialogFailed.setCancelable(false);
+                                    dialogFailed.setContentView(R.layout.dialog_failed_send_email);
+                                    dialogFailed.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                                    Button btnOke = dialogFailed.findViewById(R.id.btnOke);
+                                    btnOke.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            dialogFailed.dismiss();
+                                        }
+                                    });
+                                    dialogFailed.show();
+
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<ResponseModel> call, Throwable t) {
+
+                                Dialog dialogNoConnection = new Dialog(getContext());
+                                dialogNoConnection.setContentView(R.layout.dialog_no_connection);
+                                dialogNoConnection.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                                dialogNoConnection.setCancelable(false);
+                                dialogNoConnection.setCanceledOnTouchOutside(false);
+                                Button btnRefresh = dialogNoConnection.findViewById(R.id.btnRefresh);
+                                btnRefresh.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        editData();
+                                        dialogNoConnection.dismiss();
+                                    }
+                                });
+
+                                dialogNoConnection.show();
+
                             }
                         });
+
+
                         btnSimpan.setVisibility(View.GONE);
                         etPendapatKacab.setEnabled(false);
                         etNilaiPengajuan.setEnabled(false);
@@ -316,7 +372,6 @@ public class DcmKacabDetailPendapatFragment extends Fragment {
                         etTanggapan.setVisibility(View.VISIBLE);
                         btnEdit.setVisibility(View.VISIBLE);
                         btnBatal.setVisibility(View.VISIBLE);
-                        dialogSuccess.show();
                         loadPendapatTanggapan();
                     }else {
                         progressDialog.dismiss();

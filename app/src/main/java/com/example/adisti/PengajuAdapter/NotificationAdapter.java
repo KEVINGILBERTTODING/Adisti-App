@@ -119,7 +119,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                                             notifyDataSetChanged();
                                             notifyItemRangeChanged(getAdapterPosition(), notificationModelList.size());
                                             notifyItemRangeRemoved(getAdapterPosition(), notificationModelList.size());
-                                            Toasty.normal(context, "Berhasil meenghapus", Toasty.LENGTH_SHORT).show();
+                                            Toasty.normal(context, "Berhasil menghapus", Toasty.LENGTH_SHORT).show();
 
                                         }else {
                                             Toasty.error(context, "Gagal menghapus notification", Toasty.LENGTH_SHORT).show();
