@@ -1,8 +1,11 @@
 package com.example.adisti.DcmFragment;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +17,7 @@ import android.widget.LinearLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
+import com.example.adisti.FileDownload;
 import com.example.adisti.Model.HasilSurveyModel;
 import com.example.adisti.PtsFragment.PtsEditHasilSurveyFragment;
 import com.example.adisti.R;
@@ -30,7 +34,7 @@ public class DcmDetailHasilSurveyFragment extends Fragment {
     EditText etNamaPetugasSurvey, etJabatanPetugasSurvey, etNilaiPengajuan, etBarangDiajukan, etKelayakan, etBentukBantuan;
 
     Button  btnInsertKasubag, btnBatal, btnDetailPendapatKasubag, btnInsertKabag, btnDetailPendapatKabag,
-            btnBatal2, btnInsertKacab, btnDetailPendapatKacab, btnBatal3;
+            btnBatal2, btnInsertKacab, btnDetailPendapatKacab, btnBatal3, btnDownload;
     SharedPreferences sharedPreferences;
     String proposalId, kodeLoket, noUrutProposal, userId;
     PtsInterface ptsInterface;
@@ -140,6 +144,35 @@ public class DcmDetailHasilSurveyFragment extends Fragment {
             btnBatal3.setVisibility(View.VISIBLE);
         }
 
+        btnDownload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String url = DataApi.URL_DOWNLOAD_PROPOSAL+proposalId;
+                String title = "File Proposal_" + proposalId;
+                String description = "Downloading PDF file";
+                String fileName = "File Proposal_" + proposalId;
+
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (getActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+
+                        String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                        requestPermissions(permissions, 1000);
+                    } else {
+
+                        FileDownload fileDownload = new FileDownload(getContext());
+                        fileDownload.downloadFile(url, title, description, fileName);
+
+                    }
+                } else {
+
+                    FileDownload fileDownload = new FileDownload(getContext());
+                    fileDownload.downloadFile(url, title, description, fileName);
+                }
+            }
+        });
+
 
 
 
@@ -157,6 +190,7 @@ public class DcmDetailHasilSurveyFragment extends Fragment {
         etNilaiPengajuan = view.findViewById(R.id.etNilaiPengajuan);
         etBarangDiajukan = view.findViewById(R.id.etBarangDiajukan);
         etBentukBantuan = view.findViewById(R.id.spBentukBantuan);
+        btnDownload = view.findViewById(R.id.btnDownload);
         layoutBentukBantuan = view.findViewById(R.id.layoutBantuan);
         btnDetailPendapatKasubag = view.findViewById(R.id.btnDetailPendapatKasubag);
         btnInsertKabag = view.findViewById(R.id.btnInsertKabag);

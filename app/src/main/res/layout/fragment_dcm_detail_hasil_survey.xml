@@ -176,6 +176,33 @@
                     android:layout_marginTop="@dimen/_10sdp"/>
             </LinearLayout>
 
+
+
+            <ImageView
+                android:id="@+id/ivPdf"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:src="@drawable/pdf"
+                android:layout_marginTop="@dimen/_15sdp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnDownload"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cornerRadius="@dimen/_10sdp"
+                    android:text="Download Proposal"
+                    app:backgroundTint="@color/green"
+                    android:layout_marginTop="@dimen/_10sdp"/>
+
+
+
+            </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_1sdp"

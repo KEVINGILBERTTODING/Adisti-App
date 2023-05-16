@@ -1,8 +1,11 @@
 package com.example.adisti.DcmFragment;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +17,7 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.adisti.FileDownload;
 import com.example.adisti.Model.HasilSurveyModel;
 import com.example.adisti.Model.ProposalModel;
 import com.example.adisti.R;
@@ -31,7 +35,7 @@ public class DcmDetailPendapatTanggapanFragment extends Fragment {
     EditText etNamaPetugasSurvey, etJabatanPetugasSurvey, etNilaiPengajuan, etBarangDiajukan, etKelayakan, etBentukBantuan;
 
     Button  btnBatal, btnDetailPendapatKasubag, btnDetailPendapatKabag,
-            btnDetailPendapatKacab;
+            btnDetailPendapatKacab, btnDownload;
     SharedPreferences sharedPreferences;
     String proposalId, kodeLoket, noUrutProposal, userId;
     PtsInterface ptsInterface;
@@ -82,6 +86,35 @@ public class DcmDetailPendapatTanggapanFragment extends Fragment {
             }
         });
 
+        btnDownload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String url = DataApi.URL_DOWNLOAD_PROPOSAL+proposalId;
+                String title = "File Proposal_" + proposalId;
+                String description = "Downloading PDF file";
+                String fileName = "File Proposal_" + proposalId;
+
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (getActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+
+                        String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                        requestPermissions(permissions, 1000);
+                    } else {
+
+                        FileDownload fileDownload = new FileDownload(getContext());
+                        fileDownload.downloadFile(url, title, description, fileName);
+
+                    }
+                } else {
+
+                    FileDownload fileDownload = new FileDownload(getContext());
+                    fileDownload.downloadFile(url, title, description, fileName);
+                }
+            }
+        });
+
 
 
 
@@ -106,7 +139,7 @@ public class DcmDetailPendapatTanggapanFragment extends Fragment {
         layoutBentukBantuan = view.findViewById(R.id.layoutBantuan);
         btnDetailPendapatKasubag = view.findViewById(R.id.btnDetailPendapatKasubag);
         btnDetailPendapatKabag = view.findViewById(R.id.btnDetailPendapatKabag);
-
+        btnDownload = view.findViewById(R.id.btnDownload);
         btnDetailPendapatKacab = view.findViewById(R.id.btnDetailPendapatKacab);
         pengajuInterface = DataApi.getClient().create(PengajuInterface.class);
         sharedPreferences = getContext().getSharedPreferences("user_data", Context.MODE_PRIVATE);
