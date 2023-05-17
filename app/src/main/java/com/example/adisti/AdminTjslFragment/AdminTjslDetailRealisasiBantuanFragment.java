@@ -55,7 +55,7 @@ import retrofit2.Response;
 public class AdminTjslDetailRealisasiBantuanFragment extends Fragment {
 
 
-    Button  btnSubmit, btnBatal, btnFotoKegiatanPicker, btnKuitansiPicker, btnBastPicker,
+    Button  btnEdit, btnBatal, btnFotoKegiatanPicker, btnKuitansiPicker, btnBastPicker,
             btnSptPicker, btnBuktiPembayaranPicker;
     TextView tvTglKegiatan, btnLinkBerita;
 
@@ -78,10 +78,17 @@ public class AdminTjslDetailRealisasiBantuanFragment extends Fragment {
         init(view);
 
 
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
+        btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                insertData();
+
+                Fragment fragment = new AdminTjslUpdateRealisasiBantuanFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("proposal_id", proposalId);
+                fragment.setArguments(bundle);
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frameAdminTjsl, fragment)
+                        .addToBackStack(null).commit();
+
             }
         });
 
@@ -162,7 +169,7 @@ public class AdminTjslDetailRealisasiBantuanFragment extends Fragment {
 
     private void init(View view) {
 
-        btnSubmit = view.findViewById(R.id.btnSubmit);
+        btnEdit = view.findViewById(R.id.btnEdit);
         btnBatal = view.findViewById(R.id.btnBatal);
         sharedPreferences = getContext().getSharedPreferences("user_data", Context.MODE_PRIVATE);
         proposalId = getArguments().getString("proposal_id");
@@ -235,7 +242,7 @@ public class AdminTjslDetailRealisasiBantuanFragment extends Fragment {
 
                 }else {
                     Toasty.error(getContext(), "Terjadi kesalahan", Toasty.LENGTH_SHORT).show();
-                    btnSubmit.setEnabled(false);
+                    btnEdit.setEnabled(false);
                     progressDialog.dismiss();
                 }
             }
