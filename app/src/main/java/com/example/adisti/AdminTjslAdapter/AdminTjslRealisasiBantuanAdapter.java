@@ -16,6 +16,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.adisti.AdminTjslFragment.AdminTjslDetailRealisasiBantuanFragment;
+import com.example.adisti.AdminTjslFragment.AdminTjslInsertRealisasiBantuanFragment;
 import com.example.adisti.DcmFragment.DcmDetailHasilSurveyFragment;
 import com.example.adisti.Model.ProposalModel;
 import com.example.adisti.Model.ResponseModel;
@@ -166,13 +168,13 @@ public class AdminTjslRealisasiBantuanAdapter extends RecyclerView.Adapter<Admin
             cvMain.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Fragment fragment = new DcmDetailHasilSurveyFragment();
+                    Fragment fragment = new AdminTjslDetailRealisasiBantuanFragment();
                     Bundle bundle = new Bundle();
                     bundle.putString("proposal_id", proposalModelList.get(getAdapterPosition()).getProposalId());
                     bundle.putString("no_urut_proposal", proposalModelList.get(getAdapterPosition()).getProposalId());
                     fragment.setArguments(bundle);
                     ((FragmentActivity) context).getSupportFragmentManager().beginTransaction()
-                            .addToBackStack(null).replace(R.id.frameDcm, fragment).commit();
+                            .addToBackStack(null).replace(R.id.frameAdminTjsl, fragment).commit();
                 }
             });
 

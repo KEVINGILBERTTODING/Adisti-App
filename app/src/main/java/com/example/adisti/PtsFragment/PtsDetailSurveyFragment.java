@@ -35,6 +35,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 
 import es.dmoral.toasty.Toasty;
@@ -226,6 +227,11 @@ public class PtsDetailSurveyFragment extends Fragment {
             @Override
             public void onResponse(Call<SurveyModel> call, Response<SurveyModel> response) {
                 if (response.isSuccessful() && response.body() != null) {
+
+                    DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
+                    decimalFormat.setGroupingUsed(true);
+                    decimalFormat.setGroupingSize(3);
+
                     progressDialog.dismiss();
                     btnEditSurvey.setEnabled(true);
                     etNamaPetugasSurvey.setText(response.body().getNamaPetugasSurvey());
@@ -239,18 +245,18 @@ public class PtsDetailSurveyFragment extends Fragment {
                     etAlamatBendahara.setText(response.body().getAlamatBendahara());
                     etNotelpBendahara.setText(response.body().getNoTelpBendahara());
                     etSumberDana.setText(response.body().getSdk1());
-                    etNominalDanaKegiatan.setText(response.body().getNominalSdk1());
+                    etNominalDanaKegiatan.setText("Rp. " + decimalFormat.format(Integer.parseInt(response.body().getNominalSdk1())));
                     etSumberDana2.setText(response.body().getSdk2());
-                    etNominalDanaKegiatan2.setText(response.body().getNominalSdk2());
+                    etNominalDanaKegiatan2.setText("Rp. " + decimalFormat.format(Integer.parseInt(response.body().getNominalSdk2())));
                     etSumberDana3.setText(response.body().getSdk3());
-                    etNominalDanaKegiatan3.setText(response.body().getNominalSdk3());
+                    etNominalDanaKegiatan3.setText("Rp. " + decimalFormat.format(Integer.parseInt(response.body().getNominalSdk3())));
                     etSumberPrioritas.setText(response.body().getPk1());
-                    etNominalPrioritas.setText(response.body().getNominalPk1());
+                    etNominalPrioritas.setText("Rp. " + decimalFormat.format(Integer.parseInt(response.body().getNominalPk1())));
                     noUrutProposal = response.body().getNoUrutProposal();
                     etSumberPrioritas2.setText(response.body().getPk2());
-                    etNominalPrioritas2.setText(response.body().getNominalPk2());
+                    etNominalPrioritas2.setText("Rp. " + decimalFormat.format(Integer.parseInt(response.body().getNominalPk2())));
                     etSumberPrioritas3.setText(response.body().getPk3());
-                    etNominalPrioritas3.setText(response.body().getNominalPk3());
+                    etNominalPrioritas3.setText("Rp. " + decimalFormat.format(Integer.parseInt(response.body().getNominalPk3())));
                     etKtpPath.setText(response.body().getFileKtp());
                     etButabPath.setText(response.body().getFileButab());
                     etFotoSurveyPath.setText(response.body().getFileFotoSurvey());

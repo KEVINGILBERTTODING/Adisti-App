@@ -1,6 +1,7 @@
 package com.example.adisti.Util;
 
 import com.example.adisti.Model.ProposalModel;
+import com.example.adisti.Model.RealisasiBantuanModel;
 import com.example.adisti.Model.ResponseModel;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.PartMap;
+import retrofit2.http.Query;
 
 public interface AdminTjslInterface {
 
@@ -36,4 +38,9 @@ public interface AdminTjslInterface {
             @Part MultipartBody.Part fileSpt,
             @Part MultipartBody.Part buktiPembayaran
             );
+
+    @GET("adminTjsl/getRealisasiById")
+    Call<RealisasiBantuanModel>getRealisasiBantuanById(
+            @Query("proposal_id") String proposalId
+    );
 }

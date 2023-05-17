@@ -23,6 +23,8 @@ import com.example.adisti.R;
 import com.example.adisti.Util.DataApi;
 import com.example.adisti.Util.PtsInterface;
 
+import java.text.DecimalFormat;
+
 import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -209,6 +211,10 @@ public class PtsDetailSurvey2Fragment extends Fragment {
             @Override
             public void onResponse(Call<SurveyModel> call, Response<SurveyModel> response) {
                 if (response.isSuccessful() && response.body() != null) {
+                    DecimalFormat decimalFormat = new DecimalFormat("#, ###, ##");
+                    decimalFormat.setGroupingUsed(true);
+                    decimalFormat.setGroupingSize(3);
+
                     progressDialog.dismiss();
                     btnEntryHasilSurvey.setEnabled(true);
                     etNamaPetugasSurvey.setText(response.body().getNamaPetugasSurvey());
@@ -222,18 +228,18 @@ public class PtsDetailSurvey2Fragment extends Fragment {
                     etAlamatBendahara.setText(response.body().getAlamatBendahara());
                     etNotelpBendahara.setText(response.body().getNoTelpBendahara());
                     etSumberDana.setText(response.body().getSdk1());
-                    etNominalDanaKegiatan.setText(response.body().getNominalSdk1());
+                    etNominalDanaKegiatan.setText("Rp. " + decimalFormat.format(Integer.parseInt(response.body().getNominalSdk1())));
                     etSumberDana2.setText(response.body().getSdk2());
-                    etNominalDanaKegiatan2.setText(response.body().getNominalSdk2());
+                    etNominalDanaKegiatan2.setText("Rp. " + decimalFormat.format(Integer.parseInt(response.body().getNominalSdk2())));
                     etSumberDana3.setText(response.body().getSdk3());
-                    etNominalDanaKegiatan3.setText(response.body().getNominalSdk3());
+                    etNominalDanaKegiatan3.setText("Rp. " + decimalFormat.format(Integer.parseInt(response.body().getNominalSdk3())));
                     etSumberPrioritas.setText(response.body().getPk1());
-                    etNominalPrioritas.setText(response.body().getNominalPk1());
+                    etNominalPrioritas.setText("Rp. " + decimalFormat.format(Integer.parseInt(response.body().getNominalPk1())));
                     noUrutProposal = response.body().getNoUrutProposal();
                     etSumberPrioritas2.setText(response.body().getPk2());
-                    etNominalPrioritas2.setText(response.body().getNominalPk2());
+                    etNominalPrioritas2.setText("Rp. " + decimalFormat.format(Integer.parseInt(response.body().getNominalPk2())));
                     etSumberPrioritas3.setText(response.body().getPk3());
-                    etNominalPrioritas3.setText(response.body().getNominalPk3());
+                    etNominalPrioritas3.setText("Rp. " + decimalFormat.format(Integer.parseInt(response.body().getNominalPk3())));
                     etKtpPath.setText(response.body().getFileKtp());
                     etButabPath.setText(response.body().getFileButab());
                     etFotoSurveyPath.setText(response.body().getFileFotoSurvey());
