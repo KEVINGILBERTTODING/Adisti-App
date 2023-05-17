@@ -50,6 +50,9 @@ public class LoginActivity extends AppCompatActivity {
             }else if (sharedPreferences.getString("role", null).equals("dcm")) {
                 startActivity(new Intent(LoginActivity.this, DcmMainActivty.class));
                 finish();
+            }else if (sharedPreferences.getString("role", null).equals("admin")) {
+                startActivity(new Intent(LoginActivity.this, AdminTjslMainActivity.class));
+                finish();
             }
         }
 
@@ -139,6 +142,14 @@ public class LoginActivity extends AppCompatActivity {
                                     editor.putString("role", userModel.getRole());
                                     editor.apply();
                                     startActivity(new Intent(LoginActivity.this, DcmMainActivty.class));
+                                    finish();
+                                }else if (userModel.getRole().equals("admin")) {
+                                    editor.putBoolean("logged_in", true);
+                                    editor.putString("user_id", userModel.getUserId());
+                                    editor.putString("nama", userModel.getNama());
+                                    editor.putString("role", userModel.getRole());
+                                    editor.apply();
+                                    startActivity(new Intent(LoginActivity.this, AdminTjslMainActivity.class));
                                     finish();
                                 }
                                 dialog.dismiss();

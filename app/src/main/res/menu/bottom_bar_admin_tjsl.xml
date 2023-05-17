@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menuHome"
+        android:icon="@drawable/baseline_home_24"
+        android:title="Beranda"/>
+
+
+    <item
+        android:id="@+id/menuRealisasiBantuan"
+        android:icon="@drawable/ic_realisasi_bantuan"
+        android:title="Realisasi Bantuan"/>
+
+
+    <item
+        android:id="@+id/menuLpj"
+        android:icon="@drawable/ic_lpj"
+        android:title="Lpj"/>
+
+    <item
+        android:id="@+id/menuLaporan"
+        android:icon="@drawable/ic_report"
+        android:title="Laporan"/>
+
+    <item
+        android:id="@+id/menuProfile"
+        android:icon="@drawable/baseline_person_24"
+        android:title="Profil"/>
+</menu>
