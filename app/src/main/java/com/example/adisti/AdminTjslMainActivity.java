@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.adisti.AdminTjslFragment.AdminTjslHomeFragment;
+import com.example.adisti.AdminTjslFragment.AdminTjslRealisasiBantuanFragment;
 import com.example.adisti.PicFragment.PicProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -28,8 +29,11 @@ public class AdminTjslMainActivity extends AppCompatActivity {
                 if (item.getItemId() == R.id.menuHome) {
                     replace(new AdminTjslHomeFragment());
                     return true;
-                }if (item.getItemId() == R.id.menuProfile) {
+                }else if (item.getItemId() == R.id.menuProfile) {
                     replace(new PicProfileFragment());
+                    return true;
+                } else if (item.getItemId() == R.id.menuRealisasiBantuan) {
+                    replace(new AdminTjslRealisasiBantuanFragment());
                     return true;
                 }
                 return false;

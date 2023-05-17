@@ -53,6 +53,13 @@ public class AdminTjslHomeFragment extends Fragment {
         });
 
 
+        cvMenuLpj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replace(new AdminTjslLpjKegiatanFragment());
+            }
+        });
+
         img_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="@dimen/_14sdp"
+    android:background="@color/white"
+    tools:context=".AdminTjslFragment.AdminTjslLpjKegiatanFragment">
+
+    <RelativeLayout
+        android:id="@+id/layout_header"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_profile"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/_13sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:src="@drawable/photo_default"
+            app:civ_border_color="@color/main"
+            app:civ_border_width="@dimen/_2sdp" />
+
+
+
+        <TableLayout
+            android:layout_toRightOf="@id/img_profile"
+            android:id="@+id/tab_layout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/popreg"
+                    android:text="Selamat"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_11sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/popreg"
+                    android:text=" datang"
+                    android:textColor="@color/main"
+                    android:textSize="@dimen/_11sdp" />
+            </TableRow>
+
+            <TextView
+                android:id="@+id/tvUsername"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/popsem"
+                android:text="Tasya Theressa"
+                android:maxLength="20"
+                android:layout_marginTop="@dimen/_minus5sdp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_13sdp" />
+
+
+        </TableLayout>
+
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@id/layout_header"
+        android:orientation="vertical">
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:iconifiedByDefault="false"
+            android:background="@drawable/layout_edittext1"
+            android:layout_marginTop="@dimen/_20sdp"
+            app:queryHint="Nomor proposal"
+            app:queryBackground="@null" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_13ssp"
+                android:text="Daftar proposal"
+                android:fontFamily="@font/popsem"
+                android:textColor="@color/black"/>
+
+
+        </RelativeLayout>
+
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            app:tabGravity="fill"
+            app:tabIndicatorFullWidth="true"
+            app:tabMaxWidth="0dp"
+            app:tabMode="fixed"
+            android:background="@color/white"
+            app:tabTextAppearance="@style/TabFont">
+
+        </com.google.android.material.tabs.TabLayout>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvProposal"
+            android:layout_width="match_parent"
+            tools:listitem="@layout/list_proposal"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvEmpty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tidak ada proposal."
+        android:visibility="gone"
+        android:fontFamily="@font/popmed"
+        android:textColor="@color/light_gray"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/_13ssp"/>
+
+
+
+
+
+</RelativeLayout>

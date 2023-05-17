@@ -58,4 +58,12 @@ public interface AdminTjslInterface {
             @PartMap Map<String, RequestBody> textData,
             @Part MultipartBody.Part fileFotoKegiatan
     );
+
+
+    // belum input lpj kegiatan
+    @GET("adminTjsl/getProposalRealisasiBantuan2")
+    Call<List<ProposalModel>> getProposalRealisasiBantuan2();
+
+    @GET("adminTjsl/getProposalLpjKegiatan")
+    Call<List<ProposalModel>> getProposalLpj();
 }
