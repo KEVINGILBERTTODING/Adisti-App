@@ -610,7 +610,7 @@
                     android:layout_marginLeft="@dimen/_5sdp"
                     android:layout_gravity="bottom"
                     android:fontFamily="@font/popmed"
-                    android:textSize="@dimen/_11ssp"
+                    android:textSize="@dimen/_10ssp"
                     android:maxLength="20"
                     android:layout_height="wrap_content"/>
 
@@ -656,7 +656,7 @@
                     android:enabled="false"
                     android:layout_gravity="bottom"
                     android:fontFamily="@font/popmed"
-                    android:textSize="@dimen/_11ssp"
+                    android:textSize="@dimen/_10ssp"
                     android:maxLength="20"
                     android:layout_height="wrap_content"/>
 
@@ -702,7 +702,7 @@
                     android:layout_gravity="bottom"
                     android:enabled="false"
                     android:fontFamily="@font/popmed"
-                    android:textSize="@dimen/_11ssp"
+                    android:textSize="@dimen/_10ssp"
                     android:maxLength="20"
                     android:layout_height="wrap_content"/>
 
