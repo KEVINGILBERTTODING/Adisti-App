@@ -2,13 +2,16 @@ package com.example.adisti.AdminTjslFragment;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,10 +24,12 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.adisti.FileDownload;
 import com.example.adisti.Model.RealisasiBantuanModel;
 import com.example.adisti.Model.ResponseModel;
 import com.example.adisti.R;
@@ -52,10 +57,10 @@ public class AdminTjslDetailRealisasiBantuanFragment extends Fragment {
 
     Button  btnSubmit, btnBatal, btnFotoKegiatanPicker, btnKuitansiPicker, btnBastPicker,
             btnSptPicker, btnBuktiPembayaranPicker;
-    TextView tvTglKegiatan, tvLinkBerita;
+    TextView tvTglKegiatan, btnLinkBerita;
 
     SharedPreferences sharedPreferences;
-    String proposalId, userId;
+    String proposalId, userId, linkBerita, fotoKegiatan;
     AdminTjslInterface adminTjslInterface;
     LinearLayout layoutBarangBerupa;
     EditText etTempatKegiatan, etNominalBantua, etFotoKegiatanPath, etKuitansiPath,
@@ -87,38 +92,64 @@ public class AdminTjslDetailRealisasiBantuanFragment extends Fragment {
             }
         });
 
-//
-//
-//        btnFotoKegiatanPicker.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                selectedFile(1, "image/*");
-//            }
-//        });
-//        btnKuitansiPicker.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                selectedFile(2, "application/pdf");
-//            }
-//        });
-//        btnBastPicker.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                selectedFile(3, "application/pdf");
-//            }
-//        });
-//        btnSptPicker.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                selectedFile(4, "application/pdf");
-//            }
-//        });
-//        btnBuktiPembayaranPicker.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                selectedFile(5, "application/pdf");
-//            }
-//        });
+        btnFotoKegiatanPicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new ViewImageFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("image", fotoKegiatan);
+                fragment.setArguments(bundle);
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frameAdminTjsl, fragment)
+                        .addToBackStack(null).commit();
+            }
+        });
+        btnKuitansiPicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                downloadFileRealisasiBantuan("kuitansi");
+
+            }
+        });
+        btnBastPicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                downloadFileRealisasiBantuan("bast");
+
+            }
+        });
+        btnSptPicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                downloadFileRealisasiBantuan("spt");
+
+            }
+        });
+        btnBuktiPembayaranPicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                downloadFileRealisasiBantuan("erp");
+
+            }
+        });
+
+        btnLinkBerita.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // open browser
+                String url = linkBerita;
+                Uri uri = Uri.parse(url);
+
+                String packageName = "com.android.chrome";
+
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, uri);
+                browserIntent.setPackage(packageName);
+                browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(browserIntent);
+
+
+
+            }
+        });
 
 
 
@@ -142,7 +173,7 @@ public class AdminTjslDetailRealisasiBantuanFragment extends Fragment {
         layoutBarangBerupa = view.findViewById(R.id.layoutBarangBerupa);
         etTempatKegiatan = view.findViewById(R.id.etTempatKegiatan);
         etNominalBantua = view.findViewById(R.id.etNominalBantuan);
-        tvLinkBerita = view.findViewById(R.id.tvLinkBerita);
+        btnLinkBerita = view.findViewById(R.id.btnLinkBerita);
         etFotoKegiatanPath = view.findViewById(R.id.etFotoKegiatanPath);
         etKuitansiPath = view.findViewById(R.id.etKuitansiPath);
         etBastPath = view.findViewById(R.id.etBastPath);
@@ -185,7 +216,8 @@ public class AdminTjslDetailRealisasiBantuanFragment extends Fragment {
                     etNominalBantua.setText("Rp. " + decimalFormat.format(Integer.parseInt(response.body().getNominalBantuan())));
                     etJenisBantuan.setText(response.body().getJenisBantuan());
                     etBarangBerupa.setText(response.body().getBarangBerupa());
-                    tvLinkBerita.setText(response.body().getLinkBerita());
+                    linkBerita = response.body().getLinkBerita();
+                    fotoKegiatan = response.body().getFotoKegiatan();
                     etFotoKegiatanPath.setText(response.body().getFotoKegiatan());
                     etKuitansiPath.setText(response.body().getKuitansi());
                     etBastPath.setText(response.body().getBast());
@@ -228,6 +260,31 @@ public class AdminTjslDetailRealisasiBantuanFragment extends Fragment {
 
             }
         });
+    }
+
+    private void downloadFileRealisasiBantuan(String jenis) {
+        String url = DataApi.URL_DOWLOAD_FILE_REALISASI+proposalId + "/" + jenis;
+        String title = "File_" + jenis + "_" + proposalId;
+        String description = "Downloading PDF file";
+        String fileName = "File_" + jenis + "_" + proposalId;
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (getActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+
+                String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                requestPermissions(permissions, 1000);
+            } else {
+
+                FileDownload fileDownload = new FileDownload(getContext());
+                fileDownload.downloadFile(url, title, description, fileName);
+
+            }
+        } else {
+
+            FileDownload fileDownload = new FileDownload(getContext());
+            fileDownload.downloadFile(url, title, description, fileName);
+        }
     }
 
 

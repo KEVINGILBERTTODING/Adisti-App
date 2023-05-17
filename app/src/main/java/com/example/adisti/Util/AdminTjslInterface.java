@@ -43,4 +43,19 @@ public interface AdminTjslInterface {
     Call<RealisasiBantuanModel>getRealisasiBantuanById(
             @Query("proposal_id") String proposalId
     );
+
+
+    @Multipart
+    @POST("adminTjsl/updateRealisasiTextData")
+    Call<ResponseModel> updateRealisasiTextData(
+            @PartMap Map<String, RequestBody> textData
+    );
+
+
+    @Multipart
+    @POST("adminTjsl/updateFileRealisasiBantuan")
+    Call<ResponseModel> updateFileRealisasiBantuan(
+            @PartMap Map<String, RequestBody> textData,
+            @Part MultipartBody.Part fileFotoKegiatan
+    );
 }
