@@ -57,7 +57,6 @@ public class AdminTjslLpjKegiatanAdapter extends RecyclerView.Adapter<AdminTjslL
         holder.tvNoProposal.setText(proposalModelList.get(holder.getAdapterPosition()).getNoProposal());
 
         if (proposalModelList.get(holder.getAdapterPosition()).getStatus().equals("")) {
-
             if (proposalModelList.get(holder.getAdapterPosition()).getVerified().equals("1")) {
                 holder.ivStatusProposal.setImageDrawable(context.getDrawable(R.drawable.ic_menunggu));
             } else if (proposalModelList.get(holder.getAdapterPosition()).getVerified().equals("2")) {

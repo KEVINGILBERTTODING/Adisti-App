@@ -107,12 +107,12 @@ public class PengajuEditProposalFragment extends Fragment {
 
 
                         if (month <10) {
-                            monthFormatted = String.format("%02d", dayOfMonth + 1);
+                            monthFormatted = String.format("%02d", month + 1);
                         }else {
                             monthFormatted = String.valueOf(month + 1);
                         }
 
-                        tvTanggalProposal.setText(year+"-"+monthFormatted+"-"+dateFormatted);
+                        tvTanggalProposal.setText(year+"/"+monthFormatted+"/"+dateFormatted);
 
                     }
                 });
@@ -429,7 +429,9 @@ public class PengajuEditProposalFragment extends Fragment {
 
                 }
             });
-        }else {
+        }
+        else {
+
             HashMap map = new HashMap();
             map.put("no_proposal", RequestBody.create(MediaType.parse("text/plain"), etNoProposal.getText().toString()));
             map.put("tgl_proposal", RequestBody.create(MediaType.parse("text/plain"), tvTanggalProposal.getText().toString()));
@@ -500,10 +502,6 @@ public class PengajuEditProposalFragment extends Fragment {
             });
 
         }
-
-
-
-
 
     }
 

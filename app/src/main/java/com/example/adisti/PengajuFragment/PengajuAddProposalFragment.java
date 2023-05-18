@@ -57,6 +57,7 @@ public class PengajuAddProposalFragment extends Fragment {
     PengajuInterface pengajuInterface;
     Button btnSubmit;
     Button btnRefresh, btnRefresh1;
+    String tglProposal;
     SharedPreferences sharedPreferences;
     String userID;
     PengajuModel pengajuModel;
@@ -98,12 +99,12 @@ public class PengajuAddProposalFragment extends Fragment {
 
 
                        if (month <10) {
-                           monthFormatted = String.format("%02d", dayOfMonth + 1);
+                           monthFormatted = String.format("%02d", month + 1);
                        }else {
                            monthFormatted = String.valueOf(month + 1);
                        }
 
-                       tvTanggalProposal.setText(year+"-"+monthFormatted+"-"+dateFormatted);
+                       tvTanggalProposal.setText(year+"/"+monthFormatted+"/"+dateFormatted);
 
                    }
                });
@@ -329,11 +330,10 @@ public class PengajuAddProposalFragment extends Fragment {
         tvMain.setText("Menyimpan Data...");
         dialog.show();
 
-        Log.d("dadas", "tanggal proposal: " + tvTanggalProposal.getText().toString());
 
         HashMap map = new HashMap();
         map.put("no_proposal", RequestBody.create(MediaType.parse("text/plain"), etNoProposal.getText().toString()));
-        map.put("tgl_proposal", RequestBody.create(MediaType.parse("text/plain"), tvTanggalProposal.getText().toString()));
+        map.put("tanggal_proposal", RequestBody.create(MediaType.parse("text/plain"), tvTanggalProposal.getText().toString()));
         map.put("asal_proposal", RequestBody.create(MediaType.parse("text/plain"), etInstansi.getText().toString()));
         map.put("bantuan_proposal", RequestBody.create(MediaType.parse("text/plain"), etBantuan.getText().toString()));
         map.put("nama_pihak", RequestBody.create(MediaType.parse("text/plain"), etNamaPengaju.getText().toString()));
@@ -344,6 +344,7 @@ public class PengajuAddProposalFragment extends Fragment {
         map.put("user_id", RequestBody.create(MediaType.parse("text/plain"), userID));
         map.put("kode_loket", RequestBody.create(MediaType.parse("text/plain"), kodeLoket));
         map.put("latar_belakang_proposal", RequestBody.create(MediaType.parse("text/plain"), etLatarBelakang.getText().toString()));
+
 
 
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/pdf"), file);
