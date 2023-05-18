@@ -329,6 +329,8 @@ public class PengajuAddProposalFragment extends Fragment {
         tvMain.setText("Menyimpan Data...");
         dialog.show();
 
+        Log.d("dadas", "tanggal proposal: " + tvTanggalProposal.getText().toString());
+
         HashMap map = new HashMap();
         map.put("no_proposal", RequestBody.create(MediaType.parse("text/plain"), etNoProposal.getText().toString()));
         map.put("tgl_proposal", RequestBody.create(MediaType.parse("text/plain"), tvTanggalProposal.getText().toString()));
@@ -344,7 +346,7 @@ public class PengajuAddProposalFragment extends Fragment {
         map.put("latar_belakang_proposal", RequestBody.create(MediaType.parse("text/plain"), etLatarBelakang.getText().toString()));
 
 
-        RequestBody requestBody = RequestBody.create(MediaType.parse("pdf/*"), file);
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/pdf"), file);
         MultipartBody.Part proposal = MultipartBody.Part.createFormData("file_proposal", file.getName(), requestBody);
 
 

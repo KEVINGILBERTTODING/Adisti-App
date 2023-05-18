@@ -62,7 +62,10 @@ public class PengajuProposalAdapter extends RecyclerView.Adapter<PengajuProposal
                 holder.ivStatusProposal.setImageDrawable(context.getDrawable(R.drawable.ic_menunggu));
             } else if (proposalModelList.get(holder.getAdapterPosition()).getVerified().equals("2")) {
                 holder.ivStatusProposal.setImageDrawable(context.getDrawable(R.drawable.ic_menunggu));
-            }else {
+            }else if (proposalModelList.get(holder.getAdapterPosition()).getVerified().equals("3")) {
+                holder.ivStatusProposal.setImageDrawable(context.getDrawable(R.drawable.ic_ditolak));
+            }
+            else {
                 holder.ivStatusProposal.setImageDrawable(context.getDrawable(R.drawable.ic_ditolak));
             }
         }else  if (proposalModelList.get(holder.getAdapterPosition()).getStatus().equals("Diterima")) {
