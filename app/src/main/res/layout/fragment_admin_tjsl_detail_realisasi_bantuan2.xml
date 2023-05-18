@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="@dimen/_14sdp"
+    tools:context=".AdminTjslFragment.AdminTjslDetailRealisasiBantuan2Fragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Detail\nRealisasi Bantuan"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_22ssp"
+                android:fontFamily="@font/popsem"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tanggal Kegiatan"
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"/>
+
+            <TextView
+                android:id="@+id/tvTglKegiatan"
+                android:layout_width="match_parent"
+                android:padding="@dimen/_10sdp"
+                android:textSize="@dimen/_11ssp"
+                android:enabled="false"
+                android:hint="Pilih tanggal"
+                android:fontFamily="@font/popmed"
+                android:background="@drawable/layout_edittext1"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tempat Kegiatan"
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"/>
+
+            <EditText
+                android:id="@+id/etTempatKegiatan"
+                android:layout_width="match_parent"
+                android:padding="@dimen/_10sdp"
+                android:enabled="false"
+                android:textSize="@dimen/_11ssp"
+                android:hint="Tempat Kegiatan"
+                android:gravity="start"
+                android:lines="3"
+                android:fontFamily="@font/popmed"
+                android:background="@drawable/layout_edittext1"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nominal Bantuan"
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"/>
+
+            <EditText
+                android:id="@+id/etNominalBantuan"
+                android:layout_width="match_parent"
+                android:padding="@dimen/_10sdp"
+                android:textSize="@dimen/_11ssp"
+                android:hint="Nominal Bantuan"
+                android:inputType="number"
+                android:enabled="false"
+                android:fontFamily="@font/popmed"
+                android:background="@drawable/layout_edittext1"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Jenis Bantuan"
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"/>
+
+            <EditText
+                android:id="@+id/etJenisBantuan"
+                android:layout_width="match_parent"
+                android:padding="@dimen/_10sdp"
+                android:enabled="false"
+                android:textSize="@dimen/_11ssp"
+                android:fontFamily="@font/popmed"
+                android:background="@drawable/layout_edittext1"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+            <LinearLayout
+                android:id="@+id/layoutBarangBerupa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Barang Berupa"
+                    android:fontFamily="@font/popmed"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:textSize="@dimen/_10sdp"/>
+
+                <EditText
+                    android:id="@+id/etBarangBerupa"
+                    android:layout_width="match_parent"
+                    android:padding="@dimen/_10sdp"
+                    android:textSize="@dimen/_11ssp"
+                    android:enabled="false"
+                    android:hint="Barang Berupa"
+                    android:lines="3"
+                    android:gravity="start"
+                    android:fontFamily="@font/popmed"
+                    android:background="@drawable/layout_edittext1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"/>
+            </LinearLayout>
+
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Link Berita"
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnLinkBerita"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cornerRadius="@dimen/_10sdp"
+                android:text="Kunjungi situs"
+                app:backgroundTint="@color/main"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Foto Kegiatan "
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"/>
+
+
+            <ImageView
+                android:id="@+id/ivPdf"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:src="@drawable/jpg"
+                android:layout_marginTop="@dimen/_15sdp"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnFotoKegiatanPicker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cornerRadius="@dimen/_10sdp"
+                    app:backgroundTint="@color/green"
+                    android:text="Lihat"
+                    android:layout_marginTop="@dimen/_10sdp"/>
+
+                <EditText
+                    android:id="@+id/etFotoKegiatanPath"
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_gravity="bottom"
+                    android:enabled="false"
+                    android:fontFamily="@font/popmed"
+                    android:textSize="@dimen/_10ssp"
+                    android:maxLength="25"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kuitansi "
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"/>
+
+            <ImageView
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:src="@drawable/pdf"
+                android:layout_marginTop="@dimen/_15sdp"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnKuitansiPicker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cornerRadius="@dimen/_10sdp"
+                    app:backgroundTint="@color/green"
+                    android:text="Download"
+                    android:layout_marginTop="@dimen/_10sdp"/>
+
+                <EditText
+                    android:id="@+id/etKuitansiPath"
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_gravity="bottom"
+                    android:fontFamily="@font/popmed"
+                    android:textSize="@dimen/_10ssp"
+                    android:maxLength="25"
+                    android:enabled="false"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BAST"
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"/>
+
+
+
+            <ImageView
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:src="@drawable/pdf"
+                android:layout_marginTop="@dimen/_15sdp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnBastPicker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cornerRadius="@dimen/_10sdp"
+                    android:text="Download"
+                    app:backgroundTint="@color/green"
+                    android:layout_marginTop="@dimen/_10sdp"/>
+
+                <EditText
+                    android:id="@+id/etBastPath"
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_gravity="bottom"
+                    android:fontFamily="@font/popmed"
+                    android:textSize="@dimen/_10ssp"
+                    android:maxLength="25"
+                    android:enabled="false"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SPT"
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"/>
+
+            <ImageView
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:src="@drawable/pdf"
+                android:layout_marginTop="@dimen/_15sdp"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSptPicker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cornerRadius="@dimen/_10sdp"
+                    android:text="Download"
+                    app:backgroundTint="@color/green"
+                    android:layout_marginTop="@dimen/_10sdp"/>
+
+                <EditText
+                    android:id="@+id/etSptPath"
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_gravity="bottom"
+                    android:fontFamily="@font/popmed"
+                    android:textSize="@dimen/_10ssp"
+                    android:maxLength="25"
+                    android:enabled="false"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bukti Pembayaran (ERP)"
+                android:fontFamily="@font/popmed"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"/>
+
+            <ImageView
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:src="@drawable/pdf"
+                android:layout_marginTop="@dimen/_15sdp"/>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnBuktiPembayaranPicker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cornerRadius="@dimen/_10sdp"
+                    android:text="Download"
+                    app:backgroundTint="@color/green"
+                    android:layout_marginTop="@dimen/_10sdp"/>
+
+                <EditText
+                    android:id="@+id/etBuktiPembayaranPath"
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_gravity="bottom"
+                    android:fontFamily="@font/popmed"
+                    android:textSize="@dimen/_10ssp"
+                    android:maxLength="25"
+                    android:enabled="false"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+
+
+
+
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEntry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Entry Lpj Kegiatan"
+                app:backgroundTint="@color/main"
+                android:textColor="@color/white"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:fontFamily="@font/popsem"/>
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnBatal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Batal"
+                app:backgroundTint="@color/light_gray2"
+                android:textColor="@color/black"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/popsem"/>
+
+
+
+
+
+        </LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
+
+</RelativeLayout>

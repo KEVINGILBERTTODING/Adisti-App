@@ -69,4 +69,12 @@ public interface AdminTjslInterface {
 
     @GET("adminTjsl/getProposalLpjKegiatan")
     Call<List<ProposalModel>> getProposalLpj();
+
+    @Multipart
+    @POST("adminTjsl/insertLpjKegiatan")
+    Call<ResponseModel> insertLpjKegiatan(
+            @PartMap Map<String, RequestBody> textData,
+            @Part MultipartBody.Part fileFotoKegiatan,
+            @Part MultipartBody.Part fileLpjKegiatan
+    );
 }
