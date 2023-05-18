@@ -264,9 +264,15 @@ public class PengajuDetailProposalFragment extends Fragment {
                                 btnDownloadSurat.setText("Download Surat Penolakan");
                                 btnDownloadSurat.setVisibility(View.VISIBLE);
                             }else {
-                                tvStatus.setText("Menunggu");
-                                cvStatus.setCardBackgroundColor(getContext().getColor(R.color.yelllow));
-                                btnDownloadSurat.setVisibility(View.GONE);
+                                if (response.body().getVerified().equals("0")) {
+                                    tvStatus.setText("Tidak lolos verifikasi");
+                                    cvStatus.setCardBackgroundColor(getContext().getColor(R.color.red));
+                                    btnDownloadSurat.setVisibility(View.GONE);
+                                }else {
+                                    tvStatus.setText("Menunggu");
+                                    cvStatus.setCardBackgroundColor(getContext().getColor(R.color.yelllow));
+                                    btnDownloadSurat.setVisibility(View.GONE);
+                                }
                             }
 
                             if (response.body().getVerified().equals("1")) {

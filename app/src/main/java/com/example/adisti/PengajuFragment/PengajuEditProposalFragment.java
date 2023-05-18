@@ -243,8 +243,14 @@ public class PengajuEditProposalFragment extends Fragment {
                                 tvStatus.setText("Ditolak");
                                 cvStatus.setCardBackgroundColor(getContext().getColor(R.color.red));
                             }else {
-                                tvStatus.setText("Menunggu");
-                                cvStatus.setCardBackgroundColor(getContext().getColor(R.color.yelllow));
+
+                                if (response.body().getVerified().equals("0")) {
+                                    tvStatus.setText("Tidak lolos verifikasi");
+                                    cvStatus.setCardBackgroundColor(getContext().getColor(R.color.red));
+                                }else {
+                                    tvStatus.setText("Menunggu");
+                                    cvStatus.setCardBackgroundColor(getContext().getColor(R.color.yelllow));
+                                }
                             }
 
                             if (response.body().getVerified().equals("1")) {
