@@ -520,11 +520,9 @@ public class PicUpdateKajianManfaatFragment extends Fragment {
                             spinnerRanAdapter = new SpinnerRanAdapter(getContext(), ranModelList);
                             spRan.setAdapter(spinnerRanAdapter);
                             progressDialog.dismiss();
-                            Log.d("asdsad", "onResponse: " +"berhaslll");
                         }else {
                             Toasty.error(getContext(), "Terjadi kesalahan", Toasty.LENGTH_SHORT).show();
                             progressDialog.dismiss();
-                            Log.d("asdsad", "onResponse: " +"agagal");
 
                         }
                     }
@@ -545,7 +543,6 @@ public class PicUpdateKajianManfaatFragment extends Fragment {
                             }
                         });
                         dialogNoConnection.dismiss();
-                        Log.e("ASDdas", "onFailure: " , t );
 
 
                     }
@@ -579,7 +576,7 @@ public class PicUpdateKajianManfaatFragment extends Fragment {
         map.put("ran", RequestBody.create(MediaType.parse("text/plain"), ran));
         map.put("kode_loket", RequestBody.create(MediaType.parse("text/plain"), kodeLoket));
 
-        picInterface.updateKajianManfaat(map).enqueue(new Callback<ResponseModel>() {
+        picInterface.updateKajianManfaat2(map).enqueue(new Callback<ResponseModel>() {
             @Override
             public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
                 ResponseModel responseModel = response.body();

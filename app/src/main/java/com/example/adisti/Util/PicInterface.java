@@ -74,6 +74,14 @@ public interface PicInterface {
             @PartMap Map<String, RequestBody> textData
             );
 
+
+    @Multipart
+    @POST("pic/updateKajianManfaat")
+    Call<ResponseModel>updateKajianManfaat2(
+            @PartMap Map<String, RequestBody> textData
+    );
+
+
     @GET("pic/getKategoriPemohonBantuan")
     Call<List<KategoriPemohonBantuanModel>>getKategoriPemohonBantuan();
 

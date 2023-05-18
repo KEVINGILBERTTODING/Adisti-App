@@ -20,6 +20,7 @@
             android:layout_height="@dimen/_40sdp"
             android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
+            android:visibility="gone"
             android:layout_marginTop="@dimen/_13sdp"
             android:layout_marginRight="@dimen/_10sdp"
             android:src="@drawable/photo_default"
