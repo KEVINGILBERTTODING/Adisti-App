@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:padding="@dimen/_14sdp"
-    tools:context=".AdminTjslFragment.AdminTjslInsertLpjKegiatanFragment">
+    tools:context=".AdminTjslFragment.AdminTjslUpdateLpjKegiatanFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Entry\nLPJ Kegiatan"
+                android:text="Ubah\nLPJ Kegiatan"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_22ssp"
                 android:fontFamily="@font/popsem"/>
@@ -71,7 +71,7 @@
                     android:layout_height="wrap_content"
                     app:cornerRadius="@dimen/_10sdp"
                     android:text="Pilih"
-                    app:backgroundTint="@color/green"
+                    app:backgroundTint="@color/yelllow"
                     android:layout_marginTop="@dimen/_10sdp"/>
 
                 <EditText
@@ -126,29 +126,23 @@
                     android:id="@+id/btnLpjKegiatanPicker"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:cornerRadius="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:text="Pilih"
-                    app:backgroundTint="@color/green"
-                    android:layout_marginTop="@dimen/_10sdp"/>
+                    app:backgroundTint="@color/yelllow"
+                    app:cornerRadius="@dimen/_10sdp" />
 
                 <EditText
                     android:id="@+id/etLpjKegiatanPath"
                     android:layout_width="match_parent"
-                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
-                    android:fontFamily="@font/popmed"
-                    android:textSize="@dimen/_10ssp"
-                    android:maxLength="25"
+                    android:layout_marginLeft="@dimen/_5sdp"
                     android:enabled="false"
-                    android:layout_height="wrap_content"/>
+                    android:fontFamily="@font/popmed"
+                    android:maxLength="25"
+                    android:textSize="@dimen/_10ssp" />
 
             </LinearLayout>
-
-
-
-
-
-
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSubmit"

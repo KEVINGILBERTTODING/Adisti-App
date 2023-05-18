@@ -72,6 +72,13 @@ public class AdminTjslDetailLpjKegiatanFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+                Fragment fragment = new AdminTjslUpdateLpjKegiatanFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("proposal_id", proposalId);
+                fragment.setArguments(bundle);
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frameAdminTjsl, fragment)
+                        .addToBackStack(null).commit();
+
             }
         });
 

@@ -83,4 +83,26 @@ public interface AdminTjslInterface {
     Call<LpjKegiatanModel>getlPjKegiatanById(
             @Query("proposal_id") String propossalId
     );
+
+    @Multipart
+    @POST("admintjsl/updateLpjKegiatan")
+    Call<ResponseModel> updateFileFotoKegiatanLpj (
+            @PartMap Map<String, RequestBody> textData,
+            @Part MultipartBody.Part image
+    );
+
+    @Multipart
+    @POST("admintjsl/updateLpjKegiatan")
+    Call<ResponseModel> updateLpjKegiatanLpj (
+            @PartMap Map<String, RequestBody> textData,
+            @Part MultipartBody.Part fileLpj
+    );
+
+    @Multipart
+    @POST("admintjsl/updateLpjKegiatan")
+    Call<ResponseModel> updateAllFileLpjKegiatan (
+            @PartMap Map<String, RequestBody> textData,
+            @Part MultipartBody.Part fotoKegiatan,
+            @Part MultipartBody.Part fileLpj
+    );
 }
