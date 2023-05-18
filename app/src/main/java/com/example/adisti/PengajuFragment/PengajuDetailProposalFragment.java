@@ -317,8 +317,4 @@ public class PengajuDetailProposalFragment extends Fragment {
 
     }
 
-
-
-
-
 }

@@ -29,6 +29,12 @@ public interface PengajuInterface {
             @Query("user_id") String userId
     );
 
+    @GET("pengaju/getAllProposalPengajuStatus")
+    Call<List<ProposalModel>>getAllProposalPengajuStatus(
+            @Query("user_id") String userId,
+            @Query("status") String status
+    );
+
     @GET("pengaju/getAllLoket")
     Call<List<LoketModel>>getAllLoket();
 

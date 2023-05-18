@@ -33,6 +33,7 @@ import com.example.adisti.R;
 import com.example.adisti.Util.DataApi;
 import com.example.adisti.Util.PengajuInterface;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +47,7 @@ public class PengajuHomeFragment extends Fragment {
     TextView tvUsername, tvEmpty, tvDateStart, tvDateEnd, tv_total_notif;
     String userId;
     SearchView searchView;
+    TabLayout tab_layout;
     ImageButton btnNotifikasi;
     RelativeLayout rl_count_notif;
     SharedPreferences sharedPreferences;
@@ -250,6 +252,31 @@ public class PengajuHomeFragment extends Fragment {
             }
         }, 1000L);
 
+        tab_layout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if ((tab.getPosition() == 0)) {
+                    getAllProposal();
+                } else if ((tab.getPosition() == 1)) {
+                    getAllProposalStatus("Diterima");
+                } else if ((tab.getPosition() == 2)) {
+                    getAllProposalStatus("Ditolak");
+                }
+             }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+
+
         return view;
     }
 
@@ -270,6 +297,14 @@ public class PengajuHomeFragment extends Fragment {
         btnNotifikasi = view.findViewById(R.id.btn_notification);
         pengajuInterface = DataApi.getClient().create(PengajuInterface.class);
         userId = sharedPreferences.getString("user_id", null);
+
+
+
+
+        tab_layout = view.findViewById(R.id.tab_layout);
+        tab_layout.addTab(tab_layout.newTab().setText("Semua"));
+        tab_layout.addTab(tab_layout.newTab().setText("Disetujui"));
+        tab_layout.addTab(tab_layout.newTab().setText("Ditolak"));
     }
 
     private void getAllProposal() {
@@ -292,6 +327,7 @@ public class PengajuHomeFragment extends Fragment {
                         if (response.isSuccessful() && response.body().size() > 0) {
                             pengajuProposalAdapter = new PengajuProposalAdapter(getContext(), proposalModelList);
                             linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                            rvProposal.setAdapter(null);
                             rvProposal.setLayoutManager(linearLayoutManager);
                             rvProposal.setAdapter(pengajuProposalAdapter);
                             rvProposal.setHasFixedSize(false);
@@ -301,6 +337,68 @@ public class PengajuHomeFragment extends Fragment {
                         }else {
                             tvEmpty.setVisibility(View.VISIBLE);
                             dialog.dismiss();
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<ProposalModel>> call, Throwable t) {
+                        tvEmpty.setVisibility(View.GONE);
+                        dialog.dismiss();
+                        Dialog dialogNoConnection = new Dialog(getContext());
+                        dialogNoConnection.setContentView(R.layout.dialog_no_connection);
+                        dialogNoConnection.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                        dialogNoConnection.setCanceledOnTouchOutside(false);
+                        Button btnRefresh = dialogNoConnection.findViewById(R.id.btnRefresh);
+                        btnRefresh.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                getAllProposal();
+                                dialogNoConnection.dismiss();
+                            }
+                        });
+                        dialogNoConnection.show();
+
+
+
+                    }
+                });
+
+    }
+
+    private void getAllProposalStatus(String status) {
+        Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.dialog_progress_bar);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.setCanceledOnTouchOutside(false);
+        final TextView tvMain;
+        tvMain = dialog.findViewById(R.id.tvMainText);
+        tvMain.setText("Memuat Data...");
+        dialog.show();
+
+
+
+        pengajuInterface.getAllProposalPengajuStatus(userId, status)
+                .enqueue(new Callback<List<ProposalModel>>() {
+                    @Override
+                    public void onResponse(Call<List<ProposalModel>> call, Response<List<ProposalModel>> response) {
+                        proposalModelList = response.body();
+                        if (response.isSuccessful() && response.body().size() > 0) {
+                            pengajuProposalAdapter = new PengajuProposalAdapter(getContext(), proposalModelList);
+                            linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                            rvProposal.setAdapter(null);
+                            rvProposal.setLayoutManager(linearLayoutManager);
+                            rvProposal.setAdapter(pengajuProposalAdapter);
+                            rvProposal.setHasFixedSize(false);
+                            tvEmpty.setVisibility(View.GONE);
+                            dialog.dismiss();
+
+                        }else {
+                            rvProposal.setAdapter(null);
+                            tvEmpty.setVisibility(View.VISIBLE);
+                            dialog.dismiss();
+
 
                         }
 

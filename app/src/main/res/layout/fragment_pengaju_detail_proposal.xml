@@ -316,6 +316,16 @@
                 </com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
 
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/popmed"
+                android:textSize="@dimen/_11ssp"
+                android:text="File Proposal"/>
+
             <ImageView
                 android:id="@+id/ivPdf"
                 android:layout_width="@dimen/_50sdp"
