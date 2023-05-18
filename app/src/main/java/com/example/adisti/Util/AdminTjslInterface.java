@@ -64,6 +64,9 @@ public interface AdminTjslInterface {
     @GET("adminTjsl/getProposalRealisasiBantuan2")
     Call<List<ProposalModel>> getProposalRealisasiBantuan2();
 
+
+    // telah input lpj kegiatan
+
     @GET("adminTjsl/getProposalLpjKegiatan")
     Call<List<ProposalModel>> getProposalLpj();
 }

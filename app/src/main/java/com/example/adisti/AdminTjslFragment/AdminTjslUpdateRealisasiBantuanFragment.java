@@ -68,6 +68,7 @@ public class AdminTjslUpdateRealisasiBantuanFragment extends Fragment {
     String [] jenisBantuan = {"Uang Tunai", "Barang"};
     String jb;
     private File fileRealisasi;
+    ArrayAdapter jenisBantuanAdapter;
 
 
 
@@ -79,7 +80,7 @@ public class AdminTjslUpdateRealisasiBantuanFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_admin_tjsl_update_realisasi_bantuan, container, false);
         init(view);
 
-        ArrayAdapter jenisBantuanAdapter =  new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, jenisBantuan);
+        jenisBantuanAdapter =  new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, jenisBantuan);
         jenisBantuanAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spBantuan.setAdapter(jenisBantuanAdapter);
 
@@ -352,6 +353,7 @@ public class AdminTjslUpdateRealisasiBantuanFragment extends Fragment {
                     etNominalBantua.setText(response.body().getNominalBantuan());
                     etBarangBerupa.setText(response.body().getBarangBerupa());
                     etLinkBerita.setText(response.body().getLinkBerita());
+                    spBantuan.setSelection(((ArrayAdapter<String>)spBantuan.getAdapter()).getPosition(response.body().getJenisBantuan()));
                     etFotoKegiatanPath.setText(response.body().getFotoKegiatan());
                     etFotoKegiatanPath.setText(response.body().getFotoKegiatan());
                     etKuitansiPath.setText(response.body().getKuitansi());
