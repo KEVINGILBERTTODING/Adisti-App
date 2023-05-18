@@ -1,5 +1,6 @@
 package com.example.adisti.Util;
 
+import com.example.adisti.Model.LpjKegiatanModel;
 import com.example.adisti.Model.ProposalModel;
 import com.example.adisti.Model.RealisasiBantuanModel;
 import com.example.adisti.Model.ResponseModel;
@@ -76,5 +77,10 @@ public interface AdminTjslInterface {
             @PartMap Map<String, RequestBody> textData,
             @Part MultipartBody.Part fileFotoKegiatan,
             @Part MultipartBody.Part fileLpjKegiatan
+    );
+
+    @GET("adminTjsl/getLpjKegiatan")
+    Call<LpjKegiatanModel>getlPjKegiatanById(
+            @Query("proposal_id") String propossalId
     );
 }

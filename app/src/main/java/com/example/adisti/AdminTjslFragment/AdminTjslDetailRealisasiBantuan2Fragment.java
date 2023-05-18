@@ -84,7 +84,7 @@ public class AdminTjslDetailRealisasiBantuan2Fragment extends Fragment {
             public void onClick(View v) {
                 Fragment fragment = new ViewImageFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString("image", fotoKegiatan);
+                bundle.putString("image", DataApi.URL_FILE_REALISASI+fotoKegiatan);
                 fragment.setArguments(bundle);
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frameAdminTjsl, fragment)
                         .addToBackStack(null).commit();

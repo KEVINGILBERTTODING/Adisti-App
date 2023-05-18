@@ -9,6 +9,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.adisti.AdminTjslFragment.AdminTjslHomeFragment;
+import com.example.adisti.AdminTjslFragment.AdminTjslInsertLpjKegiatanFragment;
+import com.example.adisti.AdminTjslFragment.AdminTjslLpjKegiatanFragment;
 import com.example.adisti.AdminTjslFragment.AdminTjslRealisasiBantuanFragment;
 import com.example.adisti.PicFragment.PicProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -35,6 +37,10 @@ public class AdminTjslMainActivity extends AppCompatActivity {
                 } else if (item.getItemId() == R.id.menuRealisasiBantuan) {
                     replace(new AdminTjslRealisasiBantuanFragment());
                     return true;
+                } else if (item.getItemId() == R.id.menuLpj) {
+                    replace(new AdminTjslLpjKegiatanFragment());
+                    return true;
+
                 }
                 return false;
             }

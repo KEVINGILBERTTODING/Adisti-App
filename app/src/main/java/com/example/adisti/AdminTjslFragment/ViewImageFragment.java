@@ -27,7 +27,7 @@ public class ViewImageFragment extends Fragment {
         imageView = view.findViewById(R.id.imageView);
 
         Glide.with(getContext())
-                .load(DataApi.URL_FILE_REALISASI+getArguments().getString("image", null))
+                .load(getArguments().getString("image", null))
                 .dontAnimate()
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)

@@ -22,14 +22,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Entry\nLPJ Kegiatan"
+                android:text="Detail\nLPJ Kegiatan"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_22ssp"
                 android:fontFamily="@font/popsem"/>
-
-
-
-
 
 
             <TextView
@@ -38,7 +34,7 @@
                 android:text="Foto Kegiatan"
                 android:fontFamily="@font/popmed"
                 android:layout_gravity="start"
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_20sdp"
                 android:textSize="@dimen/_10sdp"/>
 
 
@@ -47,17 +43,9 @@
                 android:layout_width="@dimen/_50sdp"
                 android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/jpg"
-                android:visibility="gone"
                 android:layout_marginTop="@dimen/_15sdp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="(.jpeg, png, jpg), (maks. 5 mb)"
-                android:fontFamily="@font/popmed"
-                android:layout_gravity="start"
-                android:textColor="@color/red"
-                android:textSize="@dimen/_8sdp"/>
+
 
 
 
@@ -72,7 +60,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:cornerRadius="@dimen/_10sdp"
-                    android:text="Pilih"
+                    android:text="Lihat"
                     app:backgroundTint="@color/green"
                     android:layout_marginTop="@dimen/_10sdp"/>
 
@@ -107,17 +95,7 @@
                 android:layout_width="@dimen/_50sdp"
                 android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/pdf"
-                android:visibility="gone"
                 android:layout_marginTop="@dimen/_15sdp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="(.pdf), (maks. 5 mb)"
-                android:fontFamily="@font/popmed"
-                android:layout_gravity="start"
-                android:textColor="@color/red"
-                android:textSize="@dimen/_8sdp"/>
-
 
 
 
@@ -131,7 +109,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:cornerRadius="@dimen/_10sdp"
-                    android:text="Pilih"
+                    android:text="Download"
                     app:backgroundTint="@color/green"
                     android:layout_marginTop="@dimen/_10sdp"/>
 
@@ -155,10 +133,11 @@
 
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnSubmit"
+                android:id="@+id/btnEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Submit"
+                android:text="Edit"
+                app:backgroundTint="@color/yelllow"
                 android:textColor="@color/white"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:fontFamily="@font/popsem"/>
@@ -168,7 +147,7 @@
                 android:id="@+id/btnBatal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Batal"
+                android:text="Kembali"
                 app:backgroundTint="@color/light_gray2"
                 android:textColor="@color/black"
                 android:layout_marginTop="@dimen/_10sdp"

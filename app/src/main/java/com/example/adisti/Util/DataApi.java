@@ -13,6 +13,8 @@ public class DataApi {
     public static final String URL_QR_CODE = "http://" + IP_ADDRESS + "/adisti-jr/uploads/qrcode/";
     public static final String URL_DOWLOAD_FILE_REALISASI = "http://" + IP_ADDRESS + "/adisti-jr/api/adminTjsl/downloadFileRealisasiBantuan/";
     public static final String URL_FILE_REALISASI = "http://" + IP_ADDRESS + "/adisti-jr/uploads/realisasi/";
+    public static final String URL_FILE_LPJ_KEGIATAN = "http://" + IP_ADDRESS + "/adisti-jr/uploads/lpj_kegiatan/";
+    public static  final String URL_DOWNLOAD_FILE_LPJ_KEGIATAN = "http://" + IP_ADDRESS +"/adisti-jr/api/admintjsl/downloadFileLpjKegiatan/";
     public static final String URL_DOWNLOAD_SURAT_KACAB = "http://" + IP_ADDRESS + "/adisti-jr/api/downloadSurat/cetak_surat/";
     public static Retrofit retrofit = null;
     public static Retrofit getClient() {

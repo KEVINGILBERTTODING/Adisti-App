@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.adisti.AdminTjslFragment.AdminTjslDetailLpjKegiatanFragment;
 import com.example.adisti.AdminTjslFragment.AdminTjslDetailRealisasiBantuanFragment;
 import com.example.adisti.Model.ProposalModel;
 import com.example.adisti.Model.ResponseModel;
@@ -166,7 +167,7 @@ public class AdminTjslLpjKegiatanAdapter extends RecyclerView.Adapter<AdminTjslL
             cvMain.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Fragment fragment = new AdminTjslDetailRealisasiBantuanFragment();
+                    Fragment fragment = new AdminTjslDetailLpjKegiatanFragment();
                     Bundle bundle = new Bundle();
                     bundle.putString("proposal_id", proposalModelList.get(getAdapterPosition()).getProposalId());
                     bundle.putString("no_urut_proposal", proposalModelList.get(getAdapterPosition()).getProposalId());

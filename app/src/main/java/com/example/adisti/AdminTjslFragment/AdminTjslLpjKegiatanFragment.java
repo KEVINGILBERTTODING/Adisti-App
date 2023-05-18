@@ -150,7 +150,7 @@ public class AdminTjslLpjKegiatanFragment extends Fragment {
 
         // set tablayout
         tabLayout.addTab(tabLayout.newTab().setText("Realisasi Bantuan"));
-        tabLayout.addTab(tabLayout.newTab().setText("Lpj Keigiatan"));
+        tabLayout.addTab(tabLayout.newTab().setText("Lpj Kegiatan"));
         picInterface = DataApi.getClient().create(PicInterface.class);
 
         loadProfile();
