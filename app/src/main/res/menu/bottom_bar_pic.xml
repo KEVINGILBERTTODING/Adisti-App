@@ -15,8 +15,13 @@
 
     <item
         android:id="@+id/menuKajianManfaat"
-        android:icon="@drawable/baseline_menu_book_24"
+        android:icon="@drawable/ic_kajian_manfaat3"
         android:title="Kajian Manfaat"/>
+
+    <item
+        android:id="@+id/menuEvaluasiKegiatan"
+        android:icon="@drawable/ic_evaluasi"
+        android:title="Evaluasi"/>
 
     <item
         android:id="@+id/menuProfile"

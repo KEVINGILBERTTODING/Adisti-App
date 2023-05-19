@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.adisti.PicFragment.PicEvaluasiKegiatanFragment;
 import com.example.adisti.PicFragment.PicHomeFragment;
 import com.example.adisti.PicFragment.PicKajianManfaatFragment;
 import com.example.adisti.PicFragment.PicProfileFragment;
@@ -36,7 +37,11 @@ public class PicMainActivity extends AppCompatActivity {
                 }else  if (item.getItemId() == R.id.menuKajianManfaat) {
                     replace(new PicKajianManfaatFragment());
                     return true;
-                }else if (item.getItemId() == R.id.menuProfile) {
+                }else if (item.getItemId() == R.id.menuEvaluasiKegiatan) {
+                    replace(new PicEvaluasiKegiatanFragment());
+                    return true;
+                }
+                else if (item.getItemId() == R.id.menuProfile) {
                     replace(new PicProfileFragment());
                     return true;
                 }
