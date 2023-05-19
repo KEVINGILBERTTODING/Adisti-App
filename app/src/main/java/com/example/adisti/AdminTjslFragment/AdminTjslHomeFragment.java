@@ -68,6 +68,13 @@ public class AdminTjslHomeFragment extends Fragment {
             }
         });
 
+        cvMenuLaporan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replace(new AdminTjslLaporanFragment());
+            }
+        });
+
 
 
 

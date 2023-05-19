@@ -39,8 +39,8 @@
 
                 <com.airbnb.lottie.LottieAnimationView
                     android:id="@+id/sad_animation"
-                    android:layout_width="@dimen/_130sdp"
-                    android:layout_height="@dimen/_130sdp"
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="@dimen/_100sdp"
                     android:layout_centerInParent="true"
                     android:layout_gravity="center"
                     app:lottie_autoPlay="true"
@@ -72,6 +72,22 @@
                     android:textSize="@dimen/_11ssp"
                     android:layout_height="wrap_content"/>
 
+                <Spinner
+                    android:id="@+id/spLoket"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_15sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:background="@drawable/layout_edittext1"/>
+
+                <Spinner
+                    android:id="@+id/spStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_15sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:background="@drawable/layout_edittext1"/>
+
                 <com.google.android.material.button.MaterialButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -79,6 +95,8 @@
                     android:layout_marginTop="@dimen/_20sdp"
                     android:id="@+id/btnFilter"
                     android:textAllCaps="false"/>
+
+
 
 
             </LinearLayout>

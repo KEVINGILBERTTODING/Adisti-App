@@ -1,4 +1,4 @@
-package com.example.adisti.PicFragment;
+package com.example.adisti.AdminTjslFragment;
 
 import android.Manifest;
 import android.app.Dialog;
@@ -10,11 +10,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
@@ -22,45 +19,26 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.adisti.FileDownload;
-import com.example.adisti.Model.JabatanPicModel;
-import com.example.adisti.Model.LoketModel;
 import com.example.adisti.Model.ProposalModel;
-import com.example.adisti.Model.ResponseModel;
-import com.example.adisti.PicAdapter.SpinnerJabatanPicAdapter;
-import com.example.adisti.PicAdapter.SpinnerLoketAdapter;
+import com.example.adisti.PengajuFragment.PengajuEditProposalFragment;
 import com.example.adisti.R;
 import com.example.adisti.Util.DataApi;
 import com.example.adisti.Util.PengajuInterface;
-import com.example.adisti.Util.PicInterface;
-
-import java.util.List;
 
 import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PicDetailProposalKajianManfaatFragment extends Fragment {
-    PicInterface picInterface;
+public class AdminTjslDetailProposalFragment extends Fragment {
     PengajuInterface pengajuInterface;
-    List<JabatanPicModel>jabatanPicModelList;
-    SpinnerJabatanPicAdapter spinnerJabatanPicAdapter;
-    Button btnDownload, btnEntryKajianManfaat, btnEdit;
-    LinearLayout layoutPenanggungJawab;
     SharedPreferences sharedPreferences;
-    String userID, proposalId, fileProposal, namaLoket;
+    String userID, proposalId, fileProposal;
     EditText etNoProposal,  etInstansi, etBantuan, etNamaPengaju,
-    etEmail, etAlamat, etNoTelp, etJabatan, etPdfPath, et_loket, etTanggalProposal, etLatarBelakangProposal,
-            et_loketPic, et_namaLoket, et_jabatanPic;
-    Button btnKembali, btnRefresh;
+    etEmail, etAlamat, etNoTelp, etJabatan, etPdfPath, et_loket, etTanggalProposal, etLatarBelakangProposal;
+    Button btnKembali, btnRefresh, btnDownloadSurat;
     TextView tvStatus;
-    List<LoketModel>loketModelList;
-    Spinner spLoket, spJabatanPic;
     CardView cvStatus;
-    SpinnerLoketAdapter spinnerLoketAdapter;
-    private String TAG = "DAD";
-
-
 
 
 
@@ -69,8 +47,11 @@ public class PicDetailProposalKajianManfaatFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-       View view = inflater.inflate(R.layout.fragment_pic_detail_proposal_kajian_manfaat, container, false);
+       View view = inflater.inflate(R.layout.fragment_admin_tjsl_detail_proposal, container, false);
         init(view);
+        getProposalDetail();
+
+
 
        btnKembali.setOnClickListener(new View.OnClickListener() {
            @Override
@@ -79,14 +60,17 @@ public class PicDetailProposalKajianManfaatFragment extends Fragment {
            }
        });
 
-       getProposalDetail();
 
-        btnDownload.setOnClickListener(new View.OnClickListener() {
+
+
+
+
+        btnDownloadSurat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                String url = DataApi.URL_DOWNLOAD_PROPOSAL+proposalId;
-                String title = fileProposal;
+                String url = DataApi.URL_DOWNLOAD_SURAT_KACAB + proposalId;
+                String title = "FileSuratKacab";
                 String description = "Downloading PDF file";
                 String fileName = fileProposal;
 
@@ -110,35 +94,6 @@ public class PicDetailProposalKajianManfaatFragment extends Fragment {
             }
         });
 
-        btnEntryKajianManfaat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment fragment = new PicInsertKajianManfaatFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("proposal_id", proposalId);
-                fragment.setArguments(bundle);
-                ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.framePic, fragment)
-                        .addToBackStack(null).commit();
-            }
-        });
-
-
-        btnEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment fragment = new PicUpdateKajianManfaatFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("proposal_id", proposalId);
-                fragment.setArguments(bundle);
-                ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.framePic, fragment)
-                        .addToBackStack(null).commit();
-            }
-        });
-
-
-
-
-
 
 
        return view;
@@ -146,19 +101,15 @@ public class PicDetailProposalKajianManfaatFragment extends Fragment {
 
     private void init(View view) {
 
-        btnDownload = view.findViewById(R.id.btnDownload);
-        picInterface = DataApi.getClient().create(PicInterface.class);
         pengajuInterface = DataApi.getClient().create(PengajuInterface.class);
         sharedPreferences = getContext().getSharedPreferences("user_data", Context.MODE_PRIVATE);
         userID = sharedPreferences.getString("user_id", null);
         proposalId = getArguments().getString("proposal_id");
-        namaLoket = sharedPreferences.getString("nama_loket", null);
         etNoProposal = view.findViewById(R.id.et_noProposal);
         etInstansi = view.findViewById(R.id.et_instansi);
         etTanggalProposal = view.findViewById(R.id.et_tglProposal);
         etBantuan = view.findViewById(R.id.et_bantuan);
-        btnEdit = view.findViewById(R.id.btnEdit);
-        layoutPenanggungJawab = view.findViewById(R.id.layoutPenanggungJawab);
+        btnDownloadSurat = view.findViewById(R.id.btnDownloadSurat);
         etNamaPengaju = view.findViewById(R.id.et_namaPengaju);
         etEmail = view.findViewById(R.id.et_emailPengaju);
         etLatarBelakangProposal = view.findViewById(R.id.et_latarBelakangProposal);
@@ -169,11 +120,7 @@ public class PicDetailProposalKajianManfaatFragment extends Fragment {
         etJabatan = view.findViewById(R.id.et_jabatan);
         etPdfPath = view.findViewById(R.id.etPdfPath);
         et_loket = view.findViewById(R.id.et_loket);
-        et_loketPic = view.findViewById(R.id.et_loketPic);
-        et_namaLoket = view.findViewById(R.id.et_namaLoket);
-        et_jabatanPic = view.findViewById(R.id.et_jabatanPic);
-        btnEntryKajianManfaat = view.findViewById(R.id.btnEntryKajianManfaat);
-        btnKembali = view.findViewById(R.id.btnBack);
+        btnKembali = view.findViewById(R.id.btnKembali);
         etPdfPath.setEnabled(false);
         etTanggalProposal.setEnabled(false);
         etAlamat.setEnabled(false);
@@ -186,9 +133,6 @@ public class PicDetailProposalKajianManfaatFragment extends Fragment {
         etNoTelp.setEnabled(false);
         et_loket.setEnabled(false);
         etLatarBelakangProposal.setEnabled(false);
-        et_loketPic.setEnabled(false);
-        et_namaLoket.setEnabled(false);
-        et_jabatanPic.setEnabled(false);
 
 
 
@@ -228,8 +172,9 @@ public class PicDetailProposalKajianManfaatFragment extends Fragment {
 
                             if (response.body().getStatus().equals("Diterima")){
                                 tvStatus.setText("Diterima");
+                                btnDownloadSurat.setText("Download Surat Persetujuan");
+                                btnDownloadSurat.setVisibility(View.VISIBLE);
                                 cvStatus.setCardBackgroundColor(getContext().getColor(R.color.green));
-
                                 Dialog dialogSuccess = new Dialog(getContext());
                                 dialogSuccess.setContentView(R.layout.dialog_proposal_diterima);
                                 dialogSuccess.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
@@ -247,37 +192,19 @@ public class PicDetailProposalKajianManfaatFragment extends Fragment {
                             }else if (response.body().getStatus().equals("Ditolak")){
                                 tvStatus.setText("Ditolak");
                                 cvStatus.setCardBackgroundColor(getContext().getColor(R.color.red));
+                                btnDownloadSurat.setText("Download Surat Penolakan");
+                                btnDownloadSurat.setVisibility(View.VISIBLE);
                             }else {
                                 if (response.body().getVerified().equals("0")) {
                                     tvStatus.setText("Tidak lolos verifikasi");
                                     cvStatus.setCardBackgroundColor(getContext().getColor(R.color.red));
+                                    btnDownloadSurat.setVisibility(View.GONE);
                                 }else {
                                     tvStatus.setText("Menunggu");
                                     cvStatus.setCardBackgroundColor(getContext().getColor(R.color.yelllow));
+                                    btnDownloadSurat.setVisibility(View.GONE);
                                 }
                             }
-
-                            if (response.body().getKajianManfaat().equals("1")) {
-                                btnEntryKajianManfaat.setVisibility(View.GONE);
-                                btnEdit.setVisibility(View.VISIBLE);
-
-                            }else{
-                                btnEntryKajianManfaat.setVisibility(View.VISIBLE);
-                                btnEdit.setVisibility(View.GONE);
-
-
-                            }
-
-                            if (response.body().getVerified().equals("1")) {
-                                layoutPenanggungJawab.setVisibility(View.VISIBLE);
-                                et_loketPic.setText(response.body().getLoket());
-                                et_namaLoket.setText(response.body().getNamaLoket());
-                                et_jabatanPic.setText(response.body().getJabatanPic());
-                            }else {
-                                layoutPenanggungJawab.setVisibility(View.GONE);
-                            }
-
-
 
 
 
@@ -317,101 +244,5 @@ public class PicDetailProposalKajianManfaatFragment extends Fragment {
                 });
 
     }
-
-    private void getLoket() {
-
-        Dialog progressDialog = new Dialog(getContext());
-        progressDialog.setCancelable(false);
-        progressDialog.setContentView(R.layout.dialog_progress_bar);
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        progressDialog.show();
-        picInterface.getLoket().enqueue(new Callback<List<LoketModel>>() {
-            @Override
-            public void onResponse(Call<List<LoketModel>> call, Response<List<LoketModel>> response) {
-                loketModelList = response.body();
-                if (response.isSuccessful() && loketModelList.size() > 0) {
-                    spinnerLoketAdapter = new SpinnerLoketAdapter(getContext(), loketModelList);
-                    spLoket.setAdapter(spinnerLoketAdapter);
-                    progressDialog.dismiss();
-
-
-                }else {
-                    progressDialog.dismiss();
-                    Toasty.error(getContext(), "Terjadi kesalahan", Toasty.LENGTH_SHORT).show();
-
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<LoketModel>> call, Throwable t) {
-                Dialog dialogNoConnection = new Dialog(getContext());
-                dialogNoConnection.setContentView(R.layout.dialog_no_connection);
-                dialogNoConnection.setContentView(R.layout.dialog_no_connection);
-                dialogNoConnection.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-                dialogNoConnection.setCanceledOnTouchOutside(false);
-                dialogNoConnection.setCancelable(false);
-                Button btnRefresh = dialogNoConnection.findViewById(R.id.btnRefresh);
-                btnRefresh.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        getLoket();
-                        dialogNoConnection.dismiss();
-                    }
-                });
-                dialogNoConnection.show();
-
-            }
-        });
-    }
-    private void getJabatanPic() {
-
-        Dialog progressDialog = new Dialog(getContext());
-        progressDialog.setCancelable(false);
-        progressDialog.setContentView(R.layout.dialog_progress_bar);
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        progressDialog.show();
-        picInterface.getJabatanPic().enqueue(new Callback<List<JabatanPicModel>>() {
-            @Override
-            public void onResponse(Call<List<JabatanPicModel>> call, Response<List<JabatanPicModel>> response) {
-                jabatanPicModelList = response.body();
-                if (response.isSuccessful() && loketModelList.size() > 0) {
-                    spinnerJabatanPicAdapter = new SpinnerJabatanPicAdapter(getContext(), jabatanPicModelList);
-                    spJabatanPic.setAdapter(spinnerJabatanPicAdapter);
-                    progressDialog.dismiss();
-
-
-                }else {
-                    progressDialog.dismiss();
-                    Toasty.error(getContext(), "Terjadi kesalahan", Toasty.LENGTH_SHORT).show();
-
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<JabatanPicModel>> call, Throwable t) {
-                Dialog dialogNoConnection = new Dialog(getContext());
-                dialogNoConnection.setContentView(R.layout.dialog_no_connection);
-                dialogNoConnection.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-                dialogNoConnection.setCanceledOnTouchOutside(false);
-                dialogNoConnection.setCancelable(false);
-                Button btnRefresh = dialogNoConnection.findViewById(R.id.btnRefresh);
-                btnRefresh.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        getJabatanPic();
-                        dialogNoConnection.dismiss();
-                    }
-                });
-                dialogNoConnection.show();
-
-            }
-        });
-    }
-
-
 
 }

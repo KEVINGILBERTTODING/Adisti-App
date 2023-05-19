@@ -105,4 +105,15 @@ public interface AdminTjslInterface {
             @Part MultipartBody.Part fotoKegiatan,
             @Part MultipartBody.Part fileLpj
     );
+
+    @GET("admintjsl/filterLaporanProposal")
+    Call<List<ProposalModel>> filterLaporanProposal(
+            @Query("date_start") String dateStart,
+            @Query("date_end") String dateEnd,
+            @Query("kode_loket") String kodeLoket,
+            @Query("status") String status
+    );
+
+    @GET("adminTjsl/getAllProposal")
+    Call<List<ProposalModel>> getAllProposal();
 }

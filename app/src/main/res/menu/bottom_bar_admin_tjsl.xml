@@ -9,13 +9,13 @@
 
     <item
         android:id="@+id/menuRealisasiBantuan"
-        android:icon="@drawable/ic_realisasi_bantuan"
+        android:icon="@drawable/ic_realisasi_bantuan2"
         android:title="Realisasi Bantuan"/>
 
 
     <item
         android:id="@+id/menuLpj"
-        android:icon="@drawable/ic_lpj"
+        android:icon="@drawable/ic_lpj2"
         android:title="Lpj"/>
 
     <item
