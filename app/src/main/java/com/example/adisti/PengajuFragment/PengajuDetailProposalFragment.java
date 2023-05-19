@@ -137,9 +137,9 @@ public class PengajuDetailProposalFragment extends Fragment {
             public void onClick(View v) {
 
                 String url = DataApi.URL_DOWNLOAD_SURAT_KACAB + proposalId;
-                String title = "FileSuratKacab";
+                String title = "FileSuratKacab.pdf";
                 String description = "Downloading PDF file";
-                String fileName = fileProposal;
+                String fileName = fileProposal+".pdf";
 
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
