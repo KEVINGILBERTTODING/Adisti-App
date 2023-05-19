@@ -150,7 +150,9 @@ public interface PicInterface {
     );
 
     @GET("pic/getAllProposalEvaluasiKegiatan")
-    Call<List<ProposalModel>> getAllProposalEvaluasiKegiatan();
+    Call<List<ProposalModel>> getAllProposalEvaluasiKegiatan(
+            @Query("kode_loket") String kodeLoket
+    );
 
 
 

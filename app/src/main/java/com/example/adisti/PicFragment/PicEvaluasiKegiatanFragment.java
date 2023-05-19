@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +41,7 @@ import retrofit2.Response;
 
 public class PicEvaluasiKegiatanFragment extends Fragment {
     TextView tvUsername, tvEmpty;
-    String userId;
+    String userId, kodeLoket;
     SearchView searchView;
     SharedPreferences sharedPreferences;
     PicEvaluasiKegiatanPrposalAdapter picEvaluasiKegiatanPrposalAdapter;
@@ -77,6 +78,7 @@ public class PicEvaluasiKegiatanFragment extends Fragment {
 
 
 
+
         return view;
     }
 
@@ -90,6 +92,7 @@ public class PicEvaluasiKegiatanFragment extends Fragment {
         dcmInterface = DataApi.getClient().create(DcmInterface.class);
         searchView = view.findViewById(R.id.searchView);
         userId = sharedPreferences.getString("user_id", null);
+        kodeLoket = sharedPreferences.getString("kode_loket", null);
         picInterface = DataApi.getClient().create(PicInterface.class);
 
         getProposalEvaluasiKegiatan();
@@ -120,7 +123,7 @@ public class PicEvaluasiKegiatanFragment extends Fragment {
         dialogProgressBar.setCanceledOnTouchOutside(false);
         dialogProgressBar.show();
 
-        picInterface.getAllProposalEvaluasiKegiatan().enqueue(new Callback<List<ProposalModel>>() {
+        picInterface.getAllProposalEvaluasiKegiatan(kodeLoket).enqueue(new Callback<List<ProposalModel>>() {
             @Override
             public void onResponse(Call<List<ProposalModel>> call, Response<List<ProposalModel>> response) {
 
