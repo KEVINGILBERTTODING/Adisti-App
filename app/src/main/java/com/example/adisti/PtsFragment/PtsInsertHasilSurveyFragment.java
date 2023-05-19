@@ -159,10 +159,6 @@ public class PtsInsertHasilSurveyFragment extends Fragment {
             etNilaiPengajuan.requestFocus();
             return;
 
-        } else if (etBarangDiajukan.getText().toString().isEmpty()) {
-            etBarangDiajukan.setError("Barang yang Diajukan Tidak Boleh Kosong");
-            etBarangDiajukan.requestFocus();
-            return;
         } else if (Integer.parseInt(etNilaiPengajuan.getText().toString()) > 100) {
             etNilaiPengajuan.setError("Nilai Pengajuan Tidak Boleh Lebih Dari 100");
             etNilaiPengajuan.requestFocus();
