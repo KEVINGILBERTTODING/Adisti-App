@@ -309,7 +309,8 @@ public class AdminTjslInsertRealisasiBantuanFragment extends Fragment {
                             }
                         });
                         dialogSuccess.show();
-                        getActivity().onBackPressed();
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frameAdminTjsl, new AdminTjslInsertRealisasiBantuanFragment())
+                                        .commit();
                         progressDialog.dismiss();
 
                     }else {
