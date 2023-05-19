@@ -113,9 +113,22 @@
             android:layout_height="wrap_content"/>
     </LinearLayout>
 
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/emptyAnimation"
+        android:layout_width="@dimen/_120sdp"
+        android:layout_height="@dimen/_120sdp"
+        android:layout_centerInParent="true"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/_80sdp"
+        app:lottie_rawRes="@raw/empty_anim" />
+
     <TextView
         android:id="@+id/tvEmpty"
         android:layout_width="wrap_content"
+        android:layout_below="@+id/emptyAnimation"
         android:layout_height="wrap_content"
         android:text="Tidak ada proposal."
         android:visibility="gone"

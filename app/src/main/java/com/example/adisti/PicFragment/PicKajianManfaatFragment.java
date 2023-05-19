@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.adisti.Model.ProposalModel;
 import com.example.adisti.PengajuFragment.PengajuProfileFragment;
 import com.example.adisti.PicAdapter.PicKajianManfaatAdapter;
@@ -48,6 +49,7 @@ public class PicKajianManfaatFragment extends Fragment {
     PicInterface picInterface;
 
     TabLayout tabLayout;
+    LottieAnimationView emptyAnim;
 
 
 
@@ -59,7 +61,6 @@ public class PicKajianManfaatFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_pic_kajian_manfaat, container, false);
         init(view);
         getAllProposal(1, 0);
-
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -135,6 +136,7 @@ public class PicKajianManfaatFragment extends Fragment {
         picInterface = DataApi.getClient().create(PicInterface.class);
         tabLayout = view.findViewById(R.id.tab_layout);
         searchView = view.findViewById(R.id.searchView);
+        emptyAnim = view.findViewById(R.id.emptyAnimation);
         userId = sharedPreferences.getString("user_id", null);
         kodeLoket = sharedPreferences.getString("kode_loket", null);
 
@@ -168,8 +170,10 @@ public class PicKajianManfaatFragment extends Fragment {
                     rvProposal.setHasFixedSize(true);
                     dialogProgressBar.dismiss();
                     tvEmpty.setVisibility(View.GONE);
+                    emptyAnim.setVisibility(View.GONE);
                 }else {
                     tvEmpty.setVisibility(View.VISIBLE);
+                    emptyAnim.setVisibility(View.VISIBLE);
                     rvProposal.setAdapter(null);
                     dialogProgressBar.dismiss();
 
@@ -192,6 +196,8 @@ public class PicKajianManfaatFragment extends Fragment {
                     }
                 });
                 tvEmpty.setVisibility(View.GONE);
+                emptyAnim.setVisibility(View.GONE);
+
                 dialogProgressBar.dismiss();
 
             }

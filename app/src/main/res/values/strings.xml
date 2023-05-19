@@ -6,4 +6,11 @@
     <string name="onboard_text2">Kelola arsip data proposal lebih mudah dan aman</string>
     <string name="onboard_text3">Menyajikan laporan yang fleksibel dan menarik</string>
     <string name="onboard_text4">Ayo, Bergabung bersama kami!</string>
+
+    <string name="about">
+        AJUANT merupakan aplikasi pengajuan, pengelolaan proposal bantuan dan
+    pengarsipan data TJSL berbasis android yang diperuntukkan untuk masyarakat Jawa Tengah dan PT Jasa Raharja Jawa
+    Tengah untuk mengajukan proposal bantuan, menegelola dan mengevaluasi proposal bantuan Tanggung Jawab
+    Sosial Lingkungan (TJSL).
+    </string>
 </resources>

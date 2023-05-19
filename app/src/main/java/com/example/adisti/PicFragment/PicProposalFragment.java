@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.L;
+import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.adisti.Model.NotificationModel;
@@ -55,6 +56,7 @@ public class PicProposalFragment extends Fragment {
     TextView tvUsername, tvEmpty;
     String userId, kodeLoket;
     SearchView searchView;
+    LottieAnimationView emptyAnimation;
     SharedPreferences sharedPreferences;
     PicProposalAdapter picProposalAdapter;
     List<ProposalModel>proposalModelList;
@@ -125,6 +127,7 @@ public class PicProposalFragment extends Fragment {
         tvUsername.setText(sharedPreferences.getString("nama", null));
         rvProposal = view.findViewById(R.id.rvProposal);
         tvEmpty = view.findViewById(R.id.tvEmpty);
+        emptyAnimation = view.findViewById(R.id.emptyAnimation);
         picInterface = DataApi.getClient().create(PicInterface.class);
         tabLayout = view.findViewById(R.id.tab_layout);
         searchView = view.findViewById(R.id.searchView);
@@ -160,9 +163,12 @@ public class PicProposalFragment extends Fragment {
                     rvProposal.setHasFixedSize(true);
                     dialogProgressBar.dismiss();
                     tvEmpty.setVisibility(View.GONE);
+                    emptyAnimation.setVisibility(View.GONE);
                 }else {
                     tvEmpty.setVisibility(View.VISIBLE);
                     rvProposal.setAdapter(null);
+                    emptyAnimation.setVisibility(View.VISIBLE);
+
                     dialogProgressBar.dismiss();
 
                 }
@@ -184,6 +190,7 @@ public class PicProposalFragment extends Fragment {
                     }
                 });
                 tvEmpty.setVisibility(View.GONE);
+                emptyAnimation.setVisibility(View.GONE);
                 dialogProgressBar.dismiss();
 
             }

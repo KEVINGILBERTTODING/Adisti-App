@@ -88,6 +88,8 @@
 
         </RelativeLayout>
 
+
+
 =
 
         <androidx.recyclerview.widget.RecyclerView
@@ -96,19 +98,32 @@
             tools:listitem="@layout/list_proposal"
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_height="wrap_content"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/emptyAnimation"
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="@dimen/_120sdp"
+            android:layout_centerInParent="true"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/_80sdp"
+            app:lottie_rawRes="@raw/empty_anim" />
+
+        <TextView
+            android:id="@+id/tvEmpty"
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/emptyAnimation"
+            android:layout_height="wrap_content"
+            android:text="Tidak ada proposal."
+            android:visibility="gone"
+            android:fontFamily="@font/popmed"
+            android:textColor="@color/light_gray"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textSize="@dimen/_13ssp"/>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tvEmpty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tidak ada proposal."
-        android:visibility="gone"
-        android:fontFamily="@font/popmed"
-        android:textColor="@color/light_gray"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:textSize="@dimen/_13ssp"/>
 
 
 

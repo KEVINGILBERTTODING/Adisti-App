@@ -60,7 +60,7 @@ public class PengajuProfileFragment extends Fragment {
     ImageButton btnEditPhotoProfile;
     private File file;
 
-    RelativeLayout menuLogOut, menuUbahProfile, menuUbahPassword;
+    RelativeLayout menuLogOut, menuUbahProfile, menuUbahPassword, menuAbout;
 
 
 
@@ -288,6 +288,23 @@ public class PengajuProfileFragment extends Fragment {
             }
         });
 
+        menuAbout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Dialog dialogAbout = new Dialog(getContext());
+                dialogAbout.setContentView(R.layout.layout_about);
+                dialogAbout.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                Button btnOke = dialogAbout.findViewById(R.id.btnOke);
+                btnOke.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialogAbout.dismiss();
+                    }
+                });
+                dialogAbout.show();
+            }
+        });
+
 
 
 
@@ -309,6 +326,7 @@ public class PengajuProfileFragment extends Fragment {
         pengajuInterface = DataApi.getClient().create(PengajuInterface.class);
         btnEditPhotoProfile = view.findViewById(R.id.btnImageEdit);
         menuLogOut = view.findViewById(R.id.menuLogOut);
+        menuAbout = view.findViewById(R.id.menuAbout);
         editor = sharedPreferences.edit();
 
 

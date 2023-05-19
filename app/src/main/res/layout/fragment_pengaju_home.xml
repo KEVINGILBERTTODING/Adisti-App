@@ -190,6 +190,7 @@
         android:layout_height="@dimen/_120sdp"
         android:layout_centerInParent="true"
         app:lottie_autoPlay="true"
+        android:visibility="gone"
         app:lottie_loop="true"
         android:layout_marginTop="@dimen/_80sdp"
         app:lottie_rawRes="@raw/empty_anim" />

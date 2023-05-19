@@ -425,12 +425,14 @@ public class PengajuHomeFragment extends Fragment {
                             rvProposal.setLayoutManager(linearLayoutManager);
                             rvProposal.setAdapter(pengajuProposalAdapter);
                             rvProposal.setHasFixedSize(false);
+                            EmptyAnimation.setVisibility(View.GONE);
                             tvEmpty.setVisibility(View.GONE);
                             dialog.dismiss();
 
                         }else {
                             rvProposal.setAdapter(null);
                             tvEmpty.setVisibility(View.VISIBLE);
+                            EmptyAnimation.setVisibility(View.VISIBLE);
                             dialog.dismiss();
 
 
@@ -441,6 +443,7 @@ public class PengajuHomeFragment extends Fragment {
                     @Override
                     public void onFailure(Call<List<ProposalModel>> call, Throwable t) {
                         tvEmpty.setVisibility(View.GONE);
+                        EmptyAnimation.setVisibility(View.GONE);
                         dialog.dismiss();
                         Dialog dialogNoConnection = new Dialog(getContext());
                         dialogNoConnection.setContentView(R.layout.dialog_no_connection);

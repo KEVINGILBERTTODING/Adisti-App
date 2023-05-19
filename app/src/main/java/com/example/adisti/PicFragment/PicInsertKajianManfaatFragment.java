@@ -520,11 +520,9 @@ public class PicInsertKajianManfaatFragment extends Fragment {
                             spinnerRanAdapter = new SpinnerRanAdapter(getContext(), ranModelList);
                             spRan.setAdapter(spinnerRanAdapter);
                             progressDialog.dismiss();
-                            Log.d("asdsad", "onResponse: " +"berhaslll");
                         }else {
                             Toasty.error(getContext(), "Terjadi kesalahan", Toasty.LENGTH_SHORT).show();
                             progressDialog.dismiss();
-                            Log.d("asdsad", "onResponse: " +"agagal");
 
                         }
                     }
