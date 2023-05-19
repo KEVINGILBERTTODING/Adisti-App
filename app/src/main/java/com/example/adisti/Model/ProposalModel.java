@@ -68,7 +68,16 @@ public class ProposalModel implements Serializable {
     @SerializedName("verified")
     String verified;
 
-    public ProposalModel(String proposalId, String latarBelakangPengajuan, String namaLoketPengajuan, String verified, String noProposal, String noUrutProposal, String tglProposal, String asalProposal, String bantuanDiajukan, String namaPihak, String emailPengaju, String alamatPihak, String noTelpPihak, String jabatanPengaju, String loket, String namaLoket, String jabatanPic, String fileProposal, String dateCreated, String kodeLoket, String progress, String kajianManfaat, String survey, String hasilSurvey, String pendapatKasubag, String pendapatKabag, String pendapatKacab, String realisasiBantuan, String lpj, String evaluasiKegiatan, String status) {
+    @SerializedName("p")
+    String p;
+    @SerializedName("r")
+    String r;
+    @SerializedName("s")
+    String s;
+    @SerializedName("v")
+    String v;
+
+    public ProposalModel(String proposalId, String p, String r, String s, String v, String latarBelakangPengajuan, String namaLoketPengajuan, String verified, String noProposal, String noUrutProposal, String tglProposal, String asalProposal, String bantuanDiajukan, String namaPihak, String emailPengaju, String alamatPihak, String noTelpPihak, String jabatanPengaju, String loket, String namaLoket, String jabatanPic, String fileProposal, String dateCreated, String kodeLoket, String progress, String kajianManfaat, String survey, String hasilSurvey, String pendapatKasubag, String pendapatKabag, String pendapatKacab, String realisasiBantuan, String lpj, String evaluasiKegiatan, String status) {
         this.proposalId = proposalId;
         this.noProposal = noProposal;
         this.noUrutProposal = noUrutProposal;
@@ -100,6 +109,10 @@ public class ProposalModel implements Serializable {
         this.lpj = lpj;
         this.evaluasiKegiatan = evaluasiKegiatan;
         this.status = status;
+        this.p = p;
+        this.r = r;
+        this.s = s;
+        this.v = v;
     }
 
     public String getProposalId() {
@@ -348,5 +361,21 @@ public class ProposalModel implements Serializable {
 
     public void setLatarBelakangPengajuan(String latarBelakangPengajuan) {
         this.latarBelakangPengajuan = latarBelakangPengajuan;
+    }
+
+    public String getP() {
+        return p;
+    }
+
+    public String getR() {
+        return r;
+    }
+
+    public String getS() {
+        return s;
+    }
+
+    public String getV() {
+        return v;
     }
 }

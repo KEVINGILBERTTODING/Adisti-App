@@ -31,7 +31,7 @@ import retrofit2.Response;
 public class PicHomeFragment extends Fragment {
     TextView tvUsername;
     SharedPreferences sharedPreferences;
-    CardView cvMenuProposal, cvMenuKajianManfaat;
+    CardView cvMenuProposal, cvMenuKajianManfaat, cvMenuEvaluasiProposal;
     ImageView img_profile;
     PicInterface picInterface;
     String userId;
@@ -62,6 +62,13 @@ public class PicHomeFragment extends Fragment {
             }
         });
 
+        cvMenuEvaluasiProposal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replace(new PicEvaluasiKegiatanFragment());
+            }
+        });
+
 
         img_profile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +93,7 @@ public class PicHomeFragment extends Fragment {
         cvMenuProposal = view.findViewById(R.id.cvMenuProposal);
         cvMenuKajianManfaat = view.findViewById(R.id.cvMenuKejianManfaat);
         img_profile = view.findViewById(R.id.img_profile);
+        cvMenuEvaluasiProposal = view.findViewById(R.id.cvMenuEvaluasiProposal);
         picInterface = DataApi.getClient().create(PicInterface.class);
         userId = sharedPreferences.getString("user_id", null);
     }

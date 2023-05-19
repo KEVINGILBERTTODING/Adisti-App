@@ -2,6 +2,7 @@ package com.example.adisti.Util;
 
 import android.app.VoiceInteractor;
 
+import com.airbnb.lottie.L;
 import com.example.adisti.Model.BidangManfaatPerusahaanModel;
 import com.example.adisti.Model.IndikatorBidangManfaatPerusahaanModel;
 import com.example.adisti.Model.JabatanPicModel;
@@ -147,6 +148,9 @@ public interface PicInterface {
             @Field("usernamee") String username,
             @Field("nama") String name
     );
+
+    @GET("pic/getAllProposalEvaluasiKegiatan")
+    Call<List<ProposalModel>> getAllProposalEvaluasiKegiatan();
 
 
 
