@@ -543,7 +543,6 @@ public class PicInsertKajianManfaatFragment extends Fragment {
                             }
                         });
                         dialogNoConnection.dismiss();
-                        Log.e("ASDdas", "onFailure: " , t );
 
 
                     }
@@ -596,7 +595,8 @@ public class PicInsertKajianManfaatFragment extends Fragment {
                         }
                     });
                     dialogSuccess.show();
-                    getActivity().onBackPressed();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framePic, new PicKajianManfaatFragment())
+                            .commit();
 
                 }else {
                     progressDialog.dismiss();
