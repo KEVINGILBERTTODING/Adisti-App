@@ -1,9 +1,12 @@
 package com.example.adisti.AdminTjslFragment;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -29,6 +32,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.adisti.AdminTjslAdapter.AdminTjslLaporanProposalAdapter;
+import com.example.adisti.FileDownload;
 import com.example.adisti.Model.LoketModel;
 import com.example.adisti.Model.NotificationModel;
 import com.example.adisti.Model.PengajuModel;
@@ -57,6 +61,7 @@ import retrofit2.Response;
 public class AdminTjslLaporanFragment extends Fragment {
     TextView tvUsername, tvEmpty, tvDateStart, tvDateEnd, tv_total_notif;
     String userId, status, kodeLoket;
+    Button btnDownload;
     SearchView searchView;
     AdminTjslInterface adminTjslInterface;
     List<LoketModel> loketModelList;
@@ -196,11 +201,14 @@ public class AdminTjslLaporanFragment extends Fragment {
                                                 dialogFilter.dismiss();
                                                 tvEmpty.setVisibility(View.GONE);
                                                 dialog.dismiss();
+                                                btnDownload.setEnabled(true);
 
                                             }else {
                                                 tvEmpty.setVisibility(View.VISIBLE);
                                                 dialogFilter.dismiss();
                                                 dialog.dismiss();
+                                                btnDownload.setEnabled(false);
+
 
                                             }
 
@@ -210,6 +218,7 @@ public class AdminTjslLaporanFragment extends Fragment {
                                         public void onFailure(Call<List<ProposalModel>> call, Throwable t) {
                                             tvEmpty.setVisibility(View.GONE);
                                             dialog.dismiss();
+                                            btnDownload.setEnabled(false);
                                             Dialog dialogNoConnection = new Dialog(getContext());
                                             dialogNoConnection.setContentView(R.layout.dialog_no_connection_close);
                                             dialogNoConnection.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
@@ -238,6 +247,34 @@ public class AdminTjslLaporanFragment extends Fragment {
 
 
 
+            }
+        });
+
+        btnDownload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = DataApi.URL_CETAK_LAPORAN_PROPOSAL + tvDateStart.getText().toString() + "/" + tvDateEnd.getText().toString() + "/" + kodeLoket + "/" +status;
+                String title = "Laporan_proposal_" + tvDateStart.getText().toString() + "_" + tvDateEnd.getText().toString();
+                String description = "Downloading PDF file";
+                String fileName = "Laporan_proposal_" + tvDateStart.getText().toString() + "_" + tvDateEnd.getText().toString();
+
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (getActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+
+                        String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                        requestPermissions(permissions, 1000);
+                    } else {
+
+                        FileDownload fileDownload = new FileDownload(getContext());
+                        fileDownload.downloadFile(url, title, description, fileName);
+
+                    }
+                } else {
+
+                    FileDownload fileDownload = new FileDownload(getContext());
+                    fileDownload.downloadFile(url, title, description, fileName);
+                }
             }
         });
 
@@ -273,6 +310,8 @@ public class AdminTjslLaporanFragment extends Fragment {
         fabFilter = view.findViewById(R.id.fabFilter);
         tv_total_notif = view.findViewById(R.id.tv_total_notif);
         searchView = view.findViewById(R.id.searchView);
+
+        btnDownload = view.findViewById(R.id.btnDownload);
         pengajuInterface = DataApi.getClient().create(PengajuInterface.class);
         userId = sharedPreferences.getString("user_id", null);
         adminTjslInterface = DataApi.getClient().create(AdminTjslInterface.class);
