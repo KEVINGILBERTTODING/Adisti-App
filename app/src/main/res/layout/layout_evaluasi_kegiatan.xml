@@ -32,6 +32,7 @@
                     android:layout_height="wrap_content"
                     android:text="Total Skor PRSV"
                     android:gravity="center"
+                    android:layout_marginTop="@dimen/_minus20sdp"
                     android:fontFamily="@font/popsem"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_13ssp"/>

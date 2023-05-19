@@ -22,6 +22,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.adisti.Model.NotificationModel;
@@ -48,6 +49,8 @@ public class PengajuHomeFragment extends Fragment {
     String userId;
     SearchView searchView;
     TabLayout tab_layout;
+
+    LottieAnimationView EmptyAnimation;
     ImageButton btnNotifikasi;
     RelativeLayout rl_count_notif;
     SharedPreferences sharedPreferences;
@@ -151,12 +154,14 @@ public class PengajuHomeFragment extends Fragment {
                                                 rvProposal.setAdapter(pengajuProposalAdapter);
                                                 rvProposal.setHasFixedSize(false);
                                                 tvEmpty.setVisibility(View.GONE);
+                                                EmptyAnimation.setVisibility(View.GONE);
                                                 dialog.dismiss();
                                                 dialogProgress.dismiss();
                                                 dialogFilter.dismiss();
 
                                             }else {
                                                 tvEmpty.setVisibility(View.VISIBLE);
+                                                EmptyAnimation.setVisibility(View.VISIBLE);
                                                 dialog.dismiss();
                                                 dialogProgress.dismiss();
                                                 dialogFilter.dismiss();
@@ -169,6 +174,7 @@ public class PengajuHomeFragment extends Fragment {
                                         @Override
                                         public void onFailure(Call<List<ProposalModel>> call, Throwable t) {
                                             tvEmpty.setVisibility(View.GONE);
+                                            EmptyAnimation.setVisibility(View.GONE);
                                             dialogProgress.dismiss();
                                             dialog.dismiss();
                                             Dialog dialogNoConnection = new Dialog(getContext());
@@ -200,18 +206,7 @@ public class PengajuHomeFragment extends Fragment {
 
             }
         });
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
 
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                filter(newText);
-                return false;
-            }
-        });
         ivProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -291,6 +286,7 @@ public class PengajuHomeFragment extends Fragment {
         rl_count_notif = view.findViewById(R.id.rl_count_notif);
         btnRefreshmain = view.findViewById(R.id.btnRefreshMain);
         btnFilter = view.findViewById(R.id.btnFilter);
+        EmptyAnimation = view.findViewById(R.id.EmptyAnimation);
         ivProfile = view.findViewById(R.id.img_profile);
         tv_total_notif = view.findViewById(R.id.tv_total_notif);
         searchView = view.findViewById(R.id.searchView);
@@ -307,6 +303,39 @@ public class PengajuHomeFragment extends Fragment {
         tab_layout.addTab(tab_layout.newTab().setText("Ditolak"));
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filter(newText);
+                return false;
+            }
+        });
+    }
+
+    private void filter(String text){
+        ArrayList<ProposalModel>filteredList = new ArrayList<>();
+        for (ProposalModel item : proposalModelList) {
+            if (item.getNoProposal().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(item);
+            }
+        }
+
+        pengajuProposalAdapter.filter(filteredList);
+        if (filteredList.isEmpty()) {
+            Toasty.normal(getContext(), "Tidak ditemukan", Toasty.LENGTH_SHORT).show();
+        }else {
+            pengajuProposalAdapter.filter(filteredList);
+        }
+
+    }
     private void getAllProposal() {
         Dialog dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.dialog_progress_bar);
@@ -332,10 +361,13 @@ public class PengajuHomeFragment extends Fragment {
                             rvProposal.setAdapter(pengajuProposalAdapter);
                             rvProposal.setHasFixedSize(false);
                             tvEmpty.setVisibility(View.GONE);
+                            EmptyAnimation.setVisibility(View.GONE);
                             dialog.dismiss();
 
                         }else {
                             tvEmpty.setVisibility(View.VISIBLE);
+                            EmptyAnimation.setVisibility(View.VISIBLE);
+
                             dialog.dismiss();
 
                         }
@@ -345,6 +377,8 @@ public class PengajuHomeFragment extends Fragment {
                     @Override
                     public void onFailure(Call<List<ProposalModel>> call, Throwable t) {
                         tvEmpty.setVisibility(View.GONE);
+                        EmptyAnimation.setVisibility(View.GONE);
+                        
                         dialog.dismiss();
                         Dialog dialogNoConnection = new Dialog(getContext());
                         dialogNoConnection.setContentView(R.layout.dialog_no_connection);
@@ -530,20 +564,5 @@ public class PengajuHomeFragment extends Fragment {
         datePickerDialog.show();
     }
 
-    private void filter(String text){
-        ArrayList<ProposalModel>filteredList = new ArrayList<>();
-        for (ProposalModel item : proposalModelList) {
-            if (item.getNoProposal().toLowerCase().contains(text.toLowerCase())) {
-                filteredList.add(item);
-            }
-        }
 
-        pengajuProposalAdapter.filter(filteredList);
-        if (filteredList.isEmpty()) {
-            Toasty.normal(getContext(), "Tidak ditemukan", Toasty.LENGTH_SHORT).show();
-        }else {
-            pengajuProposalAdapter.filter(filteredList);
-        }
-
-    }
 }

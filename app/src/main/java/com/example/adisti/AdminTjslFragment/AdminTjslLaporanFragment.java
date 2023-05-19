@@ -29,6 +29,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.adisti.AdminTjslAdapter.AdminTjslLaporanProposalAdapter;
@@ -63,6 +64,7 @@ public class AdminTjslLaporanFragment extends Fragment {
     String userId, status, kodeLoket;
     Button btnDownload;
     SearchView searchView;
+    LottieAnimationView emptyAnimation;
     AdminTjslInterface adminTjslInterface;
     List<LoketModel> loketModelList;
     SpinnerKodeLoketAdapter spinnerKodeLoketAdapter;
@@ -200,6 +202,7 @@ public class AdminTjslLaporanFragment extends Fragment {
                                                 rvProposal.setHasFixedSize(false);
                                                 dialogFilter.dismiss();
                                                 tvEmpty.setVisibility(View.GONE);
+                                                emptyAnimation.setVisibility(View.GONE);
                                                 dialog.dismiss();
                                                 btnDownload.setEnabled(true);
 
@@ -208,6 +211,7 @@ public class AdminTjslLaporanFragment extends Fragment {
                                                 dialogFilter.dismiss();
                                                 dialog.dismiss();
                                                 btnDownload.setEnabled(false);
+                                                emptyAnimation.setVisibility(View.VISIBLE);
 
 
                                             }
@@ -217,6 +221,7 @@ public class AdminTjslLaporanFragment extends Fragment {
                                         @Override
                                         public void onFailure(Call<List<ProposalModel>> call, Throwable t) {
                                             tvEmpty.setVisibility(View.GONE);
+                                            emptyAnimation.setVisibility(View.VISIBLE);
                                             dialog.dismiss();
                                             btnDownload.setEnabled(false);
                                             Dialog dialogNoConnection = new Dialog(getContext());
@@ -310,7 +315,7 @@ public class AdminTjslLaporanFragment extends Fragment {
         fabFilter = view.findViewById(R.id.fabFilter);
         tv_total_notif = view.findViewById(R.id.tv_total_notif);
         searchView = view.findViewById(R.id.searchView);
-
+        emptyAnimation = view.findViewById(R.id.EmptyAnimation);
         btnDownload = view.findViewById(R.id.btnDownload);
         pengajuInterface = DataApi.getClient().create(PengajuInterface.class);
         userId = sharedPreferences.getString("user_id", null);
@@ -346,10 +351,12 @@ public class AdminTjslLaporanFragment extends Fragment {
                             rvProposal.setAdapter(adminTjslLaporanProposalAdapter);
                             rvProposal.setHasFixedSize(false);
                             tvEmpty.setVisibility(View.GONE);
+                            emptyAnimation.setVisibility(View.GONE);
                             dialog.dismiss();
 
                         }else {
                             tvEmpty.setVisibility(View.VISIBLE);
+                            emptyAnimation.setVisibility(View.VISIBLE);
                             dialog.dismiss();
 
                         }
@@ -359,6 +366,7 @@ public class AdminTjslLaporanFragment extends Fragment {
                     @Override
                     public void onFailure(Call<List<ProposalModel>> call, Throwable t) {
                         tvEmpty.setVisibility(View.GONE);
+                        emptyAnimation.setVisibility(View.VISIBLE);
                         dialog.dismiss();
                         Dialog dialogNoConnection = new Dialog(getContext());
                         dialogNoConnection.setContentView(R.layout.dialog_no_connection);

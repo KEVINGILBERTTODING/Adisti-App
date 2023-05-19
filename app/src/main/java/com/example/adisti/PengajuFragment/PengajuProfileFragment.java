@@ -380,7 +380,7 @@ public class PengajuProfileFragment extends Fragment {
                 String pdfPath = getRealPathFromUri(uri);
                 ivProfileImage.setImageURI(uri);
                 file = new File(pdfPath);
-                realImagePath = file.getName();
+                realImagePath = "sdsd";
             }
         }
     }

@@ -211,7 +211,7 @@ public class PtsDetailSurvey2Fragment extends Fragment {
             @Override
             public void onResponse(Call<SurveyModel> call, Response<SurveyModel> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    DecimalFormat decimalFormat = new DecimalFormat("#, ###, ##");
+                    DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
                     decimalFormat.setGroupingUsed(true);
                     decimalFormat.setGroupingSize(3);
 
