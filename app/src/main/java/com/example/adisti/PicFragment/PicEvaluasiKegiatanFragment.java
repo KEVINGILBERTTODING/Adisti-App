@@ -75,10 +75,6 @@ public class PicEvaluasiKegiatanFragment extends Fragment {
         });
 
 
-
-
-
-
         return view;
     }
 
