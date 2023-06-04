@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Dialog;
 import android.app.DownloadManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -73,19 +74,9 @@ public class AdminTjslDetailProposalFragment extends Fragment {
             public void onClick(View v) {
 
                 String url = DataApi.URL_DOWNLOAD_SURAT_KACAB + proposalId;
-                String title = "FileSuratKacab";
-                String description = "Downloading PDF file";
-                String fileName = fileProposal;
-
-                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
-                request.setTitle(title);
-                request.setDescription(description);
-                request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName);
-                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                request.allowScanningByMediaScanner();
-
-                DownloadManager downloadManager = (DownloadManager) getContext().getSystemService(Context.DOWNLOAD_SERVICE);
-                downloadManager.enqueue(request);
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
             }
         });
 

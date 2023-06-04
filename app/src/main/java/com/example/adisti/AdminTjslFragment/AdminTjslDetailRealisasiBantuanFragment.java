@@ -271,27 +271,9 @@ public class AdminTjslDetailRealisasiBantuanFragment extends Fragment {
 
     private void downloadFileRealisasiBantuan(String jenis) {
         String url = DataApi.URL_DOWLOAD_FILE_REALISASI+proposalId + "/" + jenis;
-        String title = "File_" + jenis + "_" + proposalId;
-        String description = "Downloading PDF file";
-        String fileName = "File_" + jenis + "_" + proposalId;
-
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (getActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
-
-                String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
-                requestPermissions(permissions, 1000);
-            } else {
-
-                FileDownload fileDownload = new FileDownload(getContext());
-                fileDownload.downloadFile(url, title, description, fileName);
-
-            }
-        } else {
-
-            FileDownload fileDownload = new FileDownload(getContext());
-            fileDownload.downloadFile(url, title, description, fileName);
-        }
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(url));
+        startActivity(intent);
     }
 
 
