@@ -3,11 +3,14 @@ package com.example.adisti.AdminTjslFragment;
 import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -264,22 +267,15 @@ public class AdminTjslLaporanFragment extends Fragment {
                 String fileName = "Laporan_proposal_" + tvDateStart.getText().toString() + "_" + tvDateEnd.getText().toString();
 
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (getActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+                request.setTitle(title);
+                request.setDescription(description);
+                request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName);
+                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                request.allowScanningByMediaScanner();
 
-                        String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
-                        requestPermissions(permissions, 1000);
-                    } else {
-
-                        FileDownload fileDownload = new FileDownload(getContext());
-                        fileDownload.downloadFile(url, title, description, fileName);
-
-                    }
-                } else {
-
-                    FileDownload fileDownload = new FileDownload(getContext());
-                    fileDownload.downloadFile(url, title, description, fileName);
-                }
+                DownloadManager downloadManager = (DownloadManager) getContext().getSystemService(Context.DOWNLOAD_SERVICE);
+                downloadManager.enqueue(request);
             }
         });
 
