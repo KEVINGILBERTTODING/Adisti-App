@@ -72,81 +72,33 @@ public class PtsDetailSurveyFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String url = DataApi.URL_DOWNLOAD_FILE_SURVEY + proposalId +"/" + "file_ktp";
-                String title = "FileKtp";
-                String description = "Downloading PDF file";
-                String fileName = "File ktp";
 
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (getActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
 
-                        String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
-                        requestPermissions(permissions, 1000);
-                    } else {
 
-                        FileDownload fileDownload = new FileDownload(getContext());
-                        fileDownload.downloadFile(url, title, description, fileName);
-
-                    }
-                } else {
-
-                    FileDownload fileDownload = new FileDownload(getContext());
-                    fileDownload.downloadFile(url, title, description, fileName);
-                }
             }
         });
         btnDownloadButab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String url = DataApi.URL_DOWNLOAD_FILE_SURVEY + proposalId +"/" + "file_butab";
-                String title = "FileButab";
-                String description = "Downloading PDF file";
-                String fileName = "File Butab";
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
 
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (getActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
-
-                        String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
-                        requestPermissions(permissions, 1000);
-                    } else {
-
-                        FileDownload fileDownload = new FileDownload(getContext());
-                        fileDownload.downloadFile(url, title, description, fileName);
-
-                    }
-                } else {
-
-                    FileDownload fileDownload = new FileDownload(getContext());
-                    fileDownload.downloadFile(url, title, description, fileName);
-                }
             }
         });
         btnDownloadFotoSurvey.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String url = DataApi.URL_DOWNLOAD_FILE_SURVEY + proposalId +"/" + "file_foto_survey";
-                String title = "FileFotoSurvey";
-                String description = "Downloading PDF file";
-                String fileName = "File Foto Survey";
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
 
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (getActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
-
-                        String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
-                        requestPermissions(permissions, 1000);
-                    } else {
-
-                        FileDownload fileDownload = new FileDownload(getContext());
-                        fileDownload.downloadFile(url, title, description, fileName);
-
-                    }
-                } else {
-
-                    FileDownload fileDownload = new FileDownload(getContext());
-                    fileDownload.downloadFile(url, title, description, fileName);
-                }
             }
         });
         btnKembali.setOnClickListener(new View.OnClickListener() {
