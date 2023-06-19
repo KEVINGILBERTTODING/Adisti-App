@@ -181,8 +181,7 @@ public class AdminTjslInsertLpjKegiatanFragment extends Fragment {
                             }
                         });
                         dialogSuccess.show();
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frameAdminTjsl,new AdminTjslLpjKegiatanFragment())
-                                        .commit();
+                        getActivity().onBackPressed();
                         progressDialog.dismiss();
 
                     }else {
