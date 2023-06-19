@@ -15,7 +15,7 @@
         android:layout_marginTop="@dimen/_250sdp"
         android:layout_centerHorizontal="true"
         android:textColor="@color/main"
-        android:fontFamily="@font/popligth"
+        android:fontFamily="@font/popmed"
         android:textSize="@dimen/_18ssp"/>
 
     <ImageView

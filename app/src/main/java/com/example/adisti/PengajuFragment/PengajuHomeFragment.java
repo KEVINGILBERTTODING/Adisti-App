@@ -145,9 +145,10 @@ public class PengajuHomeFragment extends Fragment {
                                     .enqueue(new Callback<List<ProposalModel>>() {
                                         @Override
                                         public void onResponse(Call<List<ProposalModel>> call, Response<List<ProposalModel>> response) {
+                                            rvProposal.setAdapter(null);
                                             proposalModelList = response.body();
                                             if (response.isSuccessful() && response.body().size() > 0) {
-                                                rvProposal.setAdapter(null);
+
                                                 pengajuProposalAdapter = new PengajuProposalAdapter(getContext(), proposalModelList);
                                                 linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
                                                 rvProposal.setLayoutManager(linearLayoutManager);
