@@ -263,6 +263,14 @@
                 android:textSize="@dimen/_11ssp"
                 android:text="File Proposal"/>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/popmed"
+                android:textSize="@dimen/_8ssp"
+                android:textColor="@color/red"
+                android:text=".pdf | 5mb"/>
+
 
             <ImageView
                 android:id="@+id/ivPdf"

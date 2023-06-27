@@ -29,6 +29,7 @@
                 android:textSize="@dimen/_22ssp"
                 android:fontFamily="@font/popsem"/>
 
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/cvStatus"
                 android:layout_width="wrap_content"
@@ -43,9 +44,31 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/popmed"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_9ssp"
-                    android:text="Menunggu"/>
+                    android:textSize="@dimen/_9ssp"/>
             </androidx.cardview.widget.CardView>
+
+            <com.shuhart.stepview.StepView
+                android:id="@+id/step_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:padding="16dp"
+                app:sv_selectedCircleColor="@color/main"
+                app:sv_selectedTextColor="@color/main"
+                app:sv_stepLineWidth="1dp"
+                app:sv_stepPadding="4dp"
+                app:sv_nextTextColor="@color/main"
+                app:sv_nextStepLineColor="@color/main"
+                app:sv_doneCircleColor="@color/main"
+                app:sv_doneStepLineColor="@color/main"
+                app:sv_doneCircleRadius="12dp"
+                app:sv_selectedCircleRadius="12dp"
+                app:sv_selectedStepNumberColor="@color/main"
+                app:sv_stepViewStyle="@style/StepView"
+                app:sv_doneStepMarkColor="@color/main"
+                app:sv_stepNumberTextSize="12sp"
+                app:sv_animationType="Line"/>
+
 
 
             <com.google.android.material.textfield.TextInputLayout

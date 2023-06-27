@@ -243,7 +243,11 @@ public class PengajuDetailProposalFragment extends Fragment {
                                     tvStatus.setText("Tidak lolos verifikasi");
                                     cvStatus.setCardBackgroundColor(getContext().getColor(R.color.red));
                                     btnDownloadSurat.setVisibility(View.GONE);
-                                }else {
+                                }else if (response.body().getVerified().equals("1")){
+                                    tvStatus.setText("Lolos verifikasi");
+                                    cvStatus.setCardBackgroundColor(getContext().getColor(R.color.green));
+                                    btnDownloadSurat.setVisibility(View.GONE);
+                                } else {
                                     tvStatus.setText("Menunggu");
                                     cvStatus.setCardBackgroundColor(getContext().getColor(R.color.yelllow));
                                     btnDownloadSurat.setVisibility(View.GONE);

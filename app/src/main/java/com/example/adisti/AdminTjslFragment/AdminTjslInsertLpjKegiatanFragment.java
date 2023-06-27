@@ -212,12 +212,6 @@ public class AdminTjslInsertLpjKegiatanFragment extends Fragment {
                 }
             });
 
-
-
-
-
-
-
         }
 
     }
