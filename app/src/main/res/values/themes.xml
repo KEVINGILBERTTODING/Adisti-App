@@ -21,4 +21,9 @@
         <item name="textAllCaps">false</item>
     </style>
 
+    <style name="BottomNavigationTitleStyle" parent="TextAppearance.Design.Tab">
+        <item name="android:textColor">@color/main</item>
+        <!-- Anda juga dapat menambahkan atribut lain untuk mengkustomisasi judul -->
+    </style>
+
 </resources>

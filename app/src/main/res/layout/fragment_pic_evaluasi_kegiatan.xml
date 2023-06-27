@@ -69,7 +69,7 @@
             app:iconifiedByDefault="false"
             android:background="@drawable/layout_edittext1"
             android:layout_marginTop="@dimen/_20sdp"
-            app:queryHint="Nomor proposal"
+            app:queryHint="Nama bantuan..."
             app:queryBackground="@null" />
 
         <RelativeLayout

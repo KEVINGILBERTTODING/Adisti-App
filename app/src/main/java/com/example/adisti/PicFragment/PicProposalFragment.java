@@ -201,7 +201,7 @@ public class PicProposalFragment extends Fragment {
     private void filter(String text){
         ArrayList<ProposalModel>filteredList = new ArrayList<>();
         for (ProposalModel item : proposalModelList) {
-            if (item.getNoProposal().toLowerCase().contains(text.toLowerCase())) {
+            if (item.getBantuanDiajukan().toLowerCase().contains(text.toLowerCase())) {
                 filteredList.add(item);
             }
         }
