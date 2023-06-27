@@ -215,7 +215,7 @@ public class RegisterActivity extends AppCompatActivity {
                 dialogNoConnection.setContentView(R.layout.dialog_no_connection);
                 dialogNoConnection.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                 dialogNoConnection.setCanceledOnTouchOutside(false);
-                Button btnRefresh = findViewById(R.id.btnRefresh);
+                Button btnRefresh = dialogNoConnection.findViewById(R.id.btnRefresh);
                 btnRefresh = dialogNoConnection.findViewById(R.id.btnRefresh);
                 btnRefresh.setOnClickListener(new View.OnClickListener() {
                     @Override

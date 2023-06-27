@@ -12,13 +12,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.adisti.LoginActivity;
+import com.example.adisti.Model.LoketModel;
 import com.example.adisti.Model.PengajuModel;
 import com.example.adisti.Model.ResponseModel;
+import com.example.adisti.PicAdapter.SpinnerKodeLoketAdapter;
 import com.example.adisti.R;
 import com.example.adisti.RegisterActivity;
 import com.example.adisti.Util.AuthInterface;
@@ -26,6 +30,7 @@ import com.example.adisti.Util.DataApi;
 import com.example.adisti.Util.PengajuInterface;
 
 import java.util.HashMap;
+import java.util.List;
 
 import es.dmoral.toasty.Toasty;
 import okhttp3.MediaType;
@@ -42,6 +47,10 @@ public class PengajuEditProfileFragment extends Fragment {
     SharedPreferences sharedPreferences;
     String userId;
     PengajuInterface pengajuInterface;
+    private List<LoketModel> loketModelList;
+    private SpinnerKodeLoketAdapter spinnerKodeLoketAdapter;
+    private String kodeLoket;
+    private Spinner spLoket;
 
 
 
@@ -52,10 +61,12 @@ public class PengajuEditProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_pengaju_edit_profile, container, false);
         init(view);
         loadDataUser();
+        getKodeLoket();
 
         btnSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("sd", "loket id: " + kodeLoket);
                 if (etNama.getText().toString().isEmpty()) {
                     Toasty.error(getContext(), "Field nama lengkap tidak boleh kosong", Toasty.LENGTH_SHORT).show();
                 } else if (etUsername.getText().toString().isEmpty()) {
@@ -89,6 +100,7 @@ public class PengajuEditProfileFragment extends Fragment {
                     map.put("jabatan", RequestBody.create(MediaType.parse("text/plain"), etJabatan.getText().toString()));
                     map.put("alamat", RequestBody.create(MediaType.parse("text/plain"), etAlamat.getText().toString()));
                     map.put("user_id", RequestBody.create(MediaType.parse("text/plain"), userId));
+                    map.put("loket", RequestBody.create(MediaType.parse("text/plain"), kodeLoket));
 
 
                     PengajuInterface pengajuInterface = DataApi.getClient().create(PengajuInterface.class);
@@ -143,6 +155,17 @@ public class PengajuEditProfileFragment extends Fragment {
                 }
             }
         });
+        spLoket.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                kodeLoket = spinnerKodeLoketAdapter.getLoketId(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 
 
@@ -161,6 +184,7 @@ public class PengajuEditProfileFragment extends Fragment {
         etJabatan = view.findViewById(R.id.et_jabatan);
         etAlamat = view.findViewById(R.id.et_Alamat);
         btnSimpan = view.findViewById(R.id.btnSimpan);
+        spLoket = view.findViewById(R.id.spLoket);
         pengajuInterface = DataApi.getClient().create(PengajuInterface.class);
         sharedPreferences = getContext().getSharedPreferences("user_data", Context.MODE_PRIVATE);
         userId = sharedPreferences.getString("user_id", null);
@@ -181,6 +205,7 @@ public class PengajuEditProfileFragment extends Fragment {
                     etNama.setText(response.body().getNamaLengkap());
                     etUsername.setText(response.body().getUserName());
                     etEmail.setText(response.body().getEmail());
+                    kodeLoket = response.body().getLoket();
                     etNoTelp.setText(response.body().getNoTelp());
                     etInstansi.setText(response.body().getInstansi());
                     etJabatan.setText(response.body().getJabatan());
@@ -201,6 +226,63 @@ public class PengajuEditProfileFragment extends Fragment {
 
             }
         });
+
+
+    }
+    private void getKodeLoket() {
+        Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.dialog_progress_bar);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.setCanceledOnTouchOutside(false);
+        final TextView tvMain;
+        tvMain = dialog.findViewById(R.id.tvMainText);
+        tvMain.setText("Memuat Data...");
+        dialog.show();
+
+        pengajuInterface.getAllLoket().enqueue(new Callback<List<LoketModel>>() {
+            @Override
+            public void onResponse(Call<List<LoketModel>> call, Response<List<LoketModel>> response) {
+                loketModelList = response.body();
+                if (response.isSuccessful() && response.body().size() > 0) {
+                    spinnerKodeLoketAdapter = new SpinnerKodeLoketAdapter(getContext(), loketModelList);
+                    spLoket.setAdapter(spinnerKodeLoketAdapter);
+                    dialog.dismiss();
+
+                }else {
+                    dialog.dismiss();
+                    btnSimpan.setEnabled(false);
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<LoketModel>> call, Throwable t) {
+                dialog.dismiss();
+                btnSimpan.setEnabled(false);
+                dialog.dismiss();
+                Dialog dialogNoConnection = new Dialog(getContext());
+                dialogNoConnection.setContentView(R.layout.dialog_no_connection);
+                dialogNoConnection.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                dialogNoConnection.setCanceledOnTouchOutside(false);
+                Button btnRefresh = dialogNoConnection.findViewById(R.id.btnRefresh);
+                btnRefresh = dialogNoConnection.findViewById(R.id.btnRefresh);
+                btnRefresh.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        getKodeLoket();
+                        dialogNoConnection.dismiss();
+                    }
+                });
+                dialogNoConnection.show();
+
+
+
+
+            }
+        });
+
+
 
 
     }
