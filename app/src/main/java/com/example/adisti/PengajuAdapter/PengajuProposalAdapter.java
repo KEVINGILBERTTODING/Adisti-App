@@ -58,7 +58,7 @@ public class PengajuProposalAdapter extends RecyclerView.Adapter<PengajuProposal
 
         if (proposalModelList.get(holder.getAdapterPosition()).getStatus().equals("")) {
             if (proposalModelList.get(holder.getAdapterPosition()).getVerified().equals("1")) {
-                holder.ivStatusProposal.setImageDrawable(context.getDrawable(R.drawable.ic_menunggu));
+                holder.ivStatusProposal.setImageDrawable(context.getDrawable(R.drawable.ic_proposal_diterima));
             } else if (proposalModelList.get(holder.getAdapterPosition()).getVerified().equals("2")) {
                 holder.ivStatusProposal.setImageDrawable(context.getDrawable(R.drawable.ic_menunggu));
             }else if (proposalModelList.get(holder.getAdapterPosition()).getVerified().equals("3")) {
@@ -68,7 +68,7 @@ public class PengajuProposalAdapter extends RecyclerView.Adapter<PengajuProposal
                 holder.ivStatusProposal.setImageDrawable(context.getDrawable(R.drawable.ic_ditolak));
             }
         }else  if (proposalModelList.get(holder.getAdapterPosition()).getStatus().equals("Diterima")) {
-            holder.ivStatusProposal.setImageDrawable(context.getDrawable(R.drawable.ic_proposal_diterima));
+            holder.ivStatusProposal.setImageDrawable(context.getDrawable(R.drawable.ic_proposal_verifikasi));
 
         }else {
             holder.ivStatusProposal.setImageDrawable(context.getDrawable(R.drawable.ic_ditolak));

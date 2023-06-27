@@ -58,7 +58,7 @@ public class PtsKajianManfaatSurveyAdapter extends RecyclerView.Adapter<PtsKajia
         if (proposalModelList.get(holder.getAdapterPosition()).getStatus().equals("")) {
 
             if (proposalModelList.get(holder.getAdapterPosition()).getVerified().equals("1")) {
-                holder.ivStatusProposal.setImageDrawable(context.getDrawable(R.drawable.ic_menunggu));
+                holder.ivStatusProposal.setImageDrawable(context.getDrawable(R.drawable.ic_proposal_diterima));
             } else if (proposalModelList.get(holder.getAdapterPosition()).getVerified().equals("2")) {
                 holder.ivStatusProposal.setImageDrawable(context.getDrawable(R.drawable.ic_menunggu));
             }else {
@@ -66,7 +66,7 @@ public class PtsKajianManfaatSurveyAdapter extends RecyclerView.Adapter<PtsKajia
             }
         }else  if (proposalModelList.get(holder.getAdapterPosition()).getStatus().equals("Diterima")) {
 
-            holder.ivStatusProposal.setImageDrawable(context.getDrawable(R.drawable.ic_proposal_diterima));
+            holder.ivStatusProposal.setImageDrawable(context.getDrawable(R.drawable.ic_proposal_verifikasi));
 
         }else {
 

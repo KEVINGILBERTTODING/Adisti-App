@@ -52,13 +52,13 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     public void onBindViewHolder(@NonNull NotificationAdapter.ViewHolder holder, int position) {
         if (notificationModelList.get(holder.getAdapterPosition()).getCode() == 1) {
             holder.tvStatus.setText("Proposal Anda disetujui!");
-            holder.ivStatus.setImageDrawable(context.getDrawable(R.drawable.ic_proposal_diterima));
+            holder.ivStatus.setImageDrawable(context.getDrawable(R.drawable.ic_proposal_verifikasi));
         }else if (notificationModelList.get(holder.getAdapterPosition()).getCode() == 0) {
             holder.tvStatus.setText("Proposal Anda ditolak!");
             holder.ivStatus.setImageDrawable(context.getDrawable(R.drawable.ic_ditolak));
         }else if (notificationModelList.get(holder.getAdapterPosition()).getCode() == 2) {
             holder.tvStatus.setText("Proposal Anda lolos verifikasi!");
-            holder.ivStatus.setImageDrawable(context.getDrawable(R.drawable.ic_diterima));
+            holder.ivStatus.setImageDrawable(context.getDrawable(R.drawable.ic_proposal_diterima));
         }
         else {
             holder.tvStatus.setText("Proposal Anda tidak lolos verifikasi!");

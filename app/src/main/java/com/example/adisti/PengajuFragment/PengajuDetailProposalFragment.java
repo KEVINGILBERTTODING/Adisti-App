@@ -146,9 +146,6 @@ public class PengajuDetailProposalFragment extends Fragment {
 
 
 
-
-
-
        return view;
     }
 
@@ -332,10 +329,6 @@ public class PengajuDetailProposalFragment extends Fragment {
     }
 
     private void stepProposal(Integer step) {
-
-
-
-
 
         stepView.getState()
                 .selectedTextColor(ContextCompat.getColor(getContext(), R.color.main))
