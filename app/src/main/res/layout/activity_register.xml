@@ -200,6 +200,15 @@
                     android:textSize="@dimen/_12sdp">
                 </com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
+
+            <Spinner
+                android:id="@+id/spLoket"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:background="@drawable/layout_edittext1"/>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_marginTop="@dimen/_10sdp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"

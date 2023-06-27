@@ -125,4 +125,9 @@ public interface PengajuInterface {
             @Field("status") String status
     );
 
+    @GET("pengaju/getLoket")
+    Call<LoketModel> getLoketById(
+            @Query("id") String id
+    );
+
 }

@@ -38,6 +38,9 @@ public class SpinnerKodeLoketAdapter extends ArrayAdapter<LoketModel> {
     public String getLoketId(int position) {
        return getItem(position).getLoketId();
     }
+    public String getLoketName (int position) {
+       return getItem(position).getNamaLoket();
+    }
 
 
 

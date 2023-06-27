@@ -14,6 +14,8 @@ public class PengajuModel implements Serializable {
     String namaLengkap;
     @SerializedName("email")
     String email;
+    @SerializedName("loket")
+    String loket;
     @SerializedName("user_status")
     Integer userStatus;
     @SerializedName("role")
@@ -29,7 +31,7 @@ public class PengajuModel implements Serializable {
     @SerializedName("jabatan")
     String jabatan;
 
-    public PengajuModel(String userId, String namaLengkap, String userName, String email, Integer userStatus, String role, String photoProfile, String noTelp, String alamat, String instansi, String jabatan) {
+    public PengajuModel(String userId, String loket, String namaLengkap, String userName, String email, Integer userStatus, String role, String photoProfile, String noTelp, String alamat, String instansi, String jabatan) {
         this.userId = userId;
         this.userName = userName;
         this.email = email;
@@ -38,6 +40,7 @@ public class PengajuModel implements Serializable {
         this.photoProfile = photoProfile;
         this.noTelp = noTelp;
         this.alamat = alamat;
+        this.loket = loket;
         this.instansi = instansi;
         this.jabatan = jabatan;
         this.namaLengkap = namaLengkap;
@@ -129,6 +132,10 @@ public class PengajuModel implements Serializable {
 
     public void setNamaLengkap(String namaLengkap) {
         this.namaLengkap = namaLengkap;
+    }
+
+    public String getLoket() {
+        return loket;
     }
 }
 

@@ -245,13 +245,34 @@
                 </com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <Spinner
-                android:id="@+id/spLoket"
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginTop="@dimen/_10sdp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_15sdp"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:background="@drawable/layout_edittext1"/>
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:textColor="@color/black"
+                app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+                app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+                app:boxCornerRadiusTopEnd="@dimen/_10sdp"
+                app:boxCornerRadiusTopStart="@dimen/_10sdp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etNamaLoket"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/popmed"
+                    android:hint="Nama Loket Pengajuan"
+                    android:enabled="false"
+                    android:gravity="start"
+                    android:background="@drawable/layout_edittext1"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12sdp">
+                </com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+
+
 
 
             <TextView

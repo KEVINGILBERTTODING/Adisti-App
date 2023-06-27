@@ -59,17 +59,16 @@ public class PengajuEditProposalFragment extends Fragment {
     List<LoketModel> loketModelList;
 
     SharedPreferences sharedPreferences;
+    private Button btnRefresh, btnRefresh1;
     String userID, proposalId, fileProposal, kodeLoket, realPdfPath;
     EditText etNoProposal,  etInstansi, etBantuan, etNamaPengaju,
-    etEmail, etAlamat, etNoTelp, etJabatan, etPdfPath, etLatarBelakang;
-    Button btnKembali, btnRefresh, btnUbah, btnOke, btnPdfPicker;
+    etEmail, etAlamat, etNoTelp, etJabatan, etPdfPath, etLatarBelakang, etNamaLoket;
+    Button btnKembali, btnUbah, btnOke, btnPdfPicker;
     TextView tvStatus, tvTanggalProposal;
     SpinnerKodeLoketAdapter spinnerKodeLoketAdapter;
     private File file;
 
     CardView cvStatus;
-    Spinner spLoket;
-
 
 
 
@@ -81,7 +80,6 @@ public class PengajuEditProposalFragment extends Fragment {
        View view = inflater.inflate(R.layout.fragment_pengaju_edit_proposal, container, false);
        init(view);
        getProposalDetail();
-       getKodeLoket();
 
 
 
@@ -120,17 +118,7 @@ public class PengajuEditProposalFragment extends Fragment {
                 datePickerDialog.show();
             }
         });
-       spLoket.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                kodeLoket = spinnerKodeLoketAdapter.getLoketId(position);
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
        btnPdfPicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -191,7 +179,7 @@ public class PengajuEditProposalFragment extends Fragment {
         btnPdfPicker = view.findViewById(R.id.btnPdfPicker);
         tvTanggalProposal = view.findViewById(R.id.tvTglProposal);
         btnUbah = view.findViewById(R.id.btnUbah);
-        spLoket = view.findViewById(R.id.spLoket);
+        etNamaLoket =view.findViewById(R.id.etNamaLoket);
         cvStatus = view.findViewById(R.id.cvStatus);
         etNoTelp = view.findViewById(R.id.et_no_telepon);
         etJabatan = view.findViewById(R.id.et_jabatan);
@@ -232,10 +220,12 @@ public class PengajuEditProposalFragment extends Fragment {
                             etEmail.setText(response.body().getEmailPengaju());
                             etAlamat.setText(response.body().getAlamatPihak());
                             etNoTelp.setText(response.body().getNoTelpPihak());
+                            kodeLoket = response.body().getKodeLoket();
                             etJabatan.setText(response.body().getJabatanPengaju());
                             etPdfPath.setText(response.body().getFileProposal());
                             fileProposal = response.body().getFileProposal();
                             etLatarBelakang.setText(response.body().getLatarBelakangPengajuan());
+                            getKodeLoket(response.body().getKodeLoket());
 
                             if (response.body().getStatus().equals("Diterima")){
                                 tvStatus.setText("Diterima");
@@ -297,60 +287,7 @@ public class PengajuEditProposalFragment extends Fragment {
                 });
 
     }
-    private void getKodeLoket() {
-        Dialog dialog = new Dialog(getContext());
-        dialog.setContentView(R.layout.dialog_progress_bar);
-        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        dialog.setCanceledOnTouchOutside(false);
-        final TextView tvMain;
-        tvMain = dialog.findViewById(R.id.tvMainText);
-        tvMain.setText("Memuat Data...");
-        dialog.show();
 
-        pengajuInterface.getAllLoket().enqueue(new Callback<List<LoketModel>>() {
-            @Override
-            public void onResponse(Call<List<LoketModel>> call, Response<List<LoketModel>> response) {
-                loketModelList = response.body();
-                if (response.isSuccessful() && response.body().size() > 0) {
-                    spinnerKodeLoketAdapter = new SpinnerKodeLoketAdapter(getContext(), loketModelList);
-                    spLoket.setAdapter(spinnerKodeLoketAdapter);
-                    dialog.dismiss();
-
-                }else {
-                    dialog.dismiss();
-                    btnUbah.setEnabled(false);
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<LoketModel>> call, Throwable t) {
-                dialog.dismiss();
-                btnUbah.setEnabled(false);
-                dialog.dismiss();
-                Dialog dialogNoConnection = new Dialog(getContext());
-                dialogNoConnection.setContentView(R.layout.dialog_no_connection);
-                dialogNoConnection.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-                dialogNoConnection.setCanceledOnTouchOutside(false);
-                btnRefresh = dialogNoConnection.findViewById(R.id.btnRefresh);
-                btnRefresh.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        getKodeLoket();
-                        dialogNoConnection.dismiss();
-                    }
-                });
-                dialogNoConnection.show();
-
-
-
-            }
-        });
-
-
-
-
-    }
 
     private void updateProposal() {
         Dialog dialog = new Dialog(getContext());
@@ -509,6 +446,54 @@ public class PengajuEditProposalFragment extends Fragment {
             });
 
         }
+
+    }
+    private void getKodeLoket(String kl) {
+        Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.dialog_progress_bar);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.setCanceledOnTouchOutside(false);
+        final TextView tvMain;
+        tvMain = dialog.findViewById(R.id.tvMainText);
+        tvMain.setText("Memuat Data...");
+        dialog.show();
+        pengajuInterface.getLoketById(kl).enqueue(new Callback<LoketModel>() {
+            @Override
+            public void onResponse(Call<LoketModel> call, Response<LoketModel> response) {
+
+                if (response.isSuccessful() && response.body() != null) {
+                    etNamaLoket.setText(response.body().getNamaLoket());
+                    dialog.dismiss();
+
+                }else {
+                    btnUbah.setEnabled(false);
+                    dialog.dismiss();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<LoketModel> call, Throwable t) {
+                dialog.dismiss();
+                btnUbah.setEnabled(false);
+                dialog.dismiss();
+                Dialog dialogNoConnection = new Dialog(getContext());
+                dialogNoConnection.setContentView(R.layout.dialog_no_connection);
+                dialogNoConnection.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                dialogNoConnection.setCanceledOnTouchOutside(false);
+                btnRefresh1 = dialogNoConnection.findViewById(R.id.btnRefresh);
+                btnRefresh1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        getKodeLoket(kl);
+                        dialogNoConnection.dismiss();
+                    }
+                });
+                dialogNoConnection.show();
+
+
+            }
+        });
 
     }
 
