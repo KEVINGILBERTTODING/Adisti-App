@@ -57,8 +57,8 @@
                 app:sv_selectedTextColor="@color/main"
                 app:sv_stepLineWidth="1dp"
                 app:sv_stepPadding="4dp"
-                app:sv_nextTextColor="@color/main"
-                app:sv_nextStepLineColor="@color/main"
+                app:sv_nextTextColor="@color/light_gray"
+                app:sv_nextStepLineColor="@color/light_gray"
                 app:sv_doneCircleColor="@color/main"
                 app:sv_doneStepLineColor="@color/main"
                 app:sv_doneCircleRadius="12dp"
@@ -68,6 +68,11 @@
                 app:sv_doneStepMarkColor="@color/main"
                 app:sv_stepNumberTextSize="12sp"
                 app:sv_animationType="Line"/>
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
 
 

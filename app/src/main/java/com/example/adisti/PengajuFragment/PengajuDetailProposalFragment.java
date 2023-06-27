@@ -27,11 +27,15 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.adisti.FileDownload;
 import com.example.adisti.Model.LoketModel;
@@ -43,12 +47,14 @@ import com.example.adisti.PicAdapter.SpinnerKodeLoketAdapter;
 import com.example.adisti.R;
 import com.example.adisti.Util.DataApi;
 import com.example.adisti.Util.PengajuInterface;
+import com.shuhart.stepview.StepView;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -65,11 +71,13 @@ public class PengajuDetailProposalFragment extends Fragment {
     Button btnDownload;
     SharedPreferences sharedPreferences;
     String userID, proposalId, fileProposal;
+    private ViewPager viewPager;
     EditText etNoProposal,  etInstansi, etBantuan, etNamaPengaju,
     etEmail, etAlamat, etNoTelp, etJabatan, etPdfPath, et_loket, etTanggalProposal, etLatarBelakangProposal;
     Button btnKembali, btnRefresh, btnUbah, btnDownloadSurat;
     TextView tvStatus;
     CardView cvStatus;
+    private StepView stepView;
 
 
 
@@ -138,7 +146,17 @@ public class PengajuDetailProposalFragment extends Fragment {
 
 
 
+
+
+
        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+
     }
 
     private void init(View view) {
@@ -166,6 +184,8 @@ public class PengajuDetailProposalFragment extends Fragment {
         et_loket = view.findViewById(R.id.et_loket);
         btnKembali = view.findViewById(R.id.btnKembali);
         etPdfPath.setEnabled(false);
+        viewPager = view.findViewById(R.id.viewpager);
+        stepView = view.findViewById(R.id.step_view);
         etTanggalProposal.setEnabled(false);
         etAlamat.setEnabled(false);
         etBantuan.setEnabled(false);
@@ -215,7 +235,8 @@ public class PengajuDetailProposalFragment extends Fragment {
                             etLatarBelakangProposal.setText(response.body().getLatarBelakangPengajuan());
 
                             if (response.body().getStatus().equals("Diterima")){
-                                tvStatus.setText("Diterima");
+                                stepProposal(2);
+                                tvStatus.setText("Proposal Diterima");
                                 btnDownloadSurat.setText("Download Surat Persetujuan");
                                 btnDownloadSurat.setVisibility(View.VISIBLE);
                                 cvStatus.setCardBackgroundColor(getContext().getColor(R.color.green));
@@ -234,23 +255,31 @@ public class PengajuDetailProposalFragment extends Fragment {
                                 });
                                 dialogSuccess.show();
                             }else if (response.body().getStatus().equals("Ditolak")){
-                                tvStatus.setText("Ditolak");
+                                tvStatus.setText("Proposal Ditolak");
                                 cvStatus.setCardBackgroundColor(getContext().getColor(R.color.red));
                                 btnDownloadSurat.setText("Download Surat Penolakan");
                                 btnDownloadSurat.setVisibility(View.VISIBLE);
+                                stepProposal(2);
+
                             }else {
                                 if (response.body().getVerified().equals("0")) {
                                     tvStatus.setText("Tidak lolos verifikasi");
                                     cvStatus.setCardBackgroundColor(getContext().getColor(R.color.red));
                                     btnDownloadSurat.setVisibility(View.GONE);
+                                    stepProposal(1);
+
                                 }else if (response.body().getVerified().equals("1")){
                                     tvStatus.setText("Lolos verifikasi");
                                     cvStatus.setCardBackgroundColor(getContext().getColor(R.color.green));
                                     btnDownloadSurat.setVisibility(View.GONE);
+                                    stepProposal(1);
+
                                 } else {
                                     tvStatus.setText("Menunggu");
                                     cvStatus.setCardBackgroundColor(getContext().getColor(R.color.yelllow));
                                     btnDownloadSurat.setVisibility(View.GONE);
+                                    stepProposal(0);
+
                                 }
                             }
 
@@ -299,6 +328,32 @@ public class PengajuDetailProposalFragment extends Fragment {
 
                     }
                 });
+
+    }
+
+    private void stepProposal(Integer step) {
+
+
+
+
+
+        stepView.getState()
+                .selectedTextColor(ContextCompat.getColor(getContext(), R.color.main))
+                .animationType(StepView.ANIMATION_CIRCLE)
+                .selectedCircleColor(ContextCompat.getColor(getContext(), R.color.main))
+                .selectedStepNumberColor(ContextCompat.getColor(getContext(), R.color.white))
+                // set name steps
+                .steps(new ArrayList<String>() {{
+                    add("Pengajuan Proposal");
+                    add("Verifikasi Proposal");
+                    add("Keputusan Akhir");
+                }})
+
+                .animationDuration(getResources().getInteger(android.R.integer.config_shortAnimTime))
+                .commit();
+
+        stepView.go(step, false);
+
 
     }
 
