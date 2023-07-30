@@ -29,6 +29,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.adisti.LoginActivity;
 import com.example.adisti.Model.PengajuModel;
 import com.example.adisti.Model.ResponseModel;
+import com.example.adisti.PengajuFragment.UserGuide.UserGuideFragment;
 import com.example.adisti.R;
 import com.example.adisti.Util.DataApi;
 import com.example.adisti.Util.PengajuInterface;
@@ -60,7 +61,7 @@ public class PengajuProfileFragment extends Fragment {
     ImageButton btnEditPhotoProfile;
     private File file;
 
-    RelativeLayout menuLogOut, menuUbahProfile, menuUbahPassword, menuAbout;
+    RelativeLayout menuLogOut, menuUbahProfile, menuUbahPassword, menuAbout, menuUserGuide;
 
 
 
@@ -305,6 +306,13 @@ public class PengajuProfileFragment extends Fragment {
             }
         });
 
+        menuUserGuide.setOnClickListener(View-> {
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.framePengaju, new UserGuideFragment())
+                    .addToBackStack(null).commit();
+        });
+
+
+
 
 
 
@@ -327,6 +335,7 @@ public class PengajuProfileFragment extends Fragment {
         btnEditPhotoProfile = view.findViewById(R.id.btnImageEdit);
         menuLogOut = view.findViewById(R.id.menuLogOut);
         menuAbout = view.findViewById(R.id.menuAbout);
+        menuUserGuide = view.findViewById(R.id.menuUserGuide);
         editor = sharedPreferences.edit();
 
 

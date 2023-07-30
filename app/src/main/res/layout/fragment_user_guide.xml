@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:padding="@dimen/_10sdp"
+        android:layout_height="match_parent"
+        tools:context=".PengajuFragment.UserGuide.UserGuideFragment">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/popsem"
+                    android:text="Panduan Pengguna"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_22ssp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:fontFamily="@font/popmed"
+                    android:text="Berikut ini tahapan yang harus dilakukan oleh pengaju proposal untuk mengajukan proposal bantuan TJSL pada aplikasi Ajuant."
+                    android:textColor="@color/light_gray"
+                    android:textSize="@dimen/_11ssp" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/popsem"
+                    android:text="1. Daftar dan Login"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_220sdp"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:src="@drawable/register" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:fontFamily="@font/popmed"
+                    android:text="mengakses menu Daftar kemudian mengisi data-data yang diperlukan pada form daftar"
+                    android:textColor="@color/light_gray"
+                    android:textSize="@dimen/_11ssp" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_220sdp"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:src="@drawable/login" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:fontFamily="@font/popmed"
+                    android:text="Login menggunakan username dan password yang telah di daftarkan untuk memulai mengajukan proposal."
+                    android:textColor="@color/light_gray"
+                    android:textSize="@dimen/_11ssp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/popsem"
+                    android:text="2. Pengajuan Proposal Bantuan"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_220sdp"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:src="@drawable/dashboard" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:fontFamily="@font/popmed"
+                    android:text="Mengakses menu entry proposal, dengan cara klik tombol tambah pada ujung kanan bawah."
+                    android:textColor="@color/light_gray"
+                    android:textSize="@dimen/_11ssp" />
+
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_220sdp"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:src="@drawable/form_pengajuan" />
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:fontFamily="@font/popmed"
+                    android:text="Mengisi data-data proposal."
+                    android:textColor="@color/light_gray"
+                    android:textSize="@dimen/_11ssp" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_220sdp"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:src="@drawable/form_pengajuan" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:fontFamily="@font/popmed"
+                    android:text="Mengupload file proposal(ukuran file pdf tidak boleh lebih dari 5mb) , kemudiam klik buton submit."
+                    android:textColor="@color/light_gray"
+                    android:textSize="@dimen/_11ssp" />
+
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_220sdp"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:src="@drawable/alert_proposal" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:fontFamily="@font/popmed"
+                    android:text="Jika proposal berhasil di verifikasi maupun disetujui maka akan muncul pemberitahuan pada menu notifikasi, dan pada detail proposal, proposal yang telah disetujui dapat mengunduh surat persutujuan."
+                    android:textColor="@color/light_gray"
+                    android:textSize="@dimen/_11ssp" />
+
+
+
+
+
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+
+
+    </RelativeLayout>
+</layout>
