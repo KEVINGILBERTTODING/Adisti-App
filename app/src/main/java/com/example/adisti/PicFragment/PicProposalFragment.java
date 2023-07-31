@@ -10,11 +10,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
@@ -30,6 +32,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.adisti.Model.NotificationModel;
 import com.example.adisti.Model.PengajuModel;
+import com.example.adisti.Model.PihakPenerimaBantuanModel;
 import com.example.adisti.Model.ProposalModel;
 import com.example.adisti.Model.ResponseModel;
 import com.example.adisti.PengajuAdapter.PengajuProposalAdapter;
@@ -37,6 +40,7 @@ import com.example.adisti.PengajuFragment.PengajuAddProposalFragment;
 import com.example.adisti.PengajuFragment.PengajuNotificationFragment;
 import com.example.adisti.PengajuFragment.PengajuProfileFragment;
 import com.example.adisti.PicAdapter.PicProposalAdapter;
+import com.example.adisti.PicAdapter.SpinnerPemohonBantuanAdapter;
 import com.example.adisti.R;
 import com.example.adisti.Util.DataApi;
 import com.example.adisti.Util.PengajuInterface;
@@ -53,14 +57,18 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PicProposalFragment extends Fragment {
-    TextView tvUsername, tvEmpty;
-    String userId, kodeLoket;
-    SearchView searchView;
-    LottieAnimationView emptyAnimation;
+    private TextView tvUsername, tvEmpty;
+    private String userId, kodeLoket, namaPihak;
+    private SearchView searchView;
+    private Integer verified = 2;
+    private LottieAnimationView emptyAnimation;
     SharedPreferences sharedPreferences;
     PicProposalAdapter picProposalAdapter;
     List<ProposalModel>proposalModelList;
     LinearLayoutManager linearLayoutManager;
+    private List<PihakPenerimaBantuanModel> pihakPenerimaBantuanModelList;
+    private SpinnerPemohonBantuanAdapter spinnerPemohonBantuanAdapter;
+    ImageButton btnFilter;
     RecyclerView rvProposal;
     PicInterface picInterface;
 
@@ -96,10 +104,13 @@ public class PicProposalFragment extends Fragment {
             public void onTabSelected(TabLayout.Tab tab) {
                 if ((tab.getPosition() == 0)){
                     getAllProposal(2);
+                    verified = 2;
                 } else if (tab.getPosition() == 1) {
                     getAllProposal(1);
+                    verified = 1;
                 }else if (tab.getPosition() == 2) {
                     getAllProposal(0);
+                    verified = 0;
                 }
             }
 
@@ -113,6 +124,9 @@ public class PicProposalFragment extends Fragment {
 
             }
         });
+        getPenerimaBantuan();
+
+        listener();
 
 
 
@@ -133,12 +147,89 @@ public class PicProposalFragment extends Fragment {
         searchView = view.findViewById(R.id.searchView);
         userId = sharedPreferences.getString("user_id", null);
         kodeLoket = sharedPreferences.getString("kode_loket", null);
+        btnFilter = view.findViewById(R.id.btnFilter);
 
 
         // set tablayout
         tabLayout.addTab(tabLayout.newTab().setText("Pengajuan"));
         tabLayout.addTab(tabLayout.newTab().setText("Valid"));
         tabLayout.addTab(tabLayout.newTab().setText("Tidak Valid"));
+    }
+
+    private void listener() {
+        btnFilter.setOnClickListener(View -> {
+            Dialog dialogFilter = new Dialog(getContext());
+            dialogFilter.setContentView(R.layout.dialog_filter_category);
+            dialogFilter.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            final Button btnFilter = dialogFilter.findViewById(R.id.btnFilter);
+            final Spinner spPenerimaBantuan = dialogFilter.findViewById(R.id.spkategoriPemohonBantuan);
+            dialogFilter.show();
+
+            spPenerimaBantuan.setAdapter(spinnerPemohonBantuanAdapter);
+            spPenerimaBantuan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, android.view.View view, int position, long id) {
+                    namaPihak = spinnerPemohonBantuanAdapter.getNamaPihak(position);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+
+            btnFilter.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(android.view.View v) {
+                    if (namaPihak == null) {
+                        Toasty.normal(getContext(), "Mohon memilih kategory terlebih dahulu", Toasty.LENGTH_SHORT).show();
+                    }else {
+                        dialogFilter.dismiss();
+                        rvProposal.setAdapter(null);
+                        Dialog dialogProgressBar = new Dialog(getContext());
+                        dialogProgressBar.setContentView(R.layout.dialog_progress_bar);
+                        dialogProgressBar.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                        dialogProgressBar.setCancelable(false);
+                        dialogProgressBar.setCanceledOnTouchOutside(false);
+                        dialogProgressBar.show();
+
+                        picInterface.getFilterProposal(kodeLoket, namaPihak, verified).enqueue(new Callback<List<ProposalModel>>() {
+                            @Override
+                            public void onResponse(Call<List<ProposalModel>> call, Response<List<ProposalModel>> response) {
+
+                                if (response.isSuccessful() && response.body().size() > 0) {
+                                    proposalModelList = response.body();
+                                    picProposalAdapter = new PicProposalAdapter(getContext(), proposalModelList);
+                                    linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                                    rvProposal.setAdapter(null);
+                                    rvProposal.setLayoutManager(linearLayoutManager);
+                                    rvProposal.setAdapter(picProposalAdapter);
+                                    rvProposal.setHasFixedSize(true);
+                                    dialogProgressBar.dismiss();
+                                    tvEmpty.setVisibility(View.GONE);
+                                    emptyAnimation.setVisibility(View.GONE);
+                                }else {
+                                    tvEmpty.setVisibility(View.VISIBLE);
+                                    rvProposal.setAdapter(null);
+                                    emptyAnimation.setVisibility(View.VISIBLE);
+
+                                    dialogProgressBar.dismiss();
+
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<List<ProposalModel>> call, Throwable t) {
+                               dialogProgressBar.dismiss();
+                               Toasty.error(getContext(), "Tidak ada koneksi internet",Toasty.LENGTH_SHORT).show();
+
+                            }
+                        });
+                    }
+
+                }
+            });
+        });
     }
 
     private void getAllProposal(Integer tipe){
@@ -213,6 +304,36 @@ public class PicProposalFragment extends Fragment {
             picProposalAdapter.filter(filteredList);
         }
 
+    }
+
+    private void getPenerimaBantuan() {
+        Dialog dialogProgressBar = new Dialog(getContext());
+        dialogProgressBar.setContentView(R.layout.dialog_progress_bar);
+        dialogProgressBar.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialogProgressBar.setCancelable(false);
+        dialogProgressBar.setCanceledOnTouchOutside(false);
+        dialogProgressBar.show();
+        picInterface.getPenerimaBantuan().enqueue(new Callback<List<PihakPenerimaBantuanModel>>() {
+            @Override
+            public void onResponse(Call<List<PihakPenerimaBantuanModel>> call, Response<List<PihakPenerimaBantuanModel>> response) {
+                dialogProgressBar.dismiss();
+                if (response.isSuccessful() && response.body().size() > 0) {
+                    pihakPenerimaBantuanModelList = response.body();
+                    spinnerPemohonBantuanAdapter = new SpinnerPemohonBantuanAdapter(getContext(), pihakPenerimaBantuanModelList);
+
+
+                }else {
+                    Toasty.error(getContext(), "Gagal memuat data penerima bantuan", Toasty.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<PihakPenerimaBantuanModel>> call, Throwable t) {
+                dialogProgressBar.dismiss();
+                Toasty.error(getContext(), "Tidak ada koneksi internet", Toasty.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
 

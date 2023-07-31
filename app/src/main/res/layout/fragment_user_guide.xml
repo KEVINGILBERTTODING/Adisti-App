@@ -56,7 +56,7 @@
                     android:layout_marginTop="@dimen/_5sdp"
                     android:fontFamily="@font/popmed"
                     android:text="mengakses menu Daftar kemudian mengisi data-data yang diperlukan pada form daftar"
-                    android:textColor="@color/light_gray"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/_11ssp" />
 
                 <ImageView
@@ -71,7 +71,8 @@
                     android:layout_marginTop="@dimen/_5sdp"
                     android:fontFamily="@font/popmed"
                     android:text="Login menggunakan username dan password yang telah di daftarkan untuk memulai mengajukan proposal."
-                    android:textColor="@color/light_gray"
+                    android:textColor="@color/black"
+
                     android:textSize="@dimen/_11ssp" />
 
                 <TextView
@@ -95,7 +96,7 @@
                     android:layout_marginTop="@dimen/_5sdp"
                     android:fontFamily="@font/popmed"
                     android:text="Mengakses menu entry proposal, dengan cara klik tombol tambah pada ujung kanan bawah."
-                    android:textColor="@color/light_gray"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/_11ssp" />
 
 
@@ -113,7 +114,7 @@
                     android:layout_marginTop="@dimen/_5sdp"
                     android:fontFamily="@font/popmed"
                     android:text="Mengisi data-data proposal."
-                    android:textColor="@color/light_gray"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/_11ssp" />
 
                 <ImageView
@@ -128,7 +129,7 @@
                     android:layout_marginTop="@dimen/_5sdp"
                     android:fontFamily="@font/popmed"
                     android:text="Mengupload file proposal(ukuran file pdf tidak boleh lebih dari 5mb) , kemudiam klik buton submit."
-                    android:textColor="@color/light_gray"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/_11ssp" />
 
 
@@ -144,7 +145,7 @@
                     android:layout_marginTop="@dimen/_5sdp"
                     android:fontFamily="@font/popmed"
                     android:text="Jika proposal berhasil di verifikasi maupun disetujui maka akan muncul pemberitahuan pada menu notifikasi, dan pada detail proposal, proposal yang telah disetujui dapat mengunduh surat persutujuan."
-                    android:textColor="@color/light_gray"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/_11ssp" />
 
 

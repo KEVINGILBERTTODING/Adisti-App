@@ -154,6 +154,17 @@ public interface PicInterface {
             @Query("kode_loket") String kodeLoket
     );
 
+    @GET("pic/getPemohonBantuan")
+    Call<List<PihakPenerimaBantuanModel>> getPenerimaBantuan();
+
+    @GET("pic/filterproposal")
+    Call<List<ProposalModel>> getFilterProposal(
+            @Query("kode_loket") String kodeLoket,
+            @Query("category") String category,
+            @Query("verified") Integer verified
+    );
+
+
 
 
 
