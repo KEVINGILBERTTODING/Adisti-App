@@ -15,6 +15,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.SyncStateContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,6 +63,7 @@ import es.dmoral.toasty.Toasty;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -78,6 +80,7 @@ public class PengajuDetailProposalFragment extends Fragment {
     TextView tvStatus;
     CardView cvStatus;
     private StepView stepView;
+
 
 
 
@@ -105,10 +108,10 @@ public class PengajuDetailProposalFragment extends Fragment {
             public void onClick(View v) {
 
                 String url = DataApi.URL_DOWNLOAD_PROPOSAL+proposalId;
+                downloadProposal();
 
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(url));
-                startActivity(intent);
+
+
 
 
 
@@ -149,6 +152,78 @@ public class PengajuDetailProposalFragment extends Fragment {
        return view;
     }
 
+
+    private void downloadProposal() {
+        Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.dialog_progress_bar);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.setCanceledOnTouchOutside(false);
+        final TextView tvMain;
+        tvMain = dialog.findViewById(R.id.tvMainText);
+        tvMain.setText("Download...");
+        dialog.show();
+
+
+        if (proposalId != null) {
+            pengajuInterface.getProposalPath(proposalId).enqueue(new Callback<ResponseModel>() {
+                @Override
+                public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                    String url = DataApi.PATH_PROPOSAL+response.body().getMessage();
+
+                    pengajuInterface.downloadFileProposal(url).enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            dialog.dismiss();
+                            Log.d("KEVIN", "onResponse: " + url);
+                            if (response.isSuccessful()) {
+
+                                if (response.body()  != null) {
+                                    boolean download = writeResponseBodyToDisk(response.body());
+                                    Toasty.success(getContext(), "Berhasil mengunduh proposal", Toasty.LENGTH_SHORT).show();
+
+                                }else {
+                                    Toasty.error(getContext(), "Response body null", Toasty.LENGTH_SHORT).show();
+
+                                }
+
+
+
+
+                            }else {
+                                Toasty.error(getContext(), "Gagal mengunduh proposal", Toasty.LENGTH_SHORT).show();
+
+                            }
+
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                            Toasty.error(getContext(), "Gagal mengunduh proposal", Toasty.LENGTH_SHORT).show();
+
+                            dialog.dismiss();
+                        }
+                    });
+
+
+
+                }
+
+                @Override
+                public void onFailure(Call<ResponseModel> call, Throwable t) {
+                    dialog.dismiss();
+
+                    Toasty.error(getContext(), "Gagal mengunduh proposal", Toasty.LENGTH_SHORT).show();
+
+                }
+            });
+        }else {
+            dialog.dismiss();
+            Toasty.error(getContext(), "Terjadi kesalahan", Toasty.LENGTH_SHORT).show();
+        }
+
+
+    }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -197,6 +272,56 @@ public class PengajuDetailProposalFragment extends Fragment {
 
 
 
+    }
+
+    private boolean writeResponseBodyToDisk(ResponseBody body) {
+        try {
+            // todo change the file location/name according to your needs
+            File futureStudioIconFile = new File(requireContext().getExternalFilesDir(null) + File.separator + "kevin.pdf");
+
+            InputStream inputStream = null;
+            OutputStream outputStream = null;
+
+            try {
+                byte[] fileReader = new byte[4096];
+
+                long fileSize = body.contentLength();
+                long fileSizeDownloaded = 0;
+
+                inputStream = body.byteStream();
+                outputStream = new FileOutputStream(futureStudioIconFile);
+
+                while (true) {
+                    int read = inputStream.read(fileReader);
+
+                    if (read == -1) {
+                        break;
+                    }
+
+                    outputStream.write(fileReader, 0, read);
+
+                    fileSizeDownloaded += read;
+
+                    Log.d("KEVIN", "file download: " + fileSizeDownloaded + " of " + fileSize);
+                }
+
+                outputStream.flush();
+
+                return true;
+            } catch (IOException e) {
+                return false;
+            } finally {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+
+                if (outputStream != null) {
+                    outputStream.close();
+                }
+            }
+        } catch (IOException e) {
+            return false;
+        }
     }
 
     private void getProposalDetail() {
