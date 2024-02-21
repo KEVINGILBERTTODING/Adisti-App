@@ -2,6 +2,7 @@ package com.example.adisti.PengajuFragment;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -33,6 +34,7 @@ import com.example.adisti.PengajuFragment.UserGuide.UserGuideFragment;
 import com.example.adisti.R;
 import com.example.adisti.Util.DataApi;
 import com.example.adisti.Util.PengajuInterface;
+import com.github.dhaval2404.imagepicker.ImagePicker;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -57,8 +59,11 @@ public class PengajuProfileFragment extends Fragment {
     String userId;
     PengajuInterface pengajuInterface;
     Button btnRefresh;
+
+    private Uri mGalleryUri;
     String photoProfile, realImagePath;
     ImageButton btnEditPhotoProfile;
+    private static final int PROFILE_IMAGE_REQ_CODE = 101;
     private File file;
 
     RelativeLayout menuLogOut, menuUbahProfile, menuUbahPassword, menuAbout, menuUserGuide;
@@ -101,26 +106,36 @@ public class PengajuProfileFragment extends Fragment {
                         dialogPhotoProfile.dismiss();
                     }
                 });
-                btnImagePicker.setOnClickListener(new View.OnClickListener() {
+//                btnImagePicker.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+//                        intent.setType("image/*");
+//                        startActivityForResult(intent, 1);
+//                    }
+//                });
+
+                     btnImagePicker.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                        intent.setType("image/*");
-                        startActivityForResult(intent, 1);
+                      imagePicker();
                     }
                 });
+
+
                 btnSimpan.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        file = new File(mGalleryUri.getPath());
 
-                        if (realImagePath !=null) {
+                        if (file != null) {
                             Dialog progressBar = new Dialog(getContext());
                             progressBar.setContentView(R.layout.dialog_progress_bar);
                             progressBar.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                             progressBar.setCanceledOnTouchOutside(false);
                             progressBar.show();
 
-                            HashMap map = new HashMap();
+                            HashMap<String, RequestBody> map = new HashMap<>();
                             map.put("user_id", RequestBody.create(MediaType.parse("text/plain"), userId));
 
                             RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file);
@@ -142,6 +157,7 @@ public class PengajuProfileFragment extends Fragment {
                                                 dialogSuccess.dismiss();
                                             }
                                         });
+
 //
                                         progressBar.dismiss();
                                         dialogPhotoProfile.dismiss();
@@ -149,6 +165,7 @@ public class PengajuProfileFragment extends Fragment {
                                     }else {
                                         progressBar.dismiss();
                                         Toasty.error(getContext(), responseModel.getMessage(), Toasty.LENGTH_SHORT).show();
+
                                     }
                                 }
 
@@ -321,6 +338,7 @@ public class PengajuProfileFragment extends Fragment {
         return view;
     }
 
+
     private void init(View view) {
 
 
@@ -339,6 +357,13 @@ public class PengajuProfileFragment extends Fragment {
         editor = sharedPreferences.edit();
 
 
+    }
+
+    private void imagePicker() {
+        ImagePicker.with(PengajuProfileFragment.this)
+                .crop()
+                .galleryOnly()
+                .start(PROFILE_IMAGE_REQ_CODE);
     }
     private void loadProfile(){
         Dialog dialog = new Dialog(getContext());
@@ -400,69 +425,24 @@ public class PengajuProfileFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        if (resultCode == RESULT_OK) {
+            Uri uri = data.getData();
 
-        if (resultCode == RESULT_OK && data != null) {
-            if (requestCode == 1) {
-                Uri uri = data.getData();
-                String pdfPath = getRealPathFromUri(uri);
-                ivProfileImage.setImageURI(uri);
-                file = new File(pdfPath);
-                realImagePath = "sdsd";
+            if (requestCode == PROFILE_IMAGE_REQ_CODE) {
+                mGalleryUri = uri;
             }
+        }else if (resultCode == ImagePicker.RESULT_ERROR) {
+            Toasty.error(getContext(), "Terjadi kesalahan", Toasty.LENGTH_SHORT).show();
+        }else  {
+            Toasty.error(getContext(), "Error", Toasty.LENGTH_SHORT).show();
         }
+
+
+
     }
 
 
-    public String getRealPathFromUri(Uri uri) {
-        String filePath = "";
-        if (getContext().getContentResolver() != null) {
-            try {
-                InputStream inputStream = getContext().getContentResolver().openInputStream(uri);
-                File file = new File(getContext().getCacheDir(), getFileName(uri));
-                writeFile(inputStream, file);
-                filePath = file.getAbsolutePath();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return filePath;
-    }
 
-    private String getFileName(Uri uri) {
-        String result = null;
-        if (uri.getScheme().equals("content")) {
-            Cursor cursor = getContext().getContentResolver().query(uri, null, null, null, null);
-            try {
-                if (cursor != null && cursor.moveToFirst()) {
-
-                }
-            } finally {
-                if (cursor != null) {
-                    cursor.close();
-                }
-            }
-        }
-        if (result == null) {
-            result = uri.getPath();
-            int cut = result.lastIndexOf('/');
-            if (cut != -1) {
-                result = result.substring(cut + 1);
-            }
-        }
-        return result;
-    }
-
-    private void writeFile(InputStream inputStream, File file) throws IOException {
-        OutputStream outputStream = new FileOutputStream(file);
-        byte[] buffer = new byte[1024];
-        int length;
-        while ((length = inputStream.read(buffer)) > 0) {
-            outputStream.write(buffer, 0, length);
-        }
-        outputStream.flush();
-        outputStream.close();
-        inputStream.close();
-    }
 
     private void logOut () {
         editor.clear().apply();
